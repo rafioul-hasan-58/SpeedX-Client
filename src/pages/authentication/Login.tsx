@@ -8,7 +8,7 @@ import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { IUser } from "../../types/auth.types";
 
-const SignIn = () => {
+const Login = () => {
     const dispatch = useAppDispatch();
     const navigate=useNavigate()
     const { register, handleSubmit } = useForm()
@@ -23,7 +23,7 @@ const SignIn = () => {
             const res = await login(userInfo).unwrap();
             const user = verifyToken(res.data.accessToken) as IUser ;
             dispatch(setUser({ user: user, token: res.data.accessToken }));
-            navigate(`/${user.role}/dashBoard`)
+            navigate(`/`)
           } catch (err) {
             console.log(err);
           }
@@ -60,9 +60,9 @@ const SignIn = () => {
                                 />
                             </div>
                             <div className="w-full">
-                                <Button className="w-full py-2 bg" htmlType="submit">SignUp</Button>
+                                <Button style={{backgroundColor:'#0ea5e9',color:'white',borderRadius:'0px 0px 0px 0px',fontSize:'16px'}} className="w-full py-2 bg" htmlType="submit">SignUp</Button>
                             </div>
-                            <h1 className="text-center mt-2 text-blue-500">Already have an account?<Link className="" to='/SignUp'>SignUP</Link></h1>
+                            <h1 className="text-center mt-2 text-blue-500">New here?<Link className="" to='/register'>Register</Link></h1>
                         </form>
                     </div>
                 </div>
@@ -71,4 +71,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default Login;

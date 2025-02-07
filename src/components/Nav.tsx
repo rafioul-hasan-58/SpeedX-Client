@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import { selectCurrentUser } from "../redux/features/auth/authSlice";
 import SearchLogo from "./NavBar/SearchLogo";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
@@ -8,8 +8,7 @@ const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate()
-    const user: { email: string, exp: number, iat: number, role: string | null } = useAppSelector(selectCurrentUser);
-    const dispatch = useAppDispatch()
+    const user = useAppSelector(selectCurrentUser);
     if (!user) {
         navigate('/SignIn')
     }
@@ -62,25 +61,25 @@ const Nav = () => {
                                 }`}
                         >
                             {
-                                user.role === 'admin' ?
+                                user?.role === 'admin' ?
                                     <div className="flex lg:relative flex-col gap-5 px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:bottom-3">
-                                        <NavLink className={`text-gray-500 `} to='/'>
-                                            HOME
-                                        </NavLink>
                                         <NavLink className={`text-gray-500 `} to='/'>
                                             ABOUT
                                         </NavLink>
                                         <NavLink className={`text-gray-500`} to='/'>
                                             DASHBOARD
                                         </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/admin/create-product'>
+                                        <NavLink className={`text-gray-500`} to='/admin/add-product'>
                                             ADD PRODUCT
                                         </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/customer/allProducts'>
+                                        <NavLink className={`text-gray-500`} to='/customer/all-products'>
                                             ALL PRODUCTS
                                         </NavLink>
-                                    </div> : <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
-                                        <NavLink className={`text-gray-500`} to='/admin/create-product'>
+                                    </div> : <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:gap-3">
+                                        <NavLink className={`text-gray-500`} to='/customer/dashBoard'>
+                                            DASHBOARD
+                                        </NavLink>
+                                        <NavLink className={`text-gray-500`} to='/customer/all-products'>
                                             ALL PRODUCTS
                                         </NavLink>
                                     </div>
@@ -89,7 +88,7 @@ const Nav = () => {
                     </div>
                 </nav>
             </div>
-            <div className={`mx-3  ${isVisible ? 'relative bottom-5' : 'mt-5'}`}>
+            <div className={`mx-3 cursor-pointer ${isVisible ? 'relative bottom-5' : 'mt-5'}`}>
                 {
                     isVisible ? < MdExpandLess onClick={() => setIsVisible(!isVisible)} className="text-2xl text-sky-400" /> : <MdExpandMore onClick={() => setIsVisible(!isVisible)} className="text-2xl text-sky-400" />
                 }

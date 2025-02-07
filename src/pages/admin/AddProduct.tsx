@@ -3,7 +3,8 @@ import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import { useAddProductMutation } from "../../redux/features/admin/productManagement.Api";
 import BForm from "../../components/form/BForm";
 import BInput from "../../components/form/BInput";
-const CreateProduct = () => {
+import { toast } from "sonner";
+const AddProduct = () => {
     const [addProduct] = useAddProductMutation()
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 
@@ -22,7 +23,9 @@ const CreateProduct = () => {
         // console.log(data.image);
         try {
             const res = await addProduct(formData)
-            console.log(res);
+           if(res?.data?.success){
+            toast.success('Product Added successfully')
+           }
         } catch (err) {
             console.log(err);
         }
@@ -63,4 +66,4 @@ const CreateProduct = () => {
     );
 };
 
-export default CreateProduct;
+export default AddProduct;

@@ -3,13 +3,15 @@ import BrandCarosel from '../../components/Brands/BrandCarosel';
 import Card from '../../components/Card/Card';
 import { useGetAllProductsQuery } from '../../redux/features/admin/productManagement.Api';
 import { useState } from 'react';
+import Footer from '../../components/footer/Footer';
+import { IProduct } from '../../types/product.types';
 interface Filter {
     name: string;
     value: string;
 }
 const AllProducts = () => {
     const [filters, setFilters] = useState<Filter[]>([]);
-    console.log(filters);
+    // console.log(filters);
     const { data: products } = useGetAllProductsQuery(filters)
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (name === 'brand') {
@@ -31,7 +33,8 @@ const AllProducts = () => {
         }
     }
     return (
-        <div className='mx-[100px] pt-12'>
+     <div>
+           <div className='mx-[100px] py-12'>
             <h1 className="text-4xl font-bold border-b border-gray-300 pb-6">Top Brands</h1>
             <div className='pt-8 pb-16'>
                 <BrandCarosel />
@@ -89,15 +92,17 @@ const AllProducts = () => {
                         </div>
                     </div>
                 </div>
-                <div className='grid lg:grid-cols-3 gap-10'>
+                <div className='grid lg:grid-cols-3 gap-10 '>
                     {
-                        products?.data?.map((item) => (
+                        products?.data?.map((item:IProduct) => (
                             <Card key={item.name} item={item}></Card>
                         ))
                     }
                 </div>
             </div>
         </div>
+        <Footer/>
+     </div>
     );
 };
 
