@@ -19,7 +19,7 @@ const Register = () => {
         const res = await signUpUser(userInfo).unwrap()
         if (res.success) {
             toast.success('User register Successfully')
-            navigate('/SignIn')
+            navigate('/login')
         }
     }
     return (

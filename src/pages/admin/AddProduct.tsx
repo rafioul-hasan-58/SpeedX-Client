@@ -16,7 +16,7 @@ const AddProduct = () => {
             stocks: Number(data.stocks),
             color: data.color
         }
-        console.log(data.photo);
+        console.log(data.photo, 'aida');
         const formData = new FormData()
         formData.append('data', JSON.stringify(productdata))
         formData.append('file', data.photo)

@@ -12,7 +12,7 @@ import Home from "../pages/universal/Home";
 import CheckOut from "../pages/Customer/CheckOut";
 import Users from "../pages/admin/Users";
 import AllProduct from "../pages/admin/AllProduct";
-import MyProfile from "../pages/admin/MyProfile";
+import MyProfile from "../pages/universal/MyProfile";
 
 
 export const router = createBrowserRouter([
@@ -31,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: '/product-details/:id',
         element: <ProductDetails />
+      },
+      {
+        path: '/my-profile',
+        element: <MyProfile />
       }
     ]
   },
@@ -58,10 +62,7 @@ export const router = createBrowserRouter([
         path: 'all-product',
         element: <AllProduct />
       },
-      {
-        path: 'my-profile',
-        element: <MyProfile />
-      }
+
     ]
   },
   {

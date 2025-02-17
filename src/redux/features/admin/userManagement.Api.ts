@@ -29,7 +29,24 @@ const usersManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+        getMyProfile: builder.query({
+            query: (email) => {
+                return {
+                    url: `/users/get-profile/${email}`,
+                    method: 'GET',
+                }
+            }
+        }),
+        updateProfile: builder.mutation({
+            query: (args) => {
+                return {
+                    url: `/users/update/${args.id}`,
+                    method: 'PATCH',
+                    body: args.data
+                }
+            }
+        }),
     }),
 });
 
-export const { useGetAllUsersQuery } = usersManagementApi;
+export const { useGetAllUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation } = usersManagementApi;

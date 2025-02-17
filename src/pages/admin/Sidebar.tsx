@@ -56,7 +56,7 @@ const Sidebar = () => {
                 </nav>
 
                 <div className="relative right-2.5">
-                    <NavLink to='/admin/my-profile' className="relative right-0.5 flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100 hover:text-gray-700" >
+                    <NavLink to='/my-profile' className="relative right-0.5 flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100 hover:text-gray-700" >
                         <IoMdSettings className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Profile</span>
                     </NavLink>

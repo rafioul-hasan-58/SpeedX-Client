@@ -7,6 +7,7 @@ export interface IUser {
 
 export type TUser = {
     _id: string;
+    image?:string;
     name: string;
     email: string;
     password: string;
