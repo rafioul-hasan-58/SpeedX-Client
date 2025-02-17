@@ -1,36 +1,36 @@
-import { Controller, Control } from "react-hook-form";
+import { Form } from "antd";
+import { Controller } from "react-hook-form";
 
-interface InputFieldProps {
+
+type TInputProps = {
+    type: string;
     name: string;
-    control: Control<any>;
-    placeholder?: string;
-    type?: string;
-    className?: string;
-    defaultValue?: string | number;
-}
-
-const InputField: React.FC<InputFieldProps> = ({
-    name,
-    control,
-    defaultValue,
-    placeholder,
-    type,
-    className = "",
-}) => {
+    label?: string;
+    defaultValue?: any;
+  };
+const InputField = ({ name, type, label, defaultValue }:TInputProps) => {
     return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field }) => (
-                <input
-                    {...field}
-                    type={type}
-                    defaultValue={defaultValue}
-                    className={`focus:border-4 focus:border-sky-200 py-2 border border-gray-300 rounded-lg w-[100px] px-3 focus:outline-sky-300 ${className}`}
-                    placeholder={placeholder}
-                />
-            )}
-        />
+        <div>
+            <Controller
+                name={name}
+                defaultValue={defaultValue}
+                render={({ field }) => (
+                    <Form>
+                        <label className="block  text-sm font-bold text-gray-700" >{label}</label>
+                        <input
+                            className="lg:w-[600px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-blue-300 appearance-none focus:outline-none focus:shadow-outline bg-gray-white"
+                            name={name}
+                            onChange={field.onChange}
+                            defaultValue={defaultValue}
+                            type={type}
+                        />
+                    </Form>
+                )}
+            />
+            <div className="mb-4">
+
+            </div>
+        </div>
     );
 };
 

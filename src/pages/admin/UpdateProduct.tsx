@@ -1,29 +1,37 @@
 import { Button, Col, Form, Input } from "antd";
 import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
-import { useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
+import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import BForm from "../../components/form/BForm";
-import BInput from "../../components/form/BInput";
+import { useParams } from "react-router-dom";
+import InputField from "../../components/form/Input/InputField";
 const UpdateProduct = () => {
     const [updateProduct] = useUpdateProductMutation()
+    const { id } = useParams()
+    const { data: datas } = useGetProductDetailsQuery(id);
+    const prevData = datas?.data;
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const productdata = {
-            name: data.name,
-            brandName: data.brandName,
-            price: Number(data.price),
-            description: data.description,
-            stocks: Number(data.stocks),
-            color: data.color
+            name: data.name || prevData?.name,
+            brandName: data.brandName || prevData?.brandName,
+            price: Number(data.price) || Number(prevData?.price),
+            description: data.description || prevData?.description,
+            stocks: Number(data.stocks) || Number(prevData?.stocks),
+            color: data.color || prevData?.color
         }
-        console.log(data.photo);
+        console.table(productdata);
         const formData = new FormData()
         formData.append('data', JSON.stringify(productdata))
         formData.append('file', data.photo)
+        const updatedData = {
+            id: prevData?._id,
+            data: formData
+        }
         // console.log(data.image);
         try {
-            const res = await updateProduct(formData)
+            const res = await updateProduct(updatedData)
             if (res?.data?.success) {
-                toast.success('Product Added successfully')
+                toast.success('Product updated successfully')
             }
         } catch (err) {
             console.log(err);
@@ -31,17 +39,17 @@ const UpdateProduct = () => {
     }
     return (
         <div>
-            <h1 className="text-center text-2xl font-semibold text-sky-400 ">Add product</h1>
+            <h1 className="text-center text-2xl font-semibold text-sky-400 ">Update product</h1>
             <div className="lg:flex justify-center ">
                 <BForm onSubmit={onSubmit}>
-                    <BInput placeholder="Name" type="text" label="Name" name="name" />
+                    <InputField name="name" defaultValue={prevData?.name} label="Name" type="text" />
                     <Col>
                         <Controller
                             name="photo"
                             render={({ field: { onChange, value, ...field } }) => (
                                 <Form.Item label={'Photo'}>
                                     <Input
-                                        style={{ backgroundColor: '#f3f4f6', border: '1px solid #38bdf8' }}
+                                        style={{ backgroundColor: 'white', border: '1px solid #38bdf8' }}
                                         type="file"
                                         value={value?.fileName}
                                         {...field}
@@ -51,13 +59,13 @@ const UpdateProduct = () => {
                             )}
                         />
                     </Col>
-                    <BInput placeholder="Brand Name" type="text" label="Brand Name" name="brandName" />
-                    <BInput placeholder="Color" type="text" label="Color" name="color" />
-                    <BInput placeholder="Number" type="number" label="Price" name="price" />
-                    <BInput placeholder="Stocks" type="number" label="Stocks" name="stocks" />
-                    <BInput placeholder="Description" type="text" label="Description" name="description" />
+                    <InputField name="brandName" defaultValue={prevData?.brandName} label="Brand Name" type="text" />
+                    <InputField name="color" defaultValue={prevData?.color} label="Color" type="text" />
+                    <InputField name="price" defaultValue={prevData?.price} label="Price" type="number" />
+                    <InputField name="stocks" defaultValue={prevData?.stocks} label="Stocks" type="number" />
+                    <InputField name="description" defaultValue={prevData?.description} label="Description" type="text" />
                     <div className="w-full">
-                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">Add Product</Button>
+                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">Update Product</Button>
                     </div>
                 </BForm>
             </div>

@@ -43,9 +43,10 @@ const productManagementApi = baseApi.injectEndpoints({
       },
     }),
     updateProduct: builder.mutation({
-      query: (id) => ({
-        url: `/products/update-product/${id}`,
+      query: (args) => ({
+        url: `/products/update-product/${args.id}`,
         method: 'PATCH',
+        body:args.data
       }),
       invalidatesTags: ['product']
     }),
