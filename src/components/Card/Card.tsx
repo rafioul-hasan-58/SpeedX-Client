@@ -21,13 +21,13 @@ const Card = ({ item }) => {
                         <p className=' w-[250px] font-semibold'>{item?.color}</p>
                     </div>
                 </Link>
-                <div className='flex justify-between mb-4'>
+                <div className='flex justify-between  h-[60px]'>
                     <Link to={`/customer/check-out/${item?._id}`} >
-                        <div className=" flex w-[120px] bg-sky-400 px-2 py-1  rounded-full items-center">
-                            <Button className="focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white', fontSize: '13px' }}>BUY NOW</Button>
+                        <div className=" flex w-[120px]   rounded-full items-center">
+                            <Button className="focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white', fontSize: '13px', borderRadius: '100px 100px 100px 100px', padding: '20px 25px 20px 25px' }}>BUY NOW</Button>
                         </div>
                     </Link>
-                    <div className=' flex gap-1 border-2 p-2 rounded-full border-sky-400'>
+                    <div className=' flex gap-1 border-2 p-2 h-[43px] rounded-full border-sky-400'>
                         <IoCartOutline className='text-gray-400 text-xl relative top-[1px]' />
                         <h1 className='text-gray-400 text-[13px]'>Add to Cart</h1>
                     </div>

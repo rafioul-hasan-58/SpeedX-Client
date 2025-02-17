@@ -5,3 +5,11 @@ export interface IUser {
     role: 'admin' | 'customer' | undefined;
 };
 
+export type TUser = {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    role: 'admin' | 'customer';
+    isBlocked: boolean;
+}

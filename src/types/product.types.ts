@@ -1,6 +1,7 @@
 
 
 export interface IProduct {
+    _id: string;
     name: string;
     color: string;
     brandName: string;

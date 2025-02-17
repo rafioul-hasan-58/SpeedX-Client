@@ -10,6 +10,9 @@ import AllProducts from "../pages/universal/AllProducts";
 import ProductDetails from "../pages/universal/ProductDetails";
 import Home from "../pages/universal/Home";
 import CheckOut from "../pages/Customer/CheckOut";
+import Users from "../pages/admin/Users";
+import AllProduct from "../pages/admin/AllProduct";
+import MyProfile from "../pages/admin/MyProfile";
 
 
 export const router = createBrowserRouter([
@@ -44,9 +47,21 @@ export const router = createBrowserRouter([
         element: <AddProduct />
       },
       {
-        path: 'update-product',
+        path: 'update-product/:id',
         element: <UpdateProduct />
       },
+      {
+        path: 'users',
+        element: <Users />
+      },
+      {
+        path: 'all-product',
+        element: <AllProduct />
+      },
+      {
+        path: 'my-profile',
+        element: <MyProfile />
+      }
     ]
   },
   {

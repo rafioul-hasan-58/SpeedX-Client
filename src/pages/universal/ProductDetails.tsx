@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetProductDetailsQuery } from "../../redux/features/admin/productManagement.Api";
 import { Button } from "antd";
 import { BsInfoCircle } from "react-icons/bs";
@@ -21,9 +21,11 @@ const ProductDetails = () => {
                         <p className="text-gray-500">Brand: {details?.brandName} |<span className="text-sky-400"> More Bikes From {details?.brandName}</span></p>
                         <p className="text-gray-500 mt-2">Product Color: <span className="text-black">{details?.color}</span></p>
                         <div className="flex gap-4 mt-16">
-                            <div className=" flex w-[190px] bg-sky-400 px-2 py-2  rounded-full items-center justify-center ">
-                                <Button className="relative  focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white', fontSize: '13px' }}>BUY NOW</Button>
-                            </div>
+                            <Link to={`/customer/check-out/${id}`}>
+                                <div className=" flex w-[190px]  items-center justify-center ">
+                                    <Button className="relative  focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white', fontSize: '16px', borderRadius: '100px 100px 100px 100px', padding: '22px 60px 22px 60px', }}>BUY NOW</Button>
+                                </div>
+                            </Link>
                             <div className='cursor-pointer w-[190px] flex gap-1 border-2 p-2 rounded-full border-sky-400 justify-center'>
                                 <h1 className=' text-[15px] uppercase mt-[1px]'>Add to Cart</h1>
                             </div>

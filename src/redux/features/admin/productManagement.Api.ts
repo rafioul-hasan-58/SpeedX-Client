@@ -10,6 +10,7 @@ const productManagementApi = baseApi.injectEndpoints({
         method: 'POST',
         body: userInfo,
       }),
+      invalidatesTags: ['product']
     }),
     getProductDetails: builder.query({
       query: (id) => ({
@@ -21,9 +22,8 @@ const productManagementApi = baseApi.injectEndpoints({
       query: (args) => {
         console.log(args);
         const params = new URLSearchParams();
-
         if (args) {
-          args.forEach((item:TQueryParam) => {
+          args.forEach((item: TQueryParam) => {
             params.append(item.name, item.value as string);
           });
         }
@@ -34,6 +34,7 @@ const productManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ['product'],
       transformResponse: (response: TResponseRedux<IProduct[]>) => {
         return {
           data: response.data,
@@ -41,8 +42,21 @@ const productManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
-
+    updateProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/update-product/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['product']
+    }),
+    removeProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/delete-product/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['product']
+    }),
   }),
 });
 
-export const { useAddProductMutation, useGetAllProductsQuery, useGetProductDetailsQuery } = productManagementApi;
+export const { useAddProductMutation, useGetAllProductsQuery, useGetProductDetailsQuery, useRemoveProductMutation,useUpdateProductMutation} = productManagementApi;

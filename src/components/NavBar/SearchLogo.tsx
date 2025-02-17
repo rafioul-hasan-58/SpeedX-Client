@@ -4,10 +4,16 @@ import bike from '../../assets/logo/bikeLogo.png'
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { logout, selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { setSearch } from "../../redux/features/admin/otherSlice";
 
 const SearchLogo = () => {
     const user = useAppSelector(selectCurrentUser);
     const dispatch = useAppDispatch()
+    const { register, handleSubmit } = useForm()
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        dispatch(setSearch(data.search))
+    }
     return (
         <nav className=" my-3  px-20 border-b-[1px] border-b-gray-200">
             <div className="flex items-center justify-between">
@@ -17,20 +23,25 @@ const SearchLogo = () => {
                         <img className="w-16 h-16" src={bike} alt="" />
                         <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">Mousby</h1>
                     </div>
-                    <div className="flex items-center">
-                        <input
-                            style={{ borderRadius: '100px 0px 0px 100px' }}
-                            className="h-[44px] lg:w-[380px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
-                            type="text"
-                            placeholder="Search Bike here"
-                        />
-                        <div style={{ borderRadius: '0px 20px 20px 0px' }} className="bg-sky-400 px-5 h-[44px] rounded-r-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="16" y1="16" x2="21" y2="21"></line>
-                            </svg>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="flex items-center">
+                            <input
+                                {...register('search')}
+                                style={{ borderRadius: '100px 0px 0px 100px' }}
+                                className="h-[44px] lg:w-[380px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
+                                type="text"
+                                placeholder="Search Bike here"
+                            />
+                            <button type="submit">
+                                <div style={{ borderRadius: '0px 20px 20px 0px' }} className="bg-sky-400 px-5 h-[44px] cursor-pointer rounded-r-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="16" y1="16" x2="21" y2="21"></line>
+                                    </svg>
+                                </div>
+                            </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 {/* Right side */}

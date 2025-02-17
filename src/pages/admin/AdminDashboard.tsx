@@ -1,10 +1,10 @@
 
 const AdminDashboard = () => {
-    return (
-        <div>
-            <h1>This is admin AdminDashboard</h1>
-        </div>
-    );
+  return (
+    <div>
+        
+    </div>
+  );
 };
 
 export default AdminDashboard;

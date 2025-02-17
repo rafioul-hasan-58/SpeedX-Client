@@ -10,7 +10,7 @@ const Nav = () => {
     const navigate = useNavigate()
     const user = useAppSelector(selectCurrentUser);
     if (!user) {
-        navigate('/SignIn')
+        navigate('/login')
     }
     return (
         <div className="relative">
@@ -72,15 +72,18 @@ const Nav = () => {
                                         <NavLink className={`text-gray-500`} to='/admin/add-product'>
                                             ADD PRODUCT
                                         </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/customer/all-products'>
+                                        <NavLink className={`text-gray-500`} to='/all-products'>
                                             ALL PRODUCTS
                                         </NavLink>
                                     </div> : <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:gap-3">
                                         <NavLink className={`text-gray-500`} to='/customer/dashBoard'>
                                             DASHBOARD
                                         </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/customer/all-products'>
+                                        <NavLink className={`text-gray-500`} to='/all-products'>
                                             ALL PRODUCTS
+                                        </NavLink>
+                                        <NavLink className={`text-gray-500 `} to='/'>
+                                            ABOUT
                                         </NavLink>
                                     </div>
                             }

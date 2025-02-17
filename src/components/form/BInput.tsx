@@ -6,18 +6,24 @@ type TInputProps = {
   name: string;
   label?: string;
   disabled?: boolean;
+  defaultValue?: string | number;
+  placeholder: string;
 };
 
-const BInput = ({ type, name, label, disabled }: TInputProps) => {
+const BInput = ({ type, name, label, disabled, defaultValue, placeholder }: TInputProps) => {
   return (
     <div>
       <Controller
         name={name}
+        defaultValue={defaultValue}
         render={({ field }) => (
           <Form.Item label={label}>
             <Input
-            style={{width:'600px',backgroundColor:'white',border:'1px solid #38bdf8', height: '35px'}}
               {...field}
+              value={field.value ?? defaultValue}
+              placeholder={placeholder}
+              onChange={field.onChange}
+              style={{ width: '600px', backgroundColor: 'white', border: '1px solid #38bdf8', height: '35px', margin: '0px 0px 0px 0px', }}
               type={type}
               id={name}
               disabled={disabled}
