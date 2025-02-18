@@ -12,14 +12,10 @@ type TProtectedRoute = {
 
 const PrivetRoute = ({ children, role }: TProtectedRoute) => {
   const token = useAppSelector(selectCurrentToken);
-
   let user;
-
   if (token) {
     user = verifyToken(token);
   }
-
-
   if (role !== undefined && role !== user?.role) {
     return <Navigate to="/login" replace={true} />;
   }
@@ -27,7 +23,6 @@ const PrivetRoute = ({ children, role }: TProtectedRoute) => {
   if (!token) {
     return <Navigate to="/login" replace={true} />;
   }
-
   return children;
 };
 

@@ -6,16 +6,16 @@ import { useState } from 'react';
 import Footer from '../../components/footer/Footer';
 import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import InputField from '../../components/form/Input/InputField';
 interface Filter {
     name: string;
     value: string | number;
 }
 const AllProducts = () => {
-    const { handleSubmit, control } = useForm()
     const [filters, setFilters] = useState<Filter[]>([]);
+    const { register, handleSubmit } = useForm()
     // console.log(filters);
     const { data: products } = useGetAllProductsQuery(filters)
+    // console.log(products);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
             setFilters((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
@@ -38,9 +38,9 @@ const AllProducts = () => {
             if (maxPrice !== null) {
                 updatedFilters.push({ name: 'maxPrice', value: maxPrice });
             }
-
             return updatedFilters;
         });
+        // console.log(data);
     };
     return (
         <div>
@@ -79,8 +79,16 @@ const AllProducts = () => {
                                 <p className='text-[15px] pb-4 font-semibold '>Price Range</p>
                                 <form onChange={handleSubmit(onSubmit)}>
                                     <div className='flex gap-3'>
-                                        <InputField name='maxPrice' control={control} placeholder='Max' type='number' />
-                                        <InputField name='minPrice' control={control} placeholder='Min' type='number' />
+                                        <input
+                                            {...register('maxPrice')}
+                                            className='border border-gray-300 w-[100px] h-[35px]  rounded-md pl-4 focus:outline-none'
+                                            placeholder='Max'
+                                            type="text" />
+                                        <input
+                                            {...register('minPrice')}
+                                            className='border border-gray-300 w-[100px] h-[35px]  rounded-md pl-4 focus:outline-none'
+                                            placeholder='Min'
+                                            type="text" />
                                     </div>
                                 </form>
                             </div>

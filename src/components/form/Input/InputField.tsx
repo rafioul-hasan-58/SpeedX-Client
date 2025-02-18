@@ -7,8 +7,9 @@ type TInputProps = {
     name: string;
     label?: string;
     defaultValue?: any;
-  };
-const InputField = ({ name, type, label, defaultValue }:TInputProps) => {
+    placeholder?: string;
+};
+const InputField = ({ name, type, label, defaultValue, placeholder }: TInputProps) => {
     return (
         <div>
             <Controller
@@ -23,6 +24,7 @@ const InputField = ({ name, type, label, defaultValue }:TInputProps) => {
                             onChange={field.onChange}
                             defaultValue={defaultValue}
                             type={type}
+                            placeholder={placeholder}
                         />
                     </Form>
                 )}

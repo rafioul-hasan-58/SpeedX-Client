@@ -1,14 +1,15 @@
 import { Button, Col, Form, Input } from "antd";
-import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler} from "react-hook-form";
 import { toast } from "sonner";
 import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import BForm from "../../components/form/BForm";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import InputField from "../../components/form/Input/InputField";
 const UpdateProduct = () => {
     const [updateProduct] = useUpdateProductMutation()
     const { id } = useParams()
     const { data: datas } = useGetProductDetailsQuery(id);
+    const navigate=useNavigate()
     const prevData = datas?.data;
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const productdata = {
@@ -32,6 +33,7 @@ const UpdateProduct = () => {
             const res = await updateProduct(updatedData)
             if (res?.data?.success) {
                 toast.success('Product updated successfully')
+                navigate('/admin/all-product')
             }
         } catch (err) {
             console.log(err);

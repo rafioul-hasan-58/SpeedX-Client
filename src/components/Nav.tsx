@@ -60,33 +60,23 @@ const Nav = () => {
                             className={`lg:flex absolute lg:relative inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out  md:mt-0 md:p-0 md:top-0 md:relative md:flex md:items-center md:justify-between ${isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full md:opacity-100 md:translate-x-0"
                                 }`}
                         >
-                            {
-                                user?.role === 'admin' ?
-                                    <div className="flex lg:relative flex-col gap-5 px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:bottom-3">
-                                        <NavLink className={`text-gray-500 `} to='/'>
-                                            ABOUT
-                                        </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/'>
-                                            DASHBOARD
-                                        </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/admin/add-product'>
-                                            ADD PRODUCT
-                                        </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/all-products'>
-                                            ALL PRODUCTS
-                                        </NavLink>
-                                    </div> : <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:gap-3">
-                                        <NavLink className={`text-gray-500`} to='/customer/dashBoard'>
-                                            DASHBOARD
-                                        </NavLink>
-                                        <NavLink className={`text-gray-500`} to='/all-products'>
-                                            ALL PRODUCTS
-                                        </NavLink>
-                                        <NavLink className={`text-gray-500 `} to='/'>
-                                            ABOUT
-                                        </NavLink>
-                                    </div>
-                            }
+                            <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:gap-3">
+                                <NavLink className={({ isActive }) =>
+                                    `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
+                                } to='/customer/dash-board'>
+                                    DASHBOARD
+                                </NavLink>
+                                <NavLink className={({ isActive }) =>
+                                    `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
+                                } to='/all-products'>
+                                    ALL PRODUCTS
+                                </NavLink>
+                                <NavLink className={({ isActive }) =>
+                                    `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
+                                } to='/'>
+                                    ABOUT
+                                </NavLink>
+                            </div>
                         </div>
                     </div>
                 </nav>

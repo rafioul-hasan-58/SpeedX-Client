@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 const Card = ({ item }) => {
     return (
         <div className='border-[3px] bg-white  border-gray-200 lg:w-[305px] lg:h-[472px] rounded-lg'>
-            <Link to={`/product-details/${item?._id}`}>
+            <Link to={`/customer/product-details/${item?._id}`}>
                 <div>
                     <img className='h-[200px] bg-white border-b-[1px] border-gray-200' src={item?.image} alt="" />
                 </div>
             </Link>
             <div className='mx-3'>
-                <Link to={`/product-details/${item?._id}`}>
+                <Link to={`/customer/product-details/${item?._id}`}>
                     <div className='flex justify-between  my-4'>
                         <p className='w-[200px] font-semibold'>{item?.name}</p>
                         <h1 className='relative pt-1 top-2 text-sky-400 border-2 px-2 rounded-full border-sky-400 h-[30px] text-[13px] font-bold'>NEW</h1>

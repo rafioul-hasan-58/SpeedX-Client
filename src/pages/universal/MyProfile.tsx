@@ -6,8 +6,11 @@ import { useGetMyProfileQuery, useUpdateProfileMutation } from "../../redux/feat
 import { selectCurrentToken } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { verifyToken } from "../../utils/verifyToken";
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 const MyProfile = () => {
+    const [isOpen, setIsOpen] = useState(false)
     const token = useAppSelector(selectCurrentToken);
     let user;
     if (token) {
@@ -32,7 +35,10 @@ const MyProfile = () => {
             data: formData
         }
         const res = await updateUser(finalData)
-        console.log(res);
+        if (res.data.success) {
+            toast.success('Profile Updated Successfully')
+            setIsOpen(false)
+        }
     }
     return (
         <div className='flex justify-center lg:mt-20'>
@@ -46,7 +52,7 @@ const MyProfile = () => {
                     <p className=' text-xl mt-2 font-bold text-sky-500'>Admin</p>
                 </div>
                 <div className='flex justify-center mt-5'>
-                    <Dialog>
+                    <Dialog open={isOpen} onOpenChange={setIsOpen}>
                         <DialogTrigger asChild>
                             <Button style={{ backgroundColor: '#0EA5E9', color: 'white' }} variant="outline">Edit Profile</Button>
                         </DialogTrigger>

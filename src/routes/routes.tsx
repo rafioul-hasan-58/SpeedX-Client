@@ -13,6 +13,7 @@ import CheckOut from "../pages/Customer/CheckOut";
 import Users from "../pages/admin/Users";
 import AllProduct from "../pages/admin/AllProduct";
 import MyProfile from "../pages/universal/MyProfile";
+import PrivetRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -25,17 +26,13 @@ export const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/all-products',
-        element: <AllProducts />
-      },
-      {
-        path: '/product-details/:id',
-        element: <ProductDetails />
-      },
-      {
         path: '/my-profile',
         element: <MyProfile />
-      }
+      },
+      {
+        path: 'all-products',
+        element: <PrivetRoute role="customer"><AllProducts /></PrivetRoute>
+      },
     ]
   },
   {
@@ -44,25 +41,24 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'dash-board',
-        element: <AdminDashboard />
+        element: <PrivetRoute role="admin"><AdminDashboard /></PrivetRoute>
       },
       {
         path: 'add-product',
-        element: <AddProduct />
+        element: <PrivetRoute role="admin"><AddProduct /></PrivetRoute>
       },
       {
         path: 'update-product/:id',
-        element: <UpdateProduct />
+        element: <PrivetRoute role="admin"><UpdateProduct /></PrivetRoute>
       },
       {
         path: 'users',
-        element: <Users />
+        element: <PrivetRoute role="admin"><Users /></PrivetRoute>
       },
       {
         path: 'all-product',
-        element: <AllProduct />
+        element: <PrivetRoute role="admin"><AllProduct /></PrivetRoute>
       },
-
     ]
   },
   {
@@ -71,12 +67,17 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'dash-board',
-        element: <CustomerDashboard />
+        element: <PrivetRoute role="customer"><CustomerDashboard /></PrivetRoute>
       },
       {
         path: 'check-out/:id',
-        element: <CheckOut />
-      }
+        element: <PrivetRoute role="customer"><CheckOut /></PrivetRoute>
+      },
+
+      {
+        path: 'product-details/:id',
+        element: <PrivetRoute role="customer"><ProductDetails /></PrivetRoute>
+      },
     ]
   },
   {

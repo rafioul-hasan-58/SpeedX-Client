@@ -64,9 +64,9 @@ const Register = () => {
                                 />
                             </div>
                             <div className="w-full">
-                                <Button className="w-full py-2 bg" htmlType="submit">SignUp</Button>
+                                <Button style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '0px 0px 0px 0px', fontSize: '16px' }} className="w-full py-2 bg" htmlType="submit">SignUp</Button>
                             </div>
-                            <h1 className="text-center mt-2 text-blue-500">Already Have an account?<Link className="" to='/login'>Login</Link></h1>
+                            <h1 className="text-center mt-2 text-blue-500">Already Have an account?<Link className="text-black" to='/login'>Login</Link></h1>
                         </form>
                     </div>
                 </div>

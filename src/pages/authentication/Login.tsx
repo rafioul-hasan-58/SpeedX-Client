@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import image from '../../assets/SignUp.jpg'
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { setUser } from "../../redux/features/auth/authSlice";
@@ -10,23 +10,27 @@ import { IUser } from "../../types/auth.types";
 
 const Login = () => {
     const dispatch = useAppDispatch();
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
-    const [login,{data,error}] = useLoginMutation();
-    console.log(data,error);
-    const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+    const [login, { data, error }] = useLoginMutation();
+    console.log(data, error);
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
             const userInfo = {
-              email: data.email,
-              password: data.password,
+                email: data.email,
+                password: data.password,
             };
             const res = await login(userInfo).unwrap();
-            const user = verifyToken(res.data.accessToken) as IUser ;
+            const user = verifyToken(res.data.accessToken) as IUser;
             dispatch(setUser({ user: user, token: res.data.accessToken }));
-            navigate(`/`)
-          } catch (err) {
+            if (user?.role === 'admin') {
+                navigate(`/admin/dash-board`)
+            }else{
+                navigate(`/customer/dash-board`)
+            }
+        } catch (err) {
             console.log(err);
-          }
+        }
     }
     return (
         <div className="lg:mx-44 ">
@@ -60,9 +64,9 @@ const Login = () => {
                                 />
                             </div>
                             <div className="w-full">
-                                <Button style={{backgroundColor:'#0ea5e9',color:'white',borderRadius:'0px 0px 0px 0px',fontSize:'16px'}} className="w-full py-2 bg" htmlType="submit">SignUp</Button>
+                                <Button style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '0px 0px 0px 0px', fontSize: '16px' }} className="w-full py-2 bg" htmlType="submit">SignUp</Button>
                             </div>
-                            <h1 className="text-center mt-2 text-blue-500">New here?<Link className="" to='/register'>Register</Link></h1>
+                            <h1 className="text-center mt-2 text-blue-500">New here?<Link className="text-black" to='/register'>Register</Link></h1>
                         </form>
                     </div>
                 </div>

@@ -1,12 +1,13 @@
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { LuLogIn, LuUsersRound } from "react-icons/lu";
-import { AiOutlineAppstoreAdd, AiTwotoneFund } from "react-icons/ai";
+import { AiOutlineAppstoreAdd} from "react-icons/ai";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoIosLogOut, IoMdSettings } from "react-icons/io";
 import { logout, selectCurrentToken } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import bike from '../../assets/logo/bikeLogo.png'
 import { verifyToken } from "../../utils/verifyToken";
+import { IoBarChartSharp } from "react-icons/io5";
 const Sidebar = () => {
     const token = useAppSelector(selectCurrentToken);
     let user;
@@ -37,26 +38,36 @@ const Sidebar = () => {
                         </span>
                         <input type="text" className="w-full py-1.5 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 border-gray-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
                     </div>
-                    <NavLink to='/admin/dash-board' className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700" >
-                        <AiTwotoneFund className="text-xl" />
+                    <NavLink to='/admin/dash-board' className={({ isActive }) =>
+                        `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
+                    }>
+                        <IoBarChartSharp  className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Dashboard</span>
                     </NavLink>
-                    <NavLink to='/admin/add-product' className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700" >
+                    <NavLink to='/admin/add-product' className={({ isActive }) =>
+                        `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
+                    }>
                         <AiOutlineAppstoreAdd className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Add Product</span>
                     </NavLink>
-                    <NavLink to='/admin/users' className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100 hover:text-gray-700" >
+                    <NavLink to='/admin/users' className={({ isActive }) =>
+                        `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
+                    }>
                         <LuUsersRound className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Users</span>
                     </NavLink>
-                    <NavLink to='/admin/all-product' className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100 hover:text-gray-700" >
+                    <NavLink to='/admin/all-product' className={({ isActive }) =>
+                        `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
+                    }>
                         <GiFullMotorcycleHelmet className="text-xl" />
                         <span className="mx-2 text-sm font-medium">All Products</span>
                     </NavLink>
                 </nav>
 
                 <div className="relative right-2.5">
-                    <NavLink to='/my-profile' className="relative right-0.5 flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100 hover:text-gray-700" >
+                    <NavLink to='/my-profile' className={({ isActive }) =>
+                        `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
+                    }>
                         <IoMdSettings className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Profile</span>
                     </NavLink>

@@ -65,14 +65,10 @@ const AllProduct = () => {
                                                 products?.data?.map((item) => <tr className="w-full">
 
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                        <Link to={`/product-details/${item?._id}`}>
-                                                            <img src={item?.image} className="w-[90px] " alt="" />
-                                                        </Link>
+                                                        <img src={item?.image} className="w-[90px] " alt="" />
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                        <Link to={`/product-details/${item?._id}`}>
-                                                            {item?.name}
-                                                        </Link>
+                                                        {item?.name}
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.price}</td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.color}</td>

@@ -2,6 +2,7 @@ import AdminLayout from "./Layout/AdminLayout";
 import MainLayout from "./Layout/MainLayout";
 import { selectCurrentToken } from "./redux/features/auth/authSlice";
 import { useAppSelector } from "./redux/hooks";
+import PrivetRoute from "./routes/PrivateRoute";
 import { verifyToken } from "./utils/verifyToken";
 
 
@@ -16,7 +17,7 @@ const App = () => {
   return (
     <div>
       {
-        user?.role === 'admin' ? <AdminLayout /> : <MainLayout />
+        user?.role === 'admin' ? <PrivetRoute role={undefined}><AdminLayout /></PrivetRoute> : <PrivetRoute role={undefined}><MainLayout /></PrivetRoute>
       }
     </div>
   );
