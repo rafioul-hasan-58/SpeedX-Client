@@ -2,7 +2,6 @@
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "../../redux/features/admin/productManagement.Api";
-import Carosel from "../../components/swiperSlider/Carosel";
 import Card from "../../components/Card/Card";
 import TestiCarosel from "../../components/Testimonial/TestiCarosel";
 import Footer from "../../components/footer/Footer";
@@ -14,7 +13,6 @@ const Home = () => {
     return (
         <div>
             <div className="lg:mx-20 lg:mb-10">
-                <Carosel />
                 <div>
                     <h1 className="text-4xl font-bold">Fearured Bike</h1>
                     <div className="grid grid-cols-4 my-5 gap-10">

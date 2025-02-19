@@ -1,12 +1,14 @@
+import Loader from '../../components/Loader/Loader';
 import head from '../../assets/logo/Head.avif'
 import { useGetAllUsersQuery } from "../../redux/features/admin/userManagement.Api";
 import { Button } from "antd";
 
 const Users = () => {
-    const { data: users } = useGetAllUsersQuery(undefined)
+    const { data: users,isFetching } = useGetAllUsersQuery(undefined)
     const handleDelete = (id: string) => {
         console.log(id);
     }
+    if(isFetching) return <Loader/>
     return (
         <div>
             <section className="container px-4 mx-auto">

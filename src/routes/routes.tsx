@@ -14,6 +14,7 @@ import Users from "../pages/admin/Users";
 import AllProduct from "../pages/admin/AllProduct";
 import MyProfile from "../pages/universal/MyProfile";
 import PrivetRoute from "./PrivateRoute";
+import Order from "../pages/admin/Order";
 
 
 export const router = createBrowserRouter([
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
         path: 'all-product',
         element: <PrivetRoute role="admin"><AllProduct /></PrivetRoute>
       },
+      {
+        path:'orders',
+        element:<Order/>
+      }
     ]
   },
   {

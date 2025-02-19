@@ -2,9 +2,10 @@ import { Button } from "antd";
 import { useGetAllProductsQuery, useRemoveProductMutation } from "../../redux/features/admin/productManagement.Api";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import Loader from "../../components/Loader/Loader";
 
 const AllProduct = () => {
-    const { data: products } = useGetAllProductsQuery(undefined)
+    const { data: products,isFetching } = useGetAllProductsQuery(undefined)
     const [deleteProduct] = useRemoveProductMutation()
     const handleDelete = (id: string) => {
         Swal.fire({
@@ -27,6 +28,7 @@ const AllProduct = () => {
         });
 
     }
+    if(isFetching) return <Loader/>
     return (
         <div>
             <div>

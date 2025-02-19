@@ -1,13 +1,13 @@
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { LuLogIn, LuUsersRound } from "react-icons/lu";
-import { AiOutlineAppstoreAdd} from "react-icons/ai";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoIosLogOut, IoMdSettings } from "react-icons/io";
 import { logout, selectCurrentToken } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import bike from '../../assets/logo/bikeLogo.png'
 import { verifyToken } from "../../utils/verifyToken";
-import { IoBarChartSharp } from "react-icons/io5";
+import { IoBarChartSharp, IoCash } from "react-icons/io5";
 const Sidebar = () => {
     const token = useAppSelector(selectCurrentToken);
     let user;
@@ -41,7 +41,7 @@ const Sidebar = () => {
                     <NavLink to='/admin/dash-board' className={({ isActive }) =>
                         `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
                     }>
-                        <IoBarChartSharp  className="text-xl" />
+                        <IoBarChartSharp className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Dashboard</span>
                     </NavLink>
                     <NavLink to='/admin/add-product' className={({ isActive }) =>
@@ -56,11 +56,18 @@ const Sidebar = () => {
                         <LuUsersRound className="text-xl" />
                         <span className="mx-2 text-sm font-medium">Users</span>
                     </NavLink>
+
                     <NavLink to='/admin/all-product' className={({ isActive }) =>
                         `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
                     }>
                         <GiFullMotorcycleHelmet className="text-xl" />
                         <span className="mx-2 text-sm font-medium">All Products</span>
+                    </NavLink>
+                    <NavLink to='/admin/orders' className={({ isActive }) =>
+                        `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
+                    }>
+                        <IoCash className="text-xl" />
+                        <span className="mx-2 text-sm font-medium">Orders</span>
                     </NavLink>
                 </nav>
 
@@ -72,7 +79,7 @@ const Sidebar = () => {
                         <span className="mx-2 text-sm font-medium">Profile</span>
                     </NavLink>
                     {
-                        user ? <div onClick={handleLogOut} className="flex gap-1 mt-3 cursor-pointer hover:bg-gray-100 p-2 rounded-md">
+                        user ? <div onClick={handleLogOut} className="flex relative left-1 gap-1 mt-3 cursor-pointer hover:bg-gray-100 p-2 rounded-md">
                             <IoIosLogOut className="text-xl" />
                             <span className="relative bottom-1">Logout</span>
                         </div> : <Link to='/login'>

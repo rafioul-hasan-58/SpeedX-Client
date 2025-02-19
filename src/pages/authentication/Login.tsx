@@ -8,12 +8,13 @@ import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { IUser } from "../../types/auth.types";
 
+import { LuLoaderCircle } from "react-icons/lu";
 const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
-    const [login, { data, error }] = useLoginMutation();
-    console.log(data, error);
+    const [login, { data, error, isLoading },] = useLoginMutation();
+    console.log(data, error, isLoading);
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
             const userInfo = {
@@ -25,7 +26,7 @@ const Login = () => {
             dispatch(setUser({ user: user, token: res.data.accessToken }));
             if (user?.role === 'admin') {
                 navigate(`/admin/dash-board`)
-            }else{
+            } else {
                 navigate(`/customer/dash-board`)
             }
         } catch (err) {
@@ -45,6 +46,7 @@ const Login = () => {
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="username">Email</label>
                                 <input
+                                    defaultValue={'joyeta@gmail.com'}
                                     className="w-full px-3 py-2 leading-tight text-gray-700 border rounded border-blue-300 appearance-none focus:outline-none focus:shadow-outline bg-gray-100"
                                     {...register('email')}
                                     id="username"
@@ -56,6 +58,7 @@ const Login = () => {
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="username">Password</label>
                                 <input
+                                    defaultValue={123456}
                                     className="w-full px-3 py-2 leading-tight text-gray-700 border rounded border-blue-300 appearance-none focus:outline-none focus:shadow-outline bg-gray-100"
                                     {...register('password')}
                                     name='password'
@@ -64,7 +67,7 @@ const Login = () => {
                                 />
                             </div>
                             <div className="w-full">
-                                <Button style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '0px 0px 0px 0px', fontSize: '16px' }} className="w-full py-2 bg" htmlType="submit">SignUp</Button>
+                                <Button style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '0px 0px 0px 0px', fontSize: '16px' }} className="w-full py-2 bg" htmlType="submit">{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Login'}</Button>
                             </div>
                             <h1 className="text-center mt-2 text-blue-500">New here?<Link className="text-black" to='/register'>Register</Link></h1>
                         </form>
