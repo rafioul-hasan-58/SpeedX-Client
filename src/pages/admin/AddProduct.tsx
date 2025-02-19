@@ -4,8 +4,9 @@ import { useAddProductMutation } from "../../redux/features/admin/productManagem
 import BForm from "../../components/form/BForm";
 import { toast } from "sonner";
 import InputField from "../../components/form/Input/InputField";
+import { LuLoaderCircle } from "react-icons/lu";
 const AddProduct = () => {
-    const [addProduct] = useAddProductMutation()
+    const [addProduct,{isLoading}] = useAddProductMutation()
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const productdata = {
             name: data.name,
@@ -57,7 +58,7 @@ const AddProduct = () => {
                     <InputField placeholder="Stocks" type="number" label="Stocks" name="stocks" />
                     <InputField placeholder="Description" type="text" label="Description" name="description" />
                     <div className="w-full">
-                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">Add Product</Button>
+                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">{isLoading?<LuLoaderCircle className="animate-spin" />:'Add Product'}</Button>
                     </div>
                 </BForm>
             </div>

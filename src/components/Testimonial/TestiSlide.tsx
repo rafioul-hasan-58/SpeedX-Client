@@ -1,17 +1,16 @@
 import { FaQuoteRight } from "react-icons/fa";
-import head from '../../assets/logo/Head.avif'
-const TestiSlide = () => {
+const TestiSlide = ({ description, photo, name, location }: { description: string, photo: string, name: string, location: string }) => {
     return (
         <div className="bg-white w-[450px] ">
             <div>
-                <p className="px-8 py-8 w-[350px]">Powered by the air-cooled, 149cc single-cylinder engine with closed loop fuel injection system, FZ-S FI V2 ensures  </p>
+                <p className="px-8 py-8 w-[350px]">{description}</p>
             </div>
             <div className="flex justify-between px-8">
-                <div className="flex">
-                    <img className="h-[60px] w-[60px]" src={head} alt="" />
+                <div className="flex gap-3">
+                    <img className="rounded-full h-[60px] w-[60px]" src={photo} alt="" />
                     <div>
-                        <h1>Rafioul Hasan</h1>
-                        <p>Gosinga,Sreepur,Gazipur</p>
+                        <h1>{name}</h1>
+                        <p>{location}</p>
                     </div>
                 </div>
                 <div>

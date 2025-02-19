@@ -5,16 +5,30 @@ import { useState } from "react";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { usePressOrderMutation } from "../../redux/features/user/userReletedApi";
+import { toast } from "sonner";
 const CheckOut = () => {
     const [pressOrder] = usePressOrderMutation()
     const [quantity, setQuantity] = useState(1)
     const { id } = useParams()
     const { data } = useGetProductDetailsQuery(id);
     const checkoutData = data?.data;
-    const { register, handleSubmit } = useForm()
-    const onSubmit = async (data: SubmitHandler<FieldValues>) => {
-        const res = await pressOrder({ ...data, productId: id, quantity, buyer: id })
-        console.log(res);
+    const { register, handleSubmit, reset } = useForm()
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const productQuantity = Number(quantity)
+        const orderData = {
+            product: checkoutData._id,
+            quantity: productQuantity,
+            status: 'pending',
+            contact: Number(data.contact),
+            email: data.email,
+            address: data.address,
+        }
+        const res = await pressOrder(orderData)
+        if (res?.data?.success) {
+            toast.success(res?.data?.message)
+            reset()
+        }
+        console.log(res.data.success);
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

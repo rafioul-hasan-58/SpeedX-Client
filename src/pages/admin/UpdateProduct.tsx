@@ -1,15 +1,16 @@
 import { Button, Col, Form, Input } from "antd";
-import { Controller, FieldValues, SubmitHandler} from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import BForm from "../../components/form/BForm";
 import { useNavigate, useParams } from "react-router-dom";
 import InputField from "../../components/form/Input/InputField";
+import { LuLoaderCircle } from "react-icons/lu";
 const UpdateProduct = () => {
-    const [updateProduct] = useUpdateProductMutation()
+    const [updateProduct, { isLoading }] = useUpdateProductMutation()
     const { id } = useParams()
     const { data: datas } = useGetProductDetailsQuery(id);
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const prevData = datas?.data;
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const productdata = {
@@ -67,7 +68,7 @@ const UpdateProduct = () => {
                     <InputField name="stocks" defaultValue={prevData?.stocks} label="Stocks" type="number" />
                     <InputField name="description" defaultValue={prevData?.description} label="Description" type="text" />
                     <div className="w-full">
-                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">Update Product</Button>
+                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Update Product'}</Button>
                     </div>
                 </BForm>
             </div>
