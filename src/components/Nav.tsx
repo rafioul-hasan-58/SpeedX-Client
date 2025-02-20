@@ -7,6 +7,7 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { Button } from "antd";
 import img from '../assets/logo/callLogo.png';
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { setSearchTerm } from "../redux/features/user/userSlice";
 const Nav = () => {
     const { handleSubmit, register } = useForm()
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,8 @@ const Nav = () => {
         navigate('/login')
     }
     const onSearch: SubmitHandler<FieldValues> = (data) => {
-        console.log(data);
+        dispatch(setSearchTerm(data.searchTerm))
+
     }
     return (
         <div className="relative">
@@ -35,9 +37,9 @@ const Nav = () => {
                                     <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">Mousby</h1>
                                 </div>
                                 <div className="flex items-center">
-                                    <form onSubmit={handleSubmit(onSearch)}>
+                                    <form onInput={handleSubmit(onSearch)}>
                                         <input
-                                            {...register('search')}
+                                            {...register('searchTerm')}
                                             style={{ borderRadius: '100px 0px 0px 100px' }}
                                             className="h-[44px] lg:w-[380px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
                                             type="text"

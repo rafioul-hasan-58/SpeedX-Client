@@ -2,25 +2,26 @@ import { Checkbox } from 'antd';
 import BrandCarosel from '../../components/Brands/BrandCarosel';
 import Card from '../../components/Card/Card';
 import { useGetAllProductsQuery } from '../../redux/features/admin/productManagement.Api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '../../components/footer/Footer';
 import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useAppSelector } from '../../redux/hooks';
 interface Filter {
     name: string;
     value: string | number;
 }
 const AllProducts = () => {
-    const [filters, setFilters] = useState<Filter[]>([]);
+    const [queries, setQueries] = useState<Filter[]>([]);
     const { register, handleSubmit } = useForm()
     // console.log(filters);
-    const { data: products } = useGetAllProductsQuery(filters)
+    const { data: products } = useGetAllProductsQuery(queries)
     // console.log(products);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
-            setFilters((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
+            setQueries((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
         } else {
-            setFilters((prevFilters) =>
+            setQueries((prevFilters) =>
                 prevFilters.filter((filter) => filter.value !== value)
             );
         }
@@ -28,8 +29,7 @@ const AllProducts = () => {
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const minPrice = data.minPrice ? Number(data.minPrice) : null;
         const maxPrice = data.maxPrice ? Number(data.maxPrice) : null;
-
-        setFilters((prevFilters) => {
+        setQueries((prevFilters) => {
             const updatedFilters = prevFilters.filter(filter => filter.name !== 'minPrice' && filter.name !== 'maxPrice');
 
             if (minPrice !== null) {
@@ -42,6 +42,19 @@ const AllProducts = () => {
         });
         // console.log(data);
     };
+    const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm)
+    useEffect(() => {
+        setQueries((prevFilters) => {
+            // Remove existing searchTerm filter
+            const updatedFilters = prevFilters.filter(filter => filter.name !== 'searchTerm');
+
+            // Add searchTerm only if it's not empty
+            if (searchTerm.trim() !== '') {
+                updatedFilters.push({ name: 'searchTerm', value: searchTerm });
+            }
+            return updatedFilters;
+        });
+    }, [searchTerm]);
     return (
         <div>
             <div className='mx-[100px] py-12'>
