@@ -22,6 +22,7 @@ const usersManagementApi = baseApi.injectEndpoints({
                     params: params,
                 };
             },
+            providesTags: ['user'],
             transformResponse: (response: TResponseRedux<TUser[]>) => {
                 return {
                     data: response.data,
@@ -46,7 +47,16 @@ const usersManagementApi = baseApi.injectEndpoints({
                 }
             }
         }),
+        deleteUser: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/users/delete/${id}`,
+                    method: 'DELETE'
+                }
+            },
+            invalidatesTags: ['user']
+        }),
     }),
 });
 
-export const { useGetAllUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation } = usersManagementApi;
+export const { useGetAllUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useDeleteUserMutation } = usersManagementApi;

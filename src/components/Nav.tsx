@@ -37,7 +37,7 @@ const Nav = () => {
                                     <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">Mousby</h1>
                                 </div>
                                 <div className="flex items-center">
-                                    <form onInput={handleSubmit(onSearch)}>
+                                    <form onChange={handleSubmit(onSearch)}>
                                         <input
                                             {...register('searchTerm')}
                                             style={{ borderRadius: '100px 0px 0px 100px' }}
@@ -141,6 +141,11 @@ const Nav = () => {
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
                                 } to='/all-products'>
                                     ALL PRODUCTS
+                                </NavLink>
+                                <NavLink className={({ isActive }) =>
+                                    `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
+                                } to='/customer/my-orders'>
+                                    MY ORDERS
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`

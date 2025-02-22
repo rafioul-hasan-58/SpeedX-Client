@@ -15,6 +15,8 @@ import AllProduct from "../pages/admin/AllProduct";
 import MyProfile from "../pages/universal/MyProfile";
 import PrivetRoute from "./PrivateRoute";
 import Order from "../pages/admin/Order";
+import VerifyOrder from "../pages/Customer/VerifyOrder";
+import MyOrders from "../pages/Customer/MyOrders";
 
 
 export const router = createBrowserRouter([
@@ -83,6 +85,14 @@ export const router = createBrowserRouter([
         path: 'product-details/:id',
         element: <PrivetRoute role="customer"><ProductDetails /></PrivetRoute>
       },
+      {
+        path:'verify-order',
+        element:<VerifyOrder/>
+      },
+      {
+        path:'my-orders',
+        element:<MyOrders/>
+      }
     ]
   },
   {

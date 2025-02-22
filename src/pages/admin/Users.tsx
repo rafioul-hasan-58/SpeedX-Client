@@ -1,14 +1,34 @@
 import Loader from '../../components/Loader/Loader';
 import head from '../../assets/logo/Head.avif'
-import { useGetAllUsersQuery } from "../../redux/features/admin/userManagement.Api";
+import { useDeleteUserMutation, useGetAllUsersQuery } from "../../redux/features/admin/userManagement.Api";
 import { Button } from "antd";
+import Swal from 'sweetalert2';
 
 const Users = () => {
-    const { data: users,isFetching } = useGetAllUsersQuery(undefined)
+    const { data: users, isFetching } = useGetAllUsersQuery(undefined)
+    const [deleteUser] = useDeleteUserMutation()
     const handleDelete = (id: string) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteUser(id)
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
         console.log(id);
     }
-    if(isFetching) return <Loader/>
+    if (isFetching) return <Loader />
     return (
         <div>
             <section className="container px-4 mx-auto">

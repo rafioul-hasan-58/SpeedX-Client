@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import InputField from "../../components/form/Input/InputField";
 import { LuLoaderCircle } from "react-icons/lu";
 const AddProduct = () => {
-    const [addProduct,{isLoading}] = useAddProductMutation()
+    const [addProduct,{isLoading,error}] = useAddProductMutation()
+    console.log(error);
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const productdata = {
             name: data.name,

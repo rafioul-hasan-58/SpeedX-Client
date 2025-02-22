@@ -6,30 +6,40 @@ import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { usePressOrderMutation } from "../../redux/features/user/userReletedApi";
 import { toast } from "sonner";
+import { LuLoaderCircle } from "react-icons/lu";
 const CheckOut = () => {
-    const [pressOrder] = usePressOrderMutation()
+    const [pressOrder, { isLoading, error }] = usePressOrderMutation()
+    if (error) {
+        toast.error(error?.data?.errorSources[0].message)
+    }
+    console.log();
     const [quantity, setQuantity] = useState(1)
     const { id } = useParams()
     const { data } = useGetProductDetailsQuery(id);
     const checkoutData = data?.data;
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const productQuantity = Number(quantity)
         const orderData = {
             product: checkoutData._id,
             quantity: productQuantity,
-            status: 'pending',
+            status: 'Pending',
             contact: Number(data.contact),
             email: data.email,
             address: data.address,
         }
         const res = await pressOrder(orderData)
         if (res?.data?.success) {
+
             toast.success(res?.data?.message)
+            setTimeout(() => {
+            }, 2000);
             reset()
+            window.location.href = res?.data?.data?.payment?.checkout_url
         }
-        console.log(res.data.success);
+
     }
+    const errorSize = Object.keys(errors).length;
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className=" flex justify-between mx-24 gap-5">
@@ -37,47 +47,50 @@ const CheckOut = () => {
                     <div>
                         <h1 className="text-[17px] mb-2 font-semibold h-[50px] p-3 bg-white">Customer Information</h1>
                     </div>
-                    <div className="bg-white p-4 lg:h-[520px] mb-10">
-
+                    <div className={`bg-white p-4 mb-10 lg:h-[${520 + errorSize * 20}px]`}>
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-semibold text-gray-500">Full Name</label>
                             <input
                                 className="w-full pl-5 py-3.5 border-gray-300  text-gray-700 border focus:outline-none focus:shadow-outline placeholder-gray-500"
-                                {...register('name')}
+                                {...register("name", { required: "Name is required" })}
                                 name='name'
                                 type="text"
                                 placeholder="Enter your name"
                             />
+                            {errors.name && <p className="text-red-500">{errors.name.message as string}</p>}
                         </div>
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-semibold text-gray-500">Address Line</label>
                             <input
                                 className="w-full pl-5 pt-3 pb-6 border-gray-300  text-gray-700 border focus:outline-none focus:shadow-outline placeholder-gray-500"
-                                {...register('address')}
+                                {...register('address', { required: "Address is required" })}
                                 name='address'
                                 type="text"
                                 placeholder="Enter your Adress"
                             />
+                            {errors.address && <p className="text-red-500">{errors.address.message as string}</p>}
                         </div>
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-semibold text-gray-500">Email</label>
                             <input
                                 className="w-full pl-5 py-3.5 border-gray-300  text-gray-700 border focus:outline-none focus:shadow-outline placeholder-gray-500"
-                                {...register('email')}
+                                {...register('email', { required: "email is required" })}
                                 name='email'
                                 type="email"
                                 placeholder="Enter your email"
                             />
+                            {errors.email && <p className="text-red-500">{errors.email.message as string}</p>}
                         </div>
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-semibold text-gray-500">Phone Number</label>
                             <input
                                 className="w-full pl-5 py-3.5 border-gray-300  text-gray-700 border focus:outline-none focus:shadow-outline placeholder-gray-500"
-                                {...register('contact')}
+                                {...register('contact', { required: "Contact is required" })}
                                 name='contact'
                                 type="number"
                                 placeholder="Enter your Number"
                             />
+                            {errors.contact && <p className="text-red-500">{errors.contact.message as string}</p>}
                         </div>
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-semibold text-gray-500">Order Note</label>
@@ -132,7 +145,7 @@ const CheckOut = () => {
                                 <p>BDT {quantity * checkoutData?.price}</p>
                             </div>
                             <div>
-                                <Button htmlType="submit" className="w-full mb-5 uppercase" style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '100px 100px 100px 100px', padding: '20px 0px 20px 0px', fontSize: '15px' }} >Purchase</Button>
+                                <Button htmlType="submit" className="w-full mb-5 uppercase" style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '100px 100px 100px 100px', padding: '20px 0px 20px 0px', fontSize: '15px' }} >{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Order Now'}</Button>
                             </div>
                         </div>
                     </div>
