@@ -70,6 +70,6 @@ import {
   export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQuery,
-    tagTypes:['product','order','orders','user'],
+    tagTypes:['product','order','orders','user','profile'],
     endpoints: () => ({}),
   });

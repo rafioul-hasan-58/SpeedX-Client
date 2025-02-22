@@ -8,6 +8,18 @@ import { Button } from "antd";
 import img from '../assets/logo/callLogo.png';
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { setSearchTerm } from "../redux/features/user/userSlice";
+import { useGetMyProfileQuery, useUpdateProfileMutation } from "../redux/features/admin/userManagement.Api";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger
+} from "../components/ui/popover"
+import { RxDashboard } from "react-icons/rx";
+import { MdOutlineBarChart } from "react-icons/md";
+import { FaGoogleWallet } from "react-icons/fa";
+import { IoMdLogOut } from "react-icons/io";
+import { toast } from "sonner";
 const Nav = () => {
     const { handleSubmit, register } = useForm()
     const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +33,30 @@ const Nav = () => {
     const onSearch: SubmitHandler<FieldValues> = (data) => {
         dispatch(setSearchTerm(data.searchTerm))
 
+    }
+    const { data } = useGetMyProfileQuery(user?.email)
+    const realUser = data?.data
+    const [updateUser] = useUpdateProfileMutation()
+    const handleProfileUpdate: SubmitHandler<FieldValues> = async (data) => {
+        const image = data.image[0]
+
+        const updateData = {
+            name: data.name,
+            email: data.email
+        }
+        const formData = new FormData();
+        formData.append('data', JSON.stringify(updateData));
+        formData.append('file', image)
+        console.log(formData);
+        const finalData = {
+            id: realUser?._id,
+            data: formData
+        }
+        const res = await updateUser(finalData)
+        if (res.data.success) {
+            toast.success('Profile Updated Successfully')
+            setIsOpen(false)
+        }
     }
     return (
         <div className="relative">
@@ -70,11 +106,107 @@ const Nav = () => {
                                 </div>
                                 {
                                     user ?
-                                        <div onClick={() => dispatch(logout())} className="flex bg-sky-400 px-3 py-2 rounded-full items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative  left-2 z-40 feather text-white feather-user" width="18" height="18">
-                                                <path d="M12 2C10.343 2 9 3.343 9 5s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 13c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5z"></path>
-                                            </svg>
-                                            <Button className="focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white' }}>LogOut</Button>
+                                        <div className="flex gap-2">
+                                            <div onClick={() => dispatch(logout())} className="flex lg:h-[50px] w-[120px] bg-sky-400 px-3 py-2 rounded-full items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative  left-2 z-40 feather text-white feather-user" width="18" height="18">
+                                                    <path d="M12 2C10.343 2 9 3.343 9 5s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 13c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5z"></path>
+                                                </svg>
+                                                <Button className="focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white' }}>Logout</Button>
+                                            </div>
+                                            <div>
+
+                                                <Popover>
+                                                    <PopoverTrigger asChild>
+                                                        <img
+                                                            className="cursor-pointer w-[50px] h-[50px] rounded-full"
+                                                            src={realUser?.image}
+                                                            alt="Profile"
+                                                        />
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-80 border border-sky-500bg-gradient-to-b from-sky-400 to-gray-100 mr-3 mt-2">
+                                                        <div className="">
+                                                            <div className="flex justify-center">
+                                                                <img className="cursor-pointer w-[50px] h-[50px] rounded-full" src={realUser?.image} alt="" />
+                                                            </div>
+                                                            <h1 className="text-xl font-semibold text-center py-2">{realUser?.name}</h1>
+                                                            <div className="flex justify-center">
+                                                                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                                                                    <DialogTrigger asChild>
+                                                                        <Button style={{ backgroundColor: '#0EA5E9', color: 'white' }}>Edit Profile</Button>
+                                                                    </DialogTrigger>
+                                                                    <DialogContent className="sm:max-w-[425px]">
+                                                                        <DialogHeader>
+                                                                            <DialogTitle>Edit profile</DialogTitle>
+                                                                            <DialogDescription>
+                                                                                Make changes to your profile here. Click save when you're done.
+                                                                            </DialogDescription>
+                                                                        </DialogHeader>
+                                                                        <div className="grid gap-4 py-4">
+                                                                            <form onSubmit={handleSubmit(handleProfileUpdate)}>
+                                                                                <div className="mb-4 flex ">
+                                                                                    <p className="text-left w-[65px] mt-1">Name</p>
+                                                                                    <input
+                                                                                        className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
+                                                                                        defaultValue={realUser?.name}
+                                                                                        {...register('name')}
+                                                                                        name='name'
+                                                                                        type="text"
+                                                                                        placeholder="Name"
+                                                                                    />
+                                                                                </div>
+                                                                                <div className="mb-4 flex ">
+                                                                                    <p className="text-left mt-1 w-[65px]">Image</p>
+                                                                                    <input
+                                                                                        className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
+                                                                                        {...register('image')}
+                                                                                        name='image'
+                                                                                        type="file"
+                                                                                        placeholder="Image"
+                                                                                    />
+                                                                                </div>
+                                                                                <div className="mb-4 flex ">
+                                                                                    <p className="text-left mt-1 w-[65px]">Email</p>
+                                                                                    <input
+                                                                                        className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
+                                                                                        defaultValue={realUser?.email}
+                                                                                        {...register('email')}
+                                                                                        name='email'
+                                                                                        type="text"
+                                                                                        placeholder="Email"
+                                                                                    />
+                                                                                </div>
+
+                                                                                <DialogFooter>
+                                                                                    <Button style={{ backgroundColor: '#0EA5E9', color: 'white' }} htmlType="submit">Save changes</Button>
+                                                                                </DialogFooter>
+                                                                            </form>
+                                                                        </div>
+
+                                                                    </DialogContent>
+                                                                </Dialog>
+                                                            </div>
+
+                                                            <div className="block">
+                                                                <ul className="divide-y divide-gray-300  mt-2">
+                                                                    <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
+                                                                        <NavLink className={`flex gap-1`} to='/all-products' ><RxDashboard className="relative top-1" />All Products</NavLink>
+                                                                    </li>
+                                                                    <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
+                                                                        <NavLink className={`flex gap-1`} to='/customer/dash-board'><MdOutlineBarChart className="relative top-1" />Dashboard</NavLink>
+                                                                    </li>
+                                                                    <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
+                                                                        <NavLink className={`flex gap-1`} to='/customer/my-orders'><FaGoogleWallet className="relative top-1" />Orders</NavLink>
+                                                                    </li>
+                                                                    <li onClick={() => dispatch(logout())} className="hover:bg-sky-400  hover:text-white py-1 px-2 w-full">
+                                                                        <NavLink className={`flex gap-1`} to='/customer/my-orders'><IoMdLogOut className="relative top-1" />Logout</NavLink>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </PopoverContent>
+                                                </Popover>
+
+                                            </div>
                                         </div> : <Link to='/login'>
                                             <div className="flex bg-sky-400 px-3 py-2 rounded-full items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative  left-2 z-40 feather text-white feather-user" width="18" height="18">

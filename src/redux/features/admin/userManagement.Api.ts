@@ -36,7 +36,8 @@ const usersManagementApi = baseApi.injectEndpoints({
                     url: `/users/get-profile/${email}`,
                     method: 'GET',
                 }
-            }
+            },
+            providesTags:['profile']
         }),
         updateProfile: builder.mutation({
             query: (args) => {
@@ -45,7 +46,8 @@ const usersManagementApi = baseApi.injectEndpoints({
                     method: 'PATCH',
                     body: args.data
                 }
-            }
+            },
+            invalidatesTags:['profile']
         }),
         deleteUser: builder.mutation({
             query: (id) => {
