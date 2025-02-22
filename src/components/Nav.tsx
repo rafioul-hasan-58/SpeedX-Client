@@ -3,7 +3,6 @@ import bike from '../assets/logo/bikeLogo.png'
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logout, selectCurrentUser } from "../redux/features/auth/authSlice";
-import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { Button } from "antd";
 import img from '../assets/logo/callLogo.png';
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -20,10 +19,10 @@ import { MdOutlineBarChart } from "react-icons/md";
 import { FaGoogleWallet } from "react-icons/fa";
 import { IoMdLogOut } from "react-icons/io";
 import { toast } from "sonner";
+import { LuBadgeInfo } from "react-icons/lu";
 const Nav = () => {
     const { handleSubmit, register } = useForm()
     const [isOpen, setIsOpen] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const user = useAppSelector(selectCurrentUser);
@@ -59,9 +58,8 @@ const Nav = () => {
         }
     }
     return (
-        <div className="relative">
-            <div className={`top-0 left-0 w-full  p-4 transition-transform duration-500 ${isVisible ? "translate-y-0" : "-translate-y-full fixed"
-                }`}>
+        <div className="h-[190px]">
+            <div className={`top-0 left-0 w-full  p-4 transition-transform duration-500`}>
                 {/* search logo */}
                 <div>
                     <nav className=" my-3  px-20 border-b-[1px] border-b-gray-200">
@@ -189,10 +187,14 @@ const Nav = () => {
                                                             <div className="block">
                                                                 <ul className="divide-y divide-gray-300  mt-2">
                                                                     <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
-                                                                        <NavLink className={`flex gap-1`} to='/all-products' ><RxDashboard className="relative top-1" />All Products</NavLink>
+                                                                        <NavLink className={`flex gap-1`} to='/customer/all-products' ><RxDashboard className="relative top-1" />All Products</NavLink>
                                                                     </li>
                                                                     <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
-                                                                        <NavLink className={`flex gap-1`} to='/customer/dash-board'><MdOutlineBarChart className="relative top-1" />Dashboard</NavLink>
+                                                                        <NavLink className={`flex gap-1`} to='/customer/dashboard'><MdOutlineBarChart className="relative top-1" />Dashboard</NavLink>
+                                                                    </li>
+                                                                    <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
+                                                                        <NavLink className={`flex gap-1`} to='/customer/about'><LuBadgeInfo
+                                                                            className="relative top-1" />About</NavLink>
                                                                     </li>
                                                                     <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
                                                                         <NavLink className={`flex gap-1`} to='/customer/my-orders'><FaGoogleWallet className="relative top-1" />Orders</NavLink>
@@ -266,12 +268,12 @@ const Nav = () => {
                             <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:gap-3">
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
-                                } to='/customer/dash-board'>
+                                } to='/customer/dashboard'>
                                     DASHBOARD
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
-                                } to='/all-products'>
+                                } to='/customer/all-products'>
                                     ALL PRODUCTS
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>
@@ -281,7 +283,7 @@ const Nav = () => {
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
-                                } to='/'>
+                                } to='/customer/about'>
                                     ABOUT
                                 </NavLink>
                             </div>
@@ -289,11 +291,11 @@ const Nav = () => {
                     </div>
                 </nav>
             </div>
-            <div className={`mx-3 cursor-pointer ${isVisible ? 'relative bottom-5' : 'mt-5'}`}>
+            {/* <div className={`mx-3 cursor-pointer ${isVisible ? 'relative bottom-5' : 'mt-5'}`}>
                 {
                     isVisible ? < MdExpandLess onClick={() => setIsVisible(!isVisible)} className="text-2xl text-sky-400" /> : <MdExpandMore onClick={() => setIsVisible(!isVisible)} className="text-2xl text-sky-400" />
                 }
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -3,7 +3,6 @@ import BrandCarosel from '../../components/Brands/BrandCarosel';
 import Card from '../../components/Card/Card';
 import { useGetAllProductsQuery } from '../../redux/features/admin/productManagement.Api';
 import { useEffect, useState } from 'react';
-import Footer from '../../components/footer/Footer';
 import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../redux/hooks';
@@ -133,7 +132,6 @@ const AllProducts = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };

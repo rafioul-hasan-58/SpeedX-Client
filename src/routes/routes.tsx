@@ -8,15 +8,14 @@ import Login from "../pages/authentication/Login";
 import CustomerDashboard from "../pages/Customer/CustomerDashboard";
 import AllProducts from "../pages/universal/AllProducts";
 import ProductDetails from "../pages/universal/ProductDetails";
-import Home from "../pages/universal/Home";
 import CheckOut from "../pages/Customer/CheckOut";
 import Users from "../pages/admin/Users";
 import AllProduct from "../pages/admin/AllProduct";
 import MyProfile from "../pages/universal/MyProfile";
 import PrivetRoute from "./PrivateRoute";
-import Order from "../pages/admin/Order";
 import VerifyOrder from "../pages/Customer/VerifyOrder";
 import MyOrders from "../pages/Customer/MyOrders";
+import About from "../pages/universal/About";
 
 
 export const router = createBrowserRouter([
@@ -25,17 +24,10 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <Home />
-      },
-      {
         path: '/my-profile',
         element: <MyProfile />
       },
-      {
-        path: 'all-products',
-        element: <PrivetRoute role="customer"><AllProducts /></PrivetRoute>
-      },
+     
     ]
   },
   {
@@ -62,10 +54,6 @@ export const router = createBrowserRouter([
         path: 'all-product',
         element: <PrivetRoute role="admin"><AllProduct /></PrivetRoute>
       },
-      {
-        path:'orders',
-        element:<Order/>
-      }
     ]
   },
   {
@@ -86,15 +74,28 @@ export const router = createBrowserRouter([
         element: <PrivetRoute role="customer"><ProductDetails /></PrivetRoute>
       },
       {
-        path:'verify-order',
-        element:<VerifyOrder/>
+        path: 'verify-order',
+        element: <PrivetRoute role="customer"><VerifyOrder /></PrivetRoute>
       },
       {
-        path:'my-orders',
-        element:<MyOrders/>
-      }
+        path: 'my-orders',
+        element: <PrivetRoute role="customer"><MyOrders /></PrivetRoute>
+      },
+      {
+        path: 'dashboard',
+        element: <PrivetRoute role="customer"><CustomerDashboard/></PrivetRoute>
+      },
+      {
+        path: 'all-products',
+        element: <PrivetRoute role="customer"><AllProducts /></PrivetRoute>
+      },
+      {
+        path: 'about',
+        element: <PrivetRoute role="customer"><About /></PrivetRoute>
+      },
     ]
   },
+
   {
     path: '/register',
     element: <Register />
