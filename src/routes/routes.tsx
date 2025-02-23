@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: 'dash-board',
+        path: 'dashboard',
         element: <PrivetRoute role="admin"><AdminDashboard /></PrivetRoute>
       },
       {

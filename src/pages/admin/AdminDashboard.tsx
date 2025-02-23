@@ -7,11 +7,11 @@ import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
-import { toast } from "sonner";
 import Swal from "sweetalert2";
 const AdminDashboard = () => {
   // states
-  const [status, setStatus] = useState('Pending');
+  const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
+  const [status, setStatus] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   // today sale
   const { data: totalSale } = useGetTodaysSaleQuery(undefined)
@@ -21,43 +21,39 @@ const AdminDashboard = () => {
   const allOrders = orders?.data
   const [upgradeStatus] = useChangeStatusMutation();
   const [deleteOrder] = useDeleteOrderMutation()
-  const changeStatus = async (id: string) => {
+  const handleSubmit = async (id: string | null) => {
     const updatedData = {
       id,
       data: {
         status
       }
     }
-    console.log(updatedData);
+
     const res = await upgradeStatus(updatedData)
-    if (res?.data.success) {
+    if (res.data) {
       setIsOpen(false)
     }
-    console.log(res);
+
   }
   const deleteOrderData = async (id: string) => {
-      Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    deleteOrder(id)
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
-                }
-            });
-    // const res = await deleteOrder(id)
-    // if (res?.data?.success) {
-    //   toast.success('User deleted successfully')
-    // }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteOrder(id)
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
   }
   return (
     <div>
@@ -119,10 +115,12 @@ const AdminDashboard = () => {
                             <td className="px-4 py-4 text-sm font-semibold text-gray-500 whitespace-nowrap flex gap-1 relative top-1">
                               <Dialog open={isOpen} onOpenChange={setIsOpen}>
                                 <DialogTrigger asChild>
-                                  <Button  variant="outline">{item?.status}</Button>
+                                  <Button variant="outline" onClick={() => setSelectedOrder(item?._id)}>
+                                    {item?.status}
+                                  </Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
-                                  <Select defaultValue={status} onValueChange={(value) => setStatus(value)}>
+                                  <Select defaultValue={item?.status} onValueChange={(value) => setStatus(value)}>
                                     <SelectTrigger className="w-[180px]">
                                       <SelectValue placeholder="Change role" />
                                     </SelectTrigger>
@@ -133,10 +131,11 @@ const AdminDashboard = () => {
                                     </SelectContent>
                                   </Select>
                                   <DialogFooter>
-                                    <Button onClick={() => changeStatus(item?._id)} type="button">Save changes</Button>
+                                    <Button onClick={() => handleSubmit(selectedOrder)}>Save Change</Button>
                                   </DialogFooter>
                                 </DialogContent>
                               </Dialog>
+
                             </td>
                             <td className="relative px-4 py-4 text-sm font-semibold text-gray-500 whitespace-nowrap">
                               <div className="relative inline-block">

@@ -7,14 +7,14 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { IUser } from "../../types/auth.types";
-
 import { LuLoaderCircle } from "react-icons/lu";
+import { toast } from "sonner";
 const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
-    const [login, { data, error, isLoading },] = useLoginMutation();
-    console.log(data, error, isLoading);
+    const [login, { isLoading }] = useLoginMutation();
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
             const userInfo = {
@@ -22,15 +22,18 @@ const Login = () => {
                 password: data.password,
             };
             const res = await login(userInfo).unwrap();
+            if (res?.success) {
+                toast.success(res?.message)
+            }
             const user = verifyToken(res.data.accessToken) as IUser;
             dispatch(setUser({ user: user, token: res.data.accessToken }));
             if (user?.role === 'admin') {
-                navigate(`/admin/dash-board`)
+                navigate(`/admin/dashboard`)
             } else {
-                navigate(`/customer/dash-board`)
+                navigate(`/customer/dashboard`)
             }
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
+            toast.error(err?.data?.message)
         }
     }
     return (
