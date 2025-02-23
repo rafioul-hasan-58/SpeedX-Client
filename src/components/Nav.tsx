@@ -17,9 +17,10 @@ import {
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlineBarChart } from "react-icons/md";
 import { FaGoogleWallet } from "react-icons/fa";
-import { IoMdLogOut } from "react-icons/io";
+import { IoIosLogOut } from "react-icons/io";
 import { toast } from "sonner";
-import { LuBadgeInfo } from "react-icons/lu";
+import { LuBadgeInfo, LuLoaderCircle } from "react-icons/lu";
+import { IoHome } from "react-icons/io5";
 const Nav = () => {
     const { handleSubmit, register } = useForm()
     const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +36,7 @@ const Nav = () => {
     }
     const { data } = useGetMyProfileQuery(user?.email)
     const realUser = data?.data
-    const [updateUser] = useUpdateProfileMutation()
+    const [updateUser, { isLoading }] = useUpdateProfileMutation()
     const handleProfileUpdate: SubmitHandler<FieldValues> = async (data) => {
         const image = data.image[0]
 
@@ -58,7 +59,7 @@ const Nav = () => {
         }
     }
     return (
-        <div className="h-[190px]">
+        <div className=" h-[190px]">
             <div className={`top-0 left-0 w-full  p-4 transition-transform duration-500`}>
                 {/* search logo */}
                 <div>
@@ -68,7 +69,7 @@ const Nav = () => {
                             <div className="flex gap-20 items-center ">
                                 <div className="lg:block hidden gap-1">
                                     <img className="w-16 h-16" src={bike} alt="" />
-                                    <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">Mousby</h1>
+                                    <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">SpeedX</h1>
                                 </div>
                                 <div className="flex items-center">
                                     <form onChange={handleSubmit(onSearch)}>
@@ -105,18 +106,14 @@ const Nav = () => {
                                 {
                                     user ?
                                         <div className="flex gap-2">
-                                            <div onClick={() => dispatch(logout())} className="flex lg:h-[50px] w-[120px] bg-sky-400 px-3 py-2 rounded-full items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative  left-2 z-40 feather text-white feather-user" width="18" height="18">
-                                                    <path d="M12 2C10.343 2 9 3.343 9 5s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 13c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5z"></path>
-                                                </svg>
-                                                <Button className="focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white' }}>Logout</Button>
+                                            <div className="text-3xl text-sky-500 relative right-5 top-2 cursor-pointer">
+                                                <Link to='/customer/dashboard'><IoHome /></Link>
                                             </div>
                                             <div>
-
                                                 <Popover>
                                                     <PopoverTrigger asChild>
                                                         <img
-                                                            className="cursor-pointer w-[50px] h-[50px] rounded-full"
+                                                            className="border border-sky-400 cursor-pointer w-[50px] h-[50px] rounded-full"
                                                             src={realUser?.image}
                                                             alt="Profile"
                                                         />
@@ -124,7 +121,7 @@ const Nav = () => {
                                                     <PopoverContent className="w-80 border border-sky-500bg-gradient-to-b from-sky-400 to-gray-100 mr-3 mt-2">
                                                         <div className="">
                                                             <div className="flex justify-center">
-                                                                <img className="cursor-pointer w-[50px] h-[50px] rounded-full" src={realUser?.image} alt="" />
+                                                                <img className="border border-sky-400 cursor-pointer w-[50px] h-[50px] rounded-full" src={realUser?.image} alt="" />
                                                             </div>
                                                             <h1 className="text-xl font-semibold text-center py-2">{realUser?.name}</h1>
                                                             <div className="flex justify-center">
@@ -167,6 +164,7 @@ const Nav = () => {
                                                                                     <input
                                                                                         className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
                                                                                         defaultValue={realUser?.email}
+                                                                                        disabled
                                                                                         {...register('email')}
                                                                                         name='email'
                                                                                         type="text"
@@ -175,7 +173,7 @@ const Nav = () => {
                                                                                 </div>
 
                                                                                 <DialogFooter>
-                                                                                    <Button style={{ backgroundColor: '#0EA5E9', color: 'white' }} htmlType="submit">Save changes</Button>
+                                                                                    <Button style={{ backgroundColor: '#0EA5E9', color: 'white' }} htmlType="submit">{isLoading ? <LuLoaderCircle className="animate-spin " /> : 'Save Changes'}</Button>
                                                                                 </DialogFooter>
                                                                             </form>
                                                                         </div>
@@ -200,7 +198,7 @@ const Nav = () => {
                                                                         <NavLink className={`flex gap-1`} to='/customer/my-orders'><FaGoogleWallet className="relative top-1" />Orders</NavLink>
                                                                     </li>
                                                                     <li onClick={() => dispatch(logout())} className="hover:bg-sky-400  hover:text-white py-1 px-2 w-full">
-                                                                        <NavLink className={`flex gap-1`} to='/customer/my-orders'><IoMdLogOut className="relative top-1" />Logout</NavLink>
+                                                                        <NavLink className={`flex gap-1`} to='/customer/my-orders'> <IoIosLogOut className="relative top-1.5" />Logout</NavLink>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -291,11 +289,6 @@ const Nav = () => {
                     </div>
                 </nav>
             </div>
-            {/* <div className={`mx-3 cursor-pointer ${isVisible ? 'relative bottom-5' : 'mt-5'}`}>
-                {
-                    isVisible ? < MdExpandLess onClick={() => setIsVisible(!isVisible)} className="text-2xl text-sky-400" /> : <MdExpandMore onClick={() => setIsVisible(!isVisible)} className="text-2xl text-sky-400" />
-                }
-            </div> */}
         </div>
     );
 };

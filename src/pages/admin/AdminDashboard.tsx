@@ -1,7 +1,7 @@
 import RevenueChart from "../../components/Charts/ReviewChart";
 import Barchart from "../../components/Charts/Barchart";
 import LevelChart from "../../components/Charts/LavelChart";
-import { useChangeStatusMutation, useDeleteOrderMutation, useGetAllOrdersQuery, useGetTodaysSaleQuery } from "../../redux/features/user/userReletedApi";
+import { useChangeStatusMutation, useDeleteOrderMutation, useGetAllOrdersQuery, useGetTodaysSaleQuery, useGetTotalSaleQuery } from "../../redux/features/user/userReletedApi";
 import moment from "moment";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
@@ -11,12 +11,16 @@ import Swal from "sweetalert2";
 const AdminDashboard = () => {
   // states
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('Pending');
   const [isOpen, setIsOpen] = useState(false);
   // today sale
-  const { data: totalSale } = useGetTodaysSaleQuery(undefined)
-  const todaysSale = Number((totalSale?.data?.totalSale) / 1000).toFixed(1);
-  const soldItems = totalSale?.data.items;
+  const { data: todaysData } = useGetTodaysSaleQuery(undefined)
+  const { data: totalSale } = useGetTotalSaleQuery(undefined)
+  console.log(totalSale);
+  const todaysSale = Number((todaysData?.data?.totalSale) / 1000).toFixed(0);
+  const todaysRevenue = (Number(todaysSale) * 0.15).toFixed(0);
+  const totalRevenue = Number((totalSale?.data?.totalRevenue)/1000)
+  const soldItems = todaysData?.data.items;
   const { data: orders } = useGetAllOrdersQuery(undefined)
   const allOrders = orders?.data
   const [upgradeStatus] = useChangeStatusMutation();
@@ -56,14 +60,32 @@ const AdminDashboard = () => {
     });
   }
   return (
-    <div>
-      <div className="flex gap-12 bg-white p-4 lg:w-[350px]">
-        <div>
-          <h1 className="text-xl font-semibold text-gray-600">Todays Sales</h1>
-          <h1 className="text-[22px] font-bold py-1">${todaysSale}k</h1>
-          <h1 className=" text-gray-500">we have sold {soldItems} products</h1>
+    <div className="mx-10 mt-6">
+      <div className="grid grid-cols-3">
+        <div className="flex gap-12 bg-white p-4 lg:w-[350px]">
+          <div>
+            <h1 className="text-xl font-semibold text-gray-600">Todays Sales</h1>
+            <h1 className="text-[22px] font-bold py-1 text-sky-400">€{todaysSale}k</h1>
+            <h1 className=" text-gray-500">we have sold {soldItems} products</h1>
+          </div>
+          <RevenueChart color={'#38BDF8'} value1={75} value2={25} />
         </div>
-        <RevenueChart />
+        <div className="flex gap-12 bg-white p-4 lg:w-[350px]">
+          <div>
+            <h1 className="text-xl font-semibold text-gray-600">Todays Revenue</h1>
+            <h1 className="text-[22px] font-bold py-1 text-green-500">€{todaysRevenue}k</h1>
+            <h1 className=" text-gray-500">we have sold {soldItems} products</h1>
+          </div>
+          <RevenueChart color={'#22c55e'} value1={61} value2={39} />
+        </div>
+        <div className="flex gap-12 bg-white p-4 lg:w-[350px]">
+          <div>
+            <h1 className="text-xl font-semibold text-gray-600">Total Revenue</h1>
+            <h1 className="text-[22px] font-bold py-1 text-[#F4A261]">€{totalRevenue}k</h1>
+            <h1 className=" text-gray-500">we have sold {soldItems} products</h1>
+          </div>
+          <RevenueChart color={'#F4A261'} value1={45} value2={55} />
+        </div>
       </div>
       <div className="mt-5 flex">
         <Barchart />
@@ -78,7 +100,7 @@ const AdminDashboard = () => {
                 <h1 className="text-2xl font-bold text-sky-400  my-6 pt-3">Latest Orders</h1>
               </div>
               <div className=" sm:-mx-6 ">
-                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="inline-block min-w-full py-2 align-middle md:px-6 px-0">
                   <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-200 ">
                       <thead className="bg-sky-400 ">

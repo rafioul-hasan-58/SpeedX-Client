@@ -92,6 +92,7 @@ const MyProfile = () => {
                                         <input
                                             className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
                                             defaultValue={userData?.data?.email}
+                                            disabled
                                             {...register('email')}
                                             name='email'
                                             type="text"

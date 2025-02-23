@@ -2,17 +2,16 @@ import { Link, useParams } from "react-router-dom";
 import { useGetProductDetailsQuery } from "../../redux/features/admin/productManagement.Api";
 import { Button } from "antd";
 import { BsInfoCircle } from "react-icons/bs";
-import Footer from "../../components/footer/Footer";
 const ProductDetails = () => {
     const { id } = useParams()
     const { data } = useGetProductDetailsQuery(id)
     const details = data?.data
     return (
-        <div>
-            <div className="mx-30  ">
+        <div className="mx-20">
+            <div className="">
                 <div className="flex  gap-6 bg-white">
                     <div>
-                        <img className="w-[600px] h-[400px] border-r-[1px] border-gray-300" src={details?.image} alt="" />
+                        <img className="lg:w-[600px] lg:h-[400px] border-[1px] border-sky-400 " src={details?.image} alt="" />
                     </div>
                     <div className="mt-8">
                         <h1 className="text-4xl font-bold uppercase mb-4 text-red-500">{details?.brandName}</h1>
@@ -41,12 +40,11 @@ const ProductDetails = () => {
                             <h1 className="uppercase text-xl font-semibold">Description</h1>
                         </div>
                     </div>
-                    <p className="px-10 py-8 text-lg text-gray-600 mb-10">
+                    <p className="px-10 py-8 text-lg text-gray-600 pb-10">
                         {details?.description}
                     </p>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };

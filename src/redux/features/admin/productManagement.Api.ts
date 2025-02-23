@@ -18,9 +18,15 @@ const productManagementApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getAvailableStocks: builder.query({
+      query: () => ({
+        url: `/products/get-available-stocks`,
+        method: 'GET',
+      }),
+    }),
     getAllProducts: builder.query({
       query: (args) => {
-        console.log('args',args);
+        console.log('args', args);
         const params = new URLSearchParams();
         if (args) {
           args.forEach((item: TQueryParam) => {
@@ -46,7 +52,7 @@ const productManagementApi = baseApi.injectEndpoints({
       query: (args) => ({
         url: `/products/update-product/${args.id}`,
         method: 'PATCH',
-        body:args.data
+        body: args.data
       }),
       invalidatesTags: ['product']
     }),
@@ -60,4 +66,4 @@ const productManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddProductMutation, useGetAllProductsQuery, useGetProductDetailsQuery, useRemoveProductMutation,useUpdateProductMutation} = productManagementApi;
+export const { useAddProductMutation, useGetAllProductsQuery, useGetProductDetailsQuery, useRemoveProductMutation, useUpdateProductMutation,useGetAvailableStocksQuery } = productManagementApi;

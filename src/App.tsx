@@ -17,7 +17,7 @@ const App = () => {
   return (
     <div>
       {
-        user?.role === 'admin' ? <PrivetRoute role={undefined}><AdminLayout /></PrivetRoute> : <PrivetRoute role={undefined}><MainLayout /></PrivetRoute>
+        user?.role === 'admin' ? <PrivetRoute role={undefined}><AdminLayout /></PrivetRoute> :<MainLayout />
       }
     </div>
   );

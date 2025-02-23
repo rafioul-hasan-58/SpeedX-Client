@@ -65,6 +65,7 @@ const MyOrders = () => {
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                         <Button
+                                                            disabled={item?.status === 'Cancelled' || item?.status === 'Delivered'}
                                                             onClick={() => handleCancel(item?._id)}
                                                             style={{ backgroundColor: 'red' }}>Cancel</Button>
                                                     </td>

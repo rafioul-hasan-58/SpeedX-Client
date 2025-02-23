@@ -16,6 +16,8 @@ import PrivetRoute from "./PrivateRoute";
 import VerifyOrder from "../pages/Customer/VerifyOrder";
 import MyOrders from "../pages/Customer/MyOrders";
 import About from "../pages/universal/About";
+import MainLayout from "../Layout/MainLayout";
+import AdminLayout from "../Layout/AdminLayout";
 
 
 export const router = createBrowserRouter([
@@ -27,12 +29,12 @@ export const router = createBrowserRouter([
         path: '/my-profile',
         element: <MyProfile />
       },
-     
+
     ]
   },
   {
     path: "/admin",
-    element: <App />,
+    element: <AdminLayout/>,
     children: [
       {
         path: 'dashboard',
@@ -58,11 +60,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/customer',
-    element: <App />,
+    element: <MainLayout/>,
     children: [
       {
-        path: 'dash-board',
-        element: <PrivetRoute role="customer"><CustomerDashboard /></PrivetRoute>
+        path: 'dashboard',
+        element: <CustomerDashboard />
       },
       {
         path: 'check-out/:id',
@@ -83,7 +85,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <PrivetRoute role="customer"><CustomerDashboard/></PrivetRoute>
+        element: <PrivetRoute role="customer"><CustomerDashboard /></PrivetRoute>
       },
       {
         path: 'all-products',

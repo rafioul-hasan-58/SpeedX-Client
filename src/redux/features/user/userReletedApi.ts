@@ -23,6 +23,13 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
+        getTotalSale: builder.query({
+            query: () => ({
+                url: '/orders/get-total-sale',
+                method: 'GET',
+
+            }),
+        }),
         getMyOrders: builder.query({
             query: () => ({
                 url: '/orders/get-my-orders',
@@ -44,7 +51,7 @@ const productManagementApi = baseApi.injectEndpoints({
                 method: 'PATCH',
                 body: args.data
             }),
-            invalidatesTags: ['orders']
+            invalidatesTags: ['orders','order']
         }),
         deleteOrder: builder.mutation({
             query: (id) => ({
@@ -56,4 +63,4 @@ const productManagementApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { usePressOrderMutation, useVerifyOrderQuery, useGetTodaysSaleQuery, useGetMyOrdersQuery, useGetAllOrdersQuery, useChangeStatusMutation,useDeleteOrderMutation } = productManagementApi;
+export const { useGetTotalSaleQuery,usePressOrderMutation, useVerifyOrderQuery, useGetTodaysSaleQuery, useGetMyOrdersQuery, useGetAllOrdersQuery, useChangeStatusMutation,useDeleteOrderMutation } = productManagementApi;

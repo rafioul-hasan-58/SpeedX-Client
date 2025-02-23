@@ -76,11 +76,11 @@ const AllProduct = () => {
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.color}</td>
                                                     <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                         <Link to={`/admin/update-product/${item?._id}`}>
-                                                            <Button>Update</Button>
+                                                            <Button style={{backgroundColor:'#0ea5e9',color:'white'}}>Update</Button>
                                                         </Link>
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        <Button onClick={() => handleDelete(item?._id)}>Delete</Button>
+                                                        <Button style={{backgroundColor:'red',color:'white'}} onClick={() => handleDelete(item?._id)}>Delete</Button>
                                                     </td>
                                                 </tr>)
                                             }

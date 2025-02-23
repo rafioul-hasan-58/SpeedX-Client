@@ -7,7 +7,8 @@ import { logout, selectCurrentToken } from "../../redux/features/auth/authSlice"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import bike from '../../assets/logo/bikeLogo.png'
 import { verifyToken } from "../../utils/verifyToken";
-import { IoBarChartSharp} from "react-icons/io5";
+import { IoBarChartSharp } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
 const Sidebar = () => {
     const token = useAppSelector(selectCurrentToken);
     let user;
@@ -25,7 +26,7 @@ const Sidebar = () => {
         <aside className=" border border-gray-300 flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white ">
             <div className="lg:block hidden gap-1">
                 <img className="w-16 h-16" src={bike} alt="" />
-                <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">Mousby</h1>
+                <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">SpeedX</h1>
             </div>
 
             <div className="flex flex-col justify-between flex-1 mt-6">
@@ -60,7 +61,7 @@ const Sidebar = () => {
                     <NavLink to='/admin/all-product' className={({ isActive }) =>
                         `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
                     }>
-                        <GiFullMotorcycleHelmet className="text-xl" />
+                        <RxDashboard className="text-xl" />
                         <span className="mx-2 text-sm font-medium">All Products</span>
                     </NavLink>
                 </nav>

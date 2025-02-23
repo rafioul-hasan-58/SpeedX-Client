@@ -75,7 +75,7 @@ const Users = () => {
                                                     {item?.role}
                                                 </td>
                                                 <td className="px-4 py-4 text-sm  text-gray-600 whitespace-nowrap">
-                                                    <Button onClick={() => handleDelete(item?._id)}>Delete</Button>
+                                                    <Button style={{ backgroundColor: 'red', color: 'white' }} onClick={() => handleDelete(item?._id)}>Delete</Button>
                                                 </td>
                                             </tr>)
                                         }

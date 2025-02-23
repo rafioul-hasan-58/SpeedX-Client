@@ -49,7 +49,7 @@ const Login = () => {
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="username">Email</label>
                                 <input
-                                    defaultValue={'joyeta@gmail.com'}
+                                    defaultValue={'tesla@gmail.com'}
                                     className="w-full px-3 py-2 leading-tight text-gray-700 border rounded border-blue-300 appearance-none focus:outline-none focus:shadow-outline bg-gray-100"
                                     {...register('email')}
                                     id="username"

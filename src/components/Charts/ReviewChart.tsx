@@ -1,15 +1,15 @@
 
 import { PieChart, Pie, Cell } from "recharts";
 
-const data = [
-  { name: "Completed", value: 75 }, // Adjust this value based on progress
-  { name: "Remaining", value: 25 }, // Remaining percentage
-];
 
-const COLORS = ["#4285F4", "#E0E0E0"]; // Blue for sales, gray for remaining
 
-const SalesProgressChart = () => {
-  
+
+const ReviewChart = ({value1, value2,color}) => {
+  const data = [
+    { name: "Completed", value: value1 },
+    { name: "Remaining", value: value2 },
+  ];
+  const COLORS = [color, "#E0E0E0"];
   return (
     <div style={{ textAlign: "center" }}>
       <PieChart width={90} height={90}> {/* Adjusted size */}
@@ -33,4 +33,4 @@ const SalesProgressChart = () => {
   );
 };
 
-export default SalesProgressChart;
+export default ReviewChart;
