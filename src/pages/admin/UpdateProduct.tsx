@@ -1,5 +1,5 @@
-import { Button, Col, Form, Input } from "antd";
-import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import { Button } from "antd";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import BForm from "../../components/form/BForm";
@@ -7,7 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import InputField from "../../components/form/Input/InputField";
 import { LuLoaderCircle } from "react-icons/lu";
 const UpdateProduct = () => {
-    const [updateProduct, { isLoading }] = useUpdateProductMutation()
+    const [updateProduct, { isLoading, error }] = useUpdateProductMutation()
+    console.log(error);
     const { id } = useParams()
     const { data: datas } = useGetProductDetailsQuery(id);
     const navigate = useNavigate()
@@ -19,15 +20,16 @@ const UpdateProduct = () => {
             price: Number(data.price) || Number(prevData?.price),
             description: data.description || prevData?.description,
             stocks: Number(data.stocks) || Number(prevData?.stocks),
-            color: data.color || prevData?.color
+            color: data.color || prevData?.color,
+            image: data.image || prevData?.image
         }
         console.table(productdata);
-        const formData = new FormData()
-        formData.append('data', JSON.stringify(productdata))
-        formData.append('file', data.photo)
+        // const formData = new FormData()
+        // formData.append('data', JSON.stringify(productdata))
+        // formData.append('file', data.photo)
         const updatedData = {
             id: prevData?._id,
-            data: formData
+            data: productdata
         }
         // console.log(data.image);
         try {
@@ -46,22 +48,7 @@ const UpdateProduct = () => {
             <div className="lg:flex justify-center ">
                 <BForm onSubmit={onSubmit}>
                     <InputField name="name" defaultValue={prevData?.name} label="Name" type="text" />
-                    <Col>
-                        <Controller
-                            name="photo"
-                            render={({ field: { onChange, value, ...field } }) => (
-                                <Form.Item label={'Photo'}>
-                                    <Input
-                                        style={{ backgroundColor: 'white', border: '1px solid #38bdf8' }}
-                                        type="file"
-                                        value={value?.fileName}
-                                        {...field}
-                                        onChange={(e) => onChange(e.target.files?.[0])}
-                                    />
-                                </Form.Item>
-                            )}
-                        />
-                    </Col>
+                    <InputField name="image" defaultValue={prevData?.image} label="Image" type="url" />
                     <InputField name="brandName" defaultValue={prevData?.brandName} label="Brand Name" type="text" />
                     <InputField name="color" defaultValue={prevData?.color} label="Color" type="text" />
                     <InputField name="price" defaultValue={prevData?.price} label="Price" type="number" />

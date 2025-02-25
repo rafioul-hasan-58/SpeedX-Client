@@ -8,8 +8,7 @@ import {
 } from 'react-hook-form';
 
 type TFormConfig = {
-  defaultValues?: Record<string, any>;
-  resolver?: any;
+  defaultValues?: Record<string, unknown>;
 };
 
 type TFormProps = {
@@ -21,7 +20,6 @@ const BForm = ({
   onSubmit,
   children,
   defaultValues,
-  resolver,
 }: TFormProps) => {
   const formConfig: TFormConfig = {};
 
@@ -29,9 +27,6 @@ const BForm = ({
     formConfig['defaultValues'] = defaultValues;
   }
 
-  if (resolver) {
-    formConfig['resolver'] = resolver;
-  }
 
   const methods = useForm(formConfig);
 

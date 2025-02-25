@@ -126,7 +126,7 @@ const AllProducts = () => {
                     <div className='grid lg:grid-cols-3 gap-10 '>
                         {
                             products?.data?.map((item: IProduct) => (
-                                <Card key={item.name} item={item}></Card>
+                                <Card key={item.name} item={{ ...item, image: item.image || '' }}></Card>
                             ))
                         }
                     </div>

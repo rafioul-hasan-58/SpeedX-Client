@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell } from "recharts";
 
 
 
-const ReviewChart = ({value1, value2,color}) => {
+const ReviewChart = ({ value1, value2, color }:{value1:number,value2:number,color:string}) => {
   const data = [
     { name: "Completed", value: value1 },
     { name: "Remaining", value: value2 },
@@ -24,7 +24,7 @@ const ReviewChart = ({value1, value2,color}) => {
           dataKey="value"
           stroke="none"
         >
-          {data.map((entry, index) => (
+          {data.map((_entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index]} />
           ))}
         </Pie>

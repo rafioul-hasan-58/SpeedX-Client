@@ -50,7 +50,7 @@ const MyOrders = () => {
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200 ">
                                             {
-                                                orderData?.map((item: any) => <tr className="w-full">
+                                                orderData?.map((item: { product: { name: string, price: number }, createdAt: string, status: string, _id: string }) => <tr className="w-full">
                                                     <td className="px-8 py-4 text-sm text-gray-500  whitespace-nowrap">
                                                         {item?.product?.name}
                                                     </td>

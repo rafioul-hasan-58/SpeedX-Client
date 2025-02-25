@@ -20,19 +20,13 @@ const MyProfile = () => {
     const [updateUser] = useUpdateProfileMutation()
     const { register, handleSubmit, } = useForm()
     const handleChange: SubmitHandler<FieldValues> = async (data) => {
-        const image = data.image[0]
-
         const updateData = {
             name: data.name,
             email: data.email
         }
-        const formData = new FormData();
-        formData.append('data', JSON.stringify(updateData));
-        formData.append('file', image)
-        console.log(formData);
         const finalData = {
             id: userData?.data?._id,
-            data: formData
+            data: updateData
         }
         const res = await updateUser(finalData)
         if (res.data.success) {
@@ -79,10 +73,12 @@ const MyProfile = () => {
                                     <div className="mb-4 flex ">
                                         <p className="text-left mt-1 w-[65px]">Image</p>
                                         <input
-                                            className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
+                                            className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none 
+                                            focus:outline-none focus:border-black bg-white"
                                             {...register('image')}
+                                            defaultValue={userData?.data?.image}
                                             name='image'
-                                            type="file"
+                                            type="url"
                                             placeholder="Image"
                                         />
                                     </div>

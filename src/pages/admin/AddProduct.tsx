@@ -1,5 +1,5 @@
-import { Button, Col, Form, Input } from "antd";
-import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import { Button} from "antd";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useAddProductMutation } from "../../redux/features/admin/productManagement.Api";
 import BForm from "../../components/form/BForm";
 import { toast } from "sonner";
@@ -15,15 +15,11 @@ const AddProduct = () => {
             price: Number(data.price),
             description: data.description,
             stocks: Number(data.stocks),
-            color: data.color
+            color: data.color,
+            image:data.image
         }
-        console.log(data.photo, 'aida');
-        const formData = new FormData()
-        formData.append('data', JSON.stringify(productdata))
-        formData.append('file', data.photo)
-        // console.log(data.image);
         try {
-            const res = await addProduct(formData)
+            const res = await addProduct(productdata)
             if (res?.data?.success) {
                 toast.success('Product Added successfully')
             }
@@ -37,22 +33,7 @@ const AddProduct = () => {
             <div className="lg:flex justify-center ">
                 <BForm onSubmit={onSubmit}>
                     <InputField placeholder="Name" type="text" label="Name" name="name" />
-                    <Col>
-                        <Controller
-                            name="photo"
-                            render={({ field: { onChange, value, ...field } }) => (
-                                <Form.Item label={'Photo'}>
-                                    <Input
-                                        style={{ backgroundColor: 'white', border: '1px solid #38bdf8' }}
-                                        type="file"
-                                        value={value?.fileName}
-                                        {...field}
-                                        onChange={(e) => onChange(e.target.files?.[0])}
-                                    />
-                                </Form.Item>
-                            )}
-                        />
-                    </Col>
+                    <InputField placeholder="Image" type="url" label="Image" name="image" />
                     <InputField placeholder="Brand Name" type="text" label="Brand Name" name="brandName" />
                     <InputField placeholder="Color" type="text" label="Color" name="color" />
                     <InputField placeholder="Number" type="number" label="Price" name="price" />

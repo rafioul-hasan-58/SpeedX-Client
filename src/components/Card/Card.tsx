@@ -1,7 +1,16 @@
 import { Button } from 'antd';
-import { IoCartOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
-const Card = ({ item }) => {
+import { FC } from 'react';
+
+interface Item {
+    image: string;
+    name: string;
+    price: number;
+    color: string;
+    _id: string;
+}
+
+const Card: FC<{ item: Item }> = ({ item }) => {
     return (
         <div className='border-[3px] bg-white  border-gray-200 lg:w-[305px] lg:h-[472px] rounded-lg'>
             <div>

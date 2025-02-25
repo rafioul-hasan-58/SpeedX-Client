@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
+// import App from "../App";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AddProduct from "../pages/admin/AddProduct";
 import UpdateProduct from "../pages/admin/UpdateProduct";
@@ -23,18 +23,18 @@ import AdminLayout from "../Layout/AdminLayout";
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <MainLayout />,
     children: [
       {
-        path: '/my-profile',
-        element: <MyProfile />
+        path: '/',
+        element: <CustomerDashboard />
       },
 
     ]
   },
   {
     path: "/admin",
-    element: <AdminLayout/>,
+    element: <AdminLayout />,
     children: [
       {
         path: 'dashboard',
@@ -56,16 +56,16 @@ export const router = createBrowserRouter([
         path: 'all-product',
         element: <PrivetRoute role="admin"><AllProduct /></PrivetRoute>
       },
+      {
+        path: 'my-profile',
+        element: <MyProfile />
+      },
     ]
   },
   {
     path: '/customer',
-    element: <MainLayout/>,
+    element: <MainLayout />,
     children: [
-      {
-        path: 'dashboard',
-        element: <CustomerDashboard />
-      },
       {
         path: 'check-out/:id',
         element: <PrivetRoute role="customer"><CheckOut /></PrivetRoute>
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'verify-order',
-        element: <PrivetRoute role="customer"><VerifyOrder /></PrivetRoute>
+        element: <VerifyOrder />
       },
       {
         path: 'my-orders',

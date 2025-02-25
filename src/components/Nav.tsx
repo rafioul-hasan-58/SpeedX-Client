@@ -1,6 +1,6 @@
 import { useState } from "react";
 import bike from '../assets/logo/bikeLogo.png'
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logout, selectCurrentUser } from "../redux/features/auth/authSlice";
 import { Button } from "antd";
@@ -24,12 +24,12 @@ import { IoHome } from "react-icons/io5";
 const Nav = () => {
     const { handleSubmit, register } = useForm()
     const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const user = useAppSelector(selectCurrentUser);
-    if (!user) {
-        navigate('/login')
-    }
+    // if (!user) {
+    //     navigate('/login')
+    // }
     const onSearch: SubmitHandler<FieldValues> = (data) => {
         dispatch(setSearchTerm(data.searchTerm))
 
@@ -38,22 +38,17 @@ const Nav = () => {
     const realUser = data?.data
     const [updateUser, { isLoading }] = useUpdateProfileMutation()
     const handleProfileUpdate: SubmitHandler<FieldValues> = async (data) => {
-        const image = data.image[0]
-
         const updateData = {
             name: data.name,
             email: data.email
         }
-        const formData = new FormData();
-        formData.append('data', JSON.stringify(updateData));
-        formData.append('file', image)
-        console.log(formData);
+       
         const finalData = {
             id: realUser?._id,
-            data: formData
+            data: updateData
         }
         const res = await updateUser(finalData)
-        if (res.data.success) {
+        if (res?.data?.success) {
             toast.success('Profile Updated Successfully')
             setIsOpen(false)
         }
@@ -107,7 +102,7 @@ const Nav = () => {
                                     user ?
                                         <div className="flex gap-2">
                                             <div className="text-3xl text-sky-500 relative right-5 top-2 cursor-pointer">
-                                                <Link to='/customer/dashboard'><IoHome /></Link>
+                                                <Link to='/'><IoHome /></Link>
                                             </div>
                                             <div>
                                                 <Popover>
@@ -154,8 +149,9 @@ const Nav = () => {
                                                                                     <input
                                                                                         className=" w-[300px] lg:px-3 py-2 leading-tight text-gray-700 border rounded border-gray-300  appearance-none focus:outline-none focus:border-black bg-white"
                                                                                         {...register('image')}
+                                                                                        defaultValue={realUser?.image}
                                                                                         name='image'
-                                                                                        type="file"
+                                                                                        type="url"
                                                                                         placeholder="Image"
                                                                                     />
                                                                                 </div>
@@ -266,7 +262,7 @@ const Nav = () => {
                             <div className="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 lg:gap-3">
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
-                                } to='/customer/dashboard'>
+                                } to='/'>
                                     DASHBOARD
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>

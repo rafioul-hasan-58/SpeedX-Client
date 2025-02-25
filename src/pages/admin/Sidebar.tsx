@@ -1,4 +1,4 @@
-import { GiFullMotorcycleHelmet } from "react-icons/gi";
+
 import { LuLogIn, LuUsersRound } from "react-icons/lu";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -67,7 +67,7 @@ const Sidebar = () => {
                 </nav>
 
                 <div className="relative right-2.5">
-                    <NavLink to='/my-profile' className={({ isActive }) =>
+                    <NavLink to='/admin/my-profile' className={({ isActive }) =>
                         `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
                     }>
                         <IoMdSettings className="text-xl" />

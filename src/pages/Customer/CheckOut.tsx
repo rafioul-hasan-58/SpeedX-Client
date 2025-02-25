@@ -8,10 +8,7 @@ import { usePressOrderMutation } from "../../redux/features/user/userReletedApi"
 import { toast } from "sonner";
 import { LuLoaderCircle } from "react-icons/lu";
 const CheckOut = () => {
-    const [pressOrder, { isLoading, error }] = usePressOrderMutation()
-    if (error) {
-        toast.error(error?.data?.errorSources[0].message)
-    }
+    const [pressOrder, { isLoading}] = usePressOrderMutation()
     console.log();
     const [quantity, setQuantity] = useState(1)
     const { id } = useParams()

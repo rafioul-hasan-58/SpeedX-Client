@@ -6,7 +6,7 @@ type TInputProps = {
     type: string;
     name: string;
     label?: string;
-    defaultValue?: any;
+    defaultValue?: string | number;
     placeholder?: string;
 };
 const InputField = ({ name, type, label, defaultValue, placeholder }: TInputProps) => {

@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   console.log(totalSale);
   const todaysSale = Number((todaysData?.data?.totalSale) / 1000).toFixed(0);
   const todaysRevenue = (Number(todaysSale) * 0.15).toFixed(0);
-  const totalRevenue = Number((totalSale?.data?.totalRevenue)/1000)
+  const totalRevenue = Number((totalSale?.data?.totalRevenue)/1000).toFixed(0)
   const soldItems = todaysData?.data.items;
   const { data: orders } = useGetAllOrdersQuery(undefined)
   const allOrders = orders?.data
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200 ">
                         {
-                          allOrders?.map((item: any) => <tr className="w-full">
+                          allOrders?.map((item: { _id: string; product: { name: string; price: number }; createdAt: string; email: string; status: string }) => <tr className="w-full">
                             <td className="px-8 py-4 text-sm font-semibold text-gray-500  whitespace-nowrap">
                               {item?.product?.name}
                             </td>
