@@ -57,7 +57,7 @@ Logout: Users can log out, which removes the token from local storage and redire
 ## Setup Instructions
 1. Clone the Repository:
     
-    https://github.com/rockyhaque/rapid-ride
+  https://github.com/rafioul-hasan-58/ph2-assignment-4-client
     
 
 2. Change Directory & npm installation
