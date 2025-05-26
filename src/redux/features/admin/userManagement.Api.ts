@@ -39,6 +39,7 @@ const usersManagementApi = baseApi.injectEndpoints({
             },
             providesTags:['profile']
         }),
+
         updateProfile: builder.mutation({
             query: (args) => {
                 return {
@@ -49,6 +50,7 @@ const usersManagementApi = baseApi.injectEndpoints({
             },
             invalidatesTags:['profile']
         }),
+        
         deleteUser: builder.mutation({
             query: (id) => {
                 return {

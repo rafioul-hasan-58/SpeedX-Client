@@ -1,51 +1,141 @@
-import { Button} from "antd";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Button } from "antd";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useAddProductMutation } from "../../redux/features/admin/productManagement.Api";
-import BForm from "../../components/form/BForm";
 import { toast } from "sonner";
-import InputField from "../../components/form/Input/InputField";
 import { LuLoaderCircle } from "react-icons/lu";
+import { Form } from "../../components/ui/form";
+import BFormInput from "../../components/form/Input/BFormInput";
+import BFormSelect from "../../components/form/Input/BFormSelect";
+import { colorOptions } from "../../constant/ProductConstant";
+import BFormTextarea from "../../components/form/Input/BFormTextarea";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter
+} from "../../components/ui/card";
+import BFormImageUpload from "../../components/form/Input/BFormImageUploader";
+import { useState } from "react";
+import useImageUploader from "@/utils/useImageUploader";
+
 const AddProduct = () => {
-    const [addProduct,{isLoading,error}] = useAddProductMutation()
-    console.log(error);
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const productdata = {
-            name: data.name,
-            brandName: data.brandName,
-            price: Number(data.price),
-            description: data.description,
-            stocks: Number(data.stocks),
-            color: data.color,
-            image:data.image
-        }
-        try {
-            const res = await addProduct(productdata)
-            if (res?.data?.success) {
-                toast.success('Product Added successfully')
-            }
-        } catch (err) {
-            console.log(err);
-        }
+  const [addProduct, { isLoading }] = useAddProductMutation();
+  const { uploadImagesToCloudinary, isUploading } = useImageUploader();
+  const [previewImages, setPreviewImages] = useState<(string | File)[]>([]);
+  const [ImageUrls, setImageUrls] = useState<File | File[]>([]);
+  const form = useForm();
+  const { control, handleSubmit, reset } = form;
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const images = await uploadImagesToCloudinary(ImageUrls, true);
+    const productData = {
+      ...data,
+      price: Number(data.price),
+      stocks: Number(data.stocks),
+      images
+    };
+    try {
+      const res = await addProduct(productData);
+      if (res?.data?.success) {
+        reset()
+        toast.success("Product Added successfully");
+      }
+    } catch (err) {
+      console.log(err);
     }
-    return (
-        <div>
-            <h1 className="text-center text-2xl font-semibold text-sky-400 ">Add product</h1>
-            <div className="lg:flex justify-center ">
-                <BForm onSubmit={onSubmit}>
-                    <InputField placeholder="Name" type="text" label="Name" name="name" />
-                    <InputField placeholder="Image" type="url" label="Image" name="image" />
-                    <InputField placeholder="Brand Name" type="text" label="Brand Name" name="brandName" />
-                    <InputField placeholder="Color" type="text" label="Color" name="color" />
-                    <InputField placeholder="Number" type="number" label="Price" name="price" />
-                    <InputField placeholder="Stocks" type="number" label="Stocks" name="stocks" />
-                    <InputField placeholder="Description" type="text" label="Description" name="description" />
-                    <div className="w-full">
-                        <Button style={{ backgroundColor: '#38bdf8', color: 'white' }} className="w-full py-2 bg" htmlType="submit">{isLoading?<LuLoaderCircle className="animate-spin" />:'Add Product'}</Button>
-                    </div>
-                </BForm>
-            </div>
-        </div>
-    );
+  };
+
+
+  return (
+    <div>
+      <div className=" w-full p-4">
+        <h1 className="text-2xl font-semibold text-center text-sky-500 mb-6">
+          Add New Product | Admin Panel
+        </h1>
+        <Card className="max-w-5xl w-full mx-auto shadow-md">
+          <CardHeader>
+            <CardTitle className="text-lg text-sky-500">New Product Details</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <BFormInput
+                  name="name"
+                  label="Product Name"
+                  placeholder="Product Name"
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormInput
+                  name="brandName"
+                  label="Brand Name"
+                  placeholder="Brand Name"
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormSelect
+                  name="color"
+                  label="Color"
+                  placeholder="Color"
+                  options={colorOptions}
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormInput
+                  name="price"
+                  label="Price"
+                  placeholder="Price"
+                  type="number"
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormInput
+                  name="stocks"
+                  label="Stocks"
+                  placeholder="Stocks"
+                  type="number"
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormTextarea
+                  name="description"
+                  label="Description"
+                  placeholder="Description"
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <div className="border border-dashed rounded-lg p-6 text-center border-sky-400 transition-colors cursor-pointer">
+                  <BFormImageUpload
+                    previewImages={previewImages}
+                    setPreviewImages={setPreviewImages}
+                    name="images"
+                    multiple={true}
+                    onImageUpload={setImageUrls}
+                    control={control}
+                  />
+                </div>
+
+                <CardFooter className="p-0 pt-4">
+                  <Button
+                    style={{ color: "white" }}
+                    className="w-full py-3 bg-sky-400 h-[35px] hover:bg-sky-500"
+                    htmlType="submit"
+                  >
+                    {isLoading || isUploading ? (
+                      <LuLoaderCircle className="animate-spin" />
+                    ) : (
+                      "Add Product"
+                    )}
+                  </Button>
+                </CardFooter>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 };
 
 export default AddProduct;

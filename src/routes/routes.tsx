@@ -1,16 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-// import App from "../App";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AddProduct from "../pages/admin/AddProduct";
 import UpdateProduct from "../pages/admin/UpdateProduct";
 import Register from "../pages/authentication/Register";
 import Login from "../pages/authentication/Login";
 import CustomerDashboard from "../pages/Customer/CustomerDashboard";
-import AllProducts from "../pages/universal/AllProducts";
 import ProductDetails from "../pages/universal/ProductDetails";
 import CheckOut from "../pages/Customer/CheckOut";
 import Users from "../pages/admin/Users";
-import AllProduct from "../pages/admin/AllProduct";
+import AllProducts from "../pages/admin/AllProducts";
 import MyProfile from "../pages/universal/MyProfile";
 import PrivetRoute from "./PrivateRoute";
 import VerifyOrder from "../pages/Customer/VerifyOrder";
@@ -18,6 +16,8 @@ import MyOrders from "../pages/Customer/MyOrders";
 import About from "../pages/universal/About";
 import MainLayout from "../Layout/MainLayout";
 import AdminLayout from "../Layout/AdminLayout";
+import AllOrders from "@/pages/admin/AllOrders";
+import AllBikes from "@/pages/universal/AllBikes";
 
 
 export const router = createBrowserRouter([
@@ -53,8 +53,12 @@ export const router = createBrowserRouter([
         element: <PrivetRoute role="admin"><Users /></PrivetRoute>
       },
       {
-        path: 'all-product',
-        element: <PrivetRoute role="admin"><AllProduct /></PrivetRoute>
+        path: 'all-products',
+        element: <PrivetRoute role="admin"><AllProducts /></PrivetRoute>
+      },
+      {
+        path: 'all-orders',
+        element: <PrivetRoute role="admin"><AllOrders /></PrivetRoute>
       },
       {
         path: 'my-profile',
@@ -88,8 +92,8 @@ export const router = createBrowserRouter([
         element: <PrivetRoute role="customer"><CustomerDashboard /></PrivetRoute>
       },
       {
-        path: 'all-products',
-        element: <PrivetRoute role="customer"><AllProducts /></PrivetRoute>
+        path: 'all-bikes',
+        element: <PrivetRoute role="customer"><AllBikes /></PrivetRoute>
       },
       {
         path: 'about',

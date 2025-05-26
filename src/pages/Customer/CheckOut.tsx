@@ -110,7 +110,7 @@ const CheckOut = () => {
                         {/* first child */}
                         <div className="flex justify-between pt-10 mx-10">
                             <div className="flex gap-5">
-                                <img className=" h-[200px] w-[250px] border-gray-300" src={checkoutData?.image} alt="" />
+                                <img className=" h-[200px] w-[250px] border-gray-300" src={checkoutData?.images[0]} alt="" />
                                 <div className="mt-4">
                                     <h1 className="text-lg py-2 font-semibold w-[150px]">{checkoutData?.name}</h1>
                                     <p className="text-sm font-semibold pb-2 text-sky-400">Color : <span className="text-black">

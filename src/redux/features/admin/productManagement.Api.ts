@@ -4,6 +4,7 @@ import { baseApi } from "../../api/baseApi";
 
 const productManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+
     addProduct: builder.mutation({
       query: (userInfo) => ({
         url: '/products/add-product',
@@ -12,18 +13,21 @@ const productManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['product']
     }),
+
     getProductDetails: builder.query({
       query: (id) => ({
         url: `/products/get-product/${id}`,
         method: 'GET',
       }),
     }),
+
     getAvailableStocks: builder.query({
       query: () => ({
         url: `/products/get-available-stocks`,
         method: 'GET',
       }),
     }),
+    
     getAllProducts: builder.query({
       query: (args) => {
         console.log('args', args);
@@ -56,6 +60,7 @@ const productManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['product']
     }),
+    
     removeProduct: builder.mutation({
       query: (id) => ({
         url: `/products/delete-product/${id}`,

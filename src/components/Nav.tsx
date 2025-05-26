@@ -77,7 +77,7 @@ const Nav = () => {
                                         />
                                         <button type="submit">
                                             <div style={{ borderRadius: '0px 20px 20px 0px' }} className="relative top-[15.5px] bg-sky-400 px-5 h-[44px] cursor-pointer rounded-r-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
                                                     <circle cx="11" cy="11" r="8"></circle>
                                                     <line x1="16" y1="16" x2="21" y2="21"></line>
                                                 </svg>
@@ -181,7 +181,7 @@ const Nav = () => {
                                                             <div className="block">
                                                                 <ul className="divide-y divide-gray-300  mt-2">
                                                                     <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
-                                                                        <NavLink className={`flex gap-1`} to='/customer/all-products' ><RxDashboard className="relative top-1" />All Products</NavLink>
+                                                                        <NavLink className={`flex gap-1`} to='/customer/all-bikes' ><RxDashboard className="relative top-1" />Bikes</NavLink>
                                                                     </li>
                                                                     <li className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full">
                                                                         <NavLink className={`flex gap-1`} to='/customer/dashboard'><MdOutlineBarChart className="relative top-1" />Dashboard</NavLink>
@@ -205,7 +205,7 @@ const Nav = () => {
                                             </div>
                                         </div> : <Link to='/login'>
                                             <div className="flex bg-sky-400 px-3 py-2 rounded-full items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative  left-2 z-40 feather text-white feather-user" width="18" height="18">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative  left-2 z-40 feather text-white feather-user" width="18" height="18">
                                                     <path d="M12 2C10.343 2 9 3.343 9 5s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 13c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5z"></path>
                                                 </svg>
                                                 <Button className="focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white' }}>Login</Button>
@@ -267,8 +267,8 @@ const Nav = () => {
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`
-                                } to='/customer/all-products'>
-                                    ALL PRODUCTS
+                                } to='/customer/all-bikes'>
+                                    BIKES
                                 </NavLink>
                                 <NavLink className={({ isActive }) =>
                                     `text-gray-500   ${isActive && 'text-sky-400 font-semibold'}`

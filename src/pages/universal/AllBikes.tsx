@@ -10,12 +10,10 @@ interface Filter {
     name: string;
     value: string | number;
 }
-const AllProducts = () => {
+const AllBikes = () => {
     const [queries, setQueries] = useState<Filter[]>([]);
     const { register, handleSubmit } = useForm()
-    // console.log(filters);
     const { data: products } = useGetAllProductsQuery(queries)
-    // console.log(products);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
             setQueries((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
@@ -126,7 +124,7 @@ const AllProducts = () => {
                     <div className='grid lg:grid-cols-3 gap-10 '>
                         {
                             products?.data?.map((item: IProduct) => (
-                                <Card key={item.name} item={{ ...item, image: item.image || '' }}></Card>
+                                <Card key={item.name} item={item}></Card>
                             ))
                         }
                     </div>
@@ -136,4 +134,4 @@ const AllProducts = () => {
     );
 };
 
-export default AllProducts;
+export default AllBikes;

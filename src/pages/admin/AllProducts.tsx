@@ -3,9 +3,11 @@ import { useGetAllProductsQuery, useRemoveProductMutation } from "../../redux/fe
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loader from "../../components/Loader/Loader";
+import { Edit, Trash2 } from "lucide-react";
+import { IProduct } from "@/types/product.types";
 
-const AllProduct = () => {
-    const { data: products,isFetching } = useGetAllProductsQuery(undefined)
+const AllProducts = () => {
+    const { data: products, isFetching } = useGetAllProductsQuery(undefined)
     const [deleteProduct] = useRemoveProductMutation()
     const handleDelete = (id: string) => {
         Swal.fire({
@@ -28,11 +30,14 @@ const AllProduct = () => {
         });
 
     }
-    if(isFetching) return <Loader/>
+    if (isFetching) return <Loader />
     return (
         <div>
             <div>
+
                 <section className="container px-4 mx-auto">
+                    <h2 className="text-2xl font-semibold">All Products | Admin</h2>
+                    <p className="text-lg text-gray-500 mb-4">Manage, update, or delete  products from here.</p>
                     <div className="flex flex-col">
                         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -64,10 +69,10 @@ const AllProduct = () => {
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200 ">
                                             {
-                                                products?.data?.map((item) => <tr className="w-full">
+                                                products?.data?.map((item: IProduct) => <tr className="w-full">
 
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                        <img src={item?.image} className="w-[90px] " alt="" />
+                                                        <img src={item?.images[0]} className="w-[90px] " alt="" />
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                                         {item?.name}
@@ -76,11 +81,15 @@ const AllProduct = () => {
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.color}</td>
                                                     <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                         <Link to={`/admin/update-product/${item?._id}`}>
-                                                            <Button style={{backgroundColor:'#0ea5e9',color:'white'}}>Update</Button>
+                                                            <Button className="bg-sky-500 text-white h-8 w-8 p-0">
+                                                                <Edit className="h-4 w-4" />
+                                                            </Button>
                                                         </Link>
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        <Button style={{backgroundColor:'red',color:'white'}} onClick={() => handleDelete(item?._id)}>Delete</Button>
+                                                        <Button onClick={() => handleDelete(item._id)} className="bg-red-500 text-white h-8 w-8 p-0">
+                                                            <Trash2 className="h-4 w-4" />
+                                                        </Button>
                                                     </td>
                                                 </tr>)
                                             }
@@ -96,4 +105,4 @@ const AllProduct = () => {
     )
 };
 
-export default AllProduct;
+export default AllProducts;

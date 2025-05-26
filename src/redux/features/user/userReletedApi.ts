@@ -8,6 +8,7 @@ const productManagementApi = baseApi.injectEndpoints({
                 body: orderInfo,
             }),
         }),
+        
         verifyOrder: builder.query({
             query: (order_id) => ({
                 url: '/orders/verify-order',
@@ -16,6 +17,7 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
+
         getTodaysSale: builder.query({
             query: () => ({
                 url: '/orders/get-today-sale',
@@ -23,6 +25,7 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
+
         getTotalSale: builder.query({
             query: () => ({
                 url: '/orders/get-total-sale',
@@ -30,6 +33,7 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
+
         getMyOrders: builder.query({
             query: () => ({
                 url: '/orders/get-my-orders',
@@ -38,6 +42,7 @@ const productManagementApi = baseApi.injectEndpoints({
             }),
             providesTags: ['order']
         }),
+
         getAllOrders: builder.query({
             query: () => ({
                 url: '/orders/get-all-orders',
@@ -45,6 +50,7 @@ const productManagementApi = baseApi.injectEndpoints({
             }),
             providesTags: ['orders']
         }),
+
         changeStatus: builder.mutation({
             query: (args) => ({
                 url: `/orders/change-status/${args.id}`,
@@ -53,6 +59,7 @@ const productManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['orders','order']
         }),
+
         deleteOrder: builder.mutation({
             query: (id) => ({
                 url: `/orders/delete-order/${id}`,

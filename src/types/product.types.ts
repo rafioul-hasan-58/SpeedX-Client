@@ -9,6 +9,6 @@ export interface IProduct {
     description: string;
     model: string;
     stocks: number;
-    image?: string;
+    images: string[];
     instock?: boolean;
 }

@@ -1,4 +1,12 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "typeRoots": ["node_modules/@types", "node_modules/swiper"],
+    "strict": true
+  },
   "files": [],
   "references": [
     {
@@ -7,15 +15,5 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ],
-  "compilerOptions": {
-    "typeRoots": ["node_modules/@types", "node_modules/swiper"],
-    "baseUrl": ".",
-    "strict": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  }
+  ]
 }
