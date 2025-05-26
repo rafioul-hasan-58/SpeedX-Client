@@ -3,7 +3,7 @@ import bike from '../../assets/logo/bikeLogo.png';
 import call from '../../assets/logo/callLogo.png';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchTerm } from '@/redux/features/user/userSlice';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 import { IoHome } from 'react-icons/io5';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
@@ -48,39 +48,40 @@ const NavBar = () => {
     const user = useAppSelector(selectCurrentUser);
     const { data } = useGetMyProfileQuery(user?.email);
     const myProfile = data?.data;
-
     return (
-        <nav className='fixed bg-white z-50 w-full mb-4'>
-            <section className="flex px-20 pt-8 pb-2 w-full items-center gap-3 border border-b">
+        <nav className={`fixed bg-white z-50 lg:w-full mb-4`}>
+            <section className="flex  lg:px-20 lg:pt-8 pb-2 w-full items-center gap-3 border border-b">
                 <aside className="flex w-[50%] justify-between">
-                    <section>
-                        <img className="w-16 h-16" src={bike} alt="" />
-                        <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">SpeedX</h1>
+                    <section className='lg:mt-0 mt-2'>
+                        <img className="lg:w-16 lg:h-16 w-12 h-12" src={bike} alt="" />
+                        <h1 className="lg:text-xl text-lg italic font-bold relative lg:bottom-5 text-sky-600 bottom-4">SpeedX</h1>
                     </section>
                     <section>
-                        <div className="flex items-center">
+                        <div className="flex items-center mt-6">
                             <form onChange={handleSubmit(onSubmit)}>
-                                <input
-                                    {...register("searchTerm")}
-                                    style={{ borderRadius: '100px 0px 0px 100px' }}
-                                    className="h-[44px] lg:w-[380px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
-                                    type="text"
-                                    placeholder="Search Bike here"
-                                />
-                                <button >
-                                    <div style={{ borderRadius: '0px 20px 20px 0px' }} className="relative top-[15.5px] bg-sky-400 px-5 h-[44px] cursor-pointer rounded-r-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
-                                            <circle cx="11" cy="11" r="8"></circle>
-                                            <line x1="16" y1="16" x2="21" y2="21"></line>
-                                        </svg>
-                                    </div>
-                                </button>
+                                <div className='flex lg:mx-0 mx-3'>
+                                    <input
+                                        {...register("searchTerm")}
+                                        style={{ borderRadius: '100px 0px 0px 100px' }}
+                                        className="h-[44px] lg:w-[380px] w-[200px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
+                                        type="text"
+                                        placeholder="Search Bike here"
+                                    />
+                                    <button >
+                                        <div style={{ borderRadius: '0px 20px 20px 0px' }} className=" bg-sky-400 px-5 h-[44px] cursor-pointer rounded-r-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
+                                                <circle cx="11" cy="11" r="8"></circle>
+                                                <line x1="16" y1="16" x2="21" y2="21"></line>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </section>
                 </aside>
                 <aside className='w-[50%]  flex justify-between items-center lg:ml-20'>
-                    <section>
+                    <section className='lg:block hidden'>
                         <div className="flex gap-4 items-center">
                             <div className="border-gray-200 border rounded-full p-2">
                                 <img className="h-6 w-6" src={call} alt="Support Logo" />
@@ -92,14 +93,14 @@ const NavBar = () => {
                         </div>
                     </section>
                     <section className='flex items-center gap-5'>
-                        <div className="text-3xl text-sky-500 cursor-pointer">
+                        <div className="lg:block hidden text-3xl text-sky-500 cursor-pointer">
                             <Link to='/'><IoHome /></Link>
                         </div>
                         {/* profile */}
                         <div>
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Avatar className='cursor-pointer w-[50px] h-[50px] border border-sky-400'>
+                                    <Avatar className='relative lg:left-0 left-[135px] cursor-pointer w-[50px] h-[50px] border border-sky-400'>
                                         <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
@@ -142,7 +143,7 @@ const NavBar = () => {
                 </aside>
             </section>
             {/* main nav section */}
-            <section className='py-4 px-20'>
+            <section className='py-4 px-20 lg:block hidden'>
                 <ul className='flex gap-4'>
                     {
                         items.map((nav) => (

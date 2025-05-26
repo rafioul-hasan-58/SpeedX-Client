@@ -52,7 +52,7 @@ const UpdateProfile = (myProfile: TUser) => {
         <div>
             <Popover>
                 <PopoverTrigger asChild>
-                    <Button className="bg-sky-500 cursor-pointer">Edit Profile</Button>
+                    <Button className="bg-sky-500 cursor-pointer mb-5">Edit Profile</Button>
                 </PopoverTrigger>
                 <PopoverContent className="relative right-[300px] bottom-[50px]">
                     <h1 className="text-center text-xl font-semibold">Update your Profile</h1>

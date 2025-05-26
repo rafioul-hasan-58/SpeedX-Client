@@ -18,7 +18,7 @@ const MyOrders = () => {
     return (
         <div>
             <div>
-                <section className="container px-4 pb-10 min-h-screen -mt-3">
+                <section className="container px-4 pb-10 min-h-screen">
                     <div>
                         <h1 className="text-2xl font-bold text-sky-400 text-center my-6 pt-3">My Orders</h1>
                     </div>

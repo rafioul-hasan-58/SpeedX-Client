@@ -2,17 +2,46 @@ import { Link, useParams } from "react-router-dom";
 import { useGetProductDetailsQuery } from "../../redux/features/admin/productManagement.Api";
 import { Button } from "antd";
 import { BsInfoCircle } from "react-icons/bs";
+import { useEffect, useState } from "react";
 const ProductDetails = () => {
-    const { id } = useParams()
-    const { data } = useGetProductDetailsQuery(id)
-    const details = data?.data
+    const { id } = useParams();
+    const { data } = useGetProductDetailsQuery(id);
+    const details = data?.data;
+    const fallbackImage = 'https://i.ibb.co/mryzXPbL/office-605503-1280.jpg';
+    const [currentImg, setCurrentImg] = useState(details?.images && details.images[0]);
+
+    useEffect(() => {
+        if (details?.images?.length > 0) {
+            setCurrentImg(details.images[0]);
+        } else {
+            setCurrentImg(fallbackImage)
+        }
+    }, [details?.images])
     return (
-        <div className="mx-20">
-            <div className="">
-                <div className="flex  gap-6 bg-white">
+        <div className="lg:mx-20">
+            <div className="pt-10">
+                <div className="flex  gap-6 bg-white p-3">
                     <div>
-                        <img className="lg:w-[600px] lg:h-[400px] border-[1px] border-sky-400 " src={details?.image} alt="" />
+                        <section>
+                            {
+                                currentImg && <img className="lg:w-[600px] lg:h-[400px] border-[1px] border-sky-400 " src={currentImg} alt="" />
+                            }
+                        </section>
+                        {
+                            details?.images && details.images.length > 1 && (<section className="w-[600px] mt-3">
+                                <div className="grid grid-cols-3 pt-4.5 my-0.5 items-center">
+                                    {
+                                        details?.images?.length > 0 &&
+                                        details.images.slice(0)
+                                            .map((img: string, idx: string) => (
+                                                <img key={idx} src={img} alt={img + idx}  onClick={() => setCurrentImg(img)} className={`w-[150px] ${currentImg === img ? 'border border-sky-400' : ''}`} />
+                                            ))
+                                    }
+                                </div>
+                            </section>)
+                        }
                     </div>
+
                     <div className="mt-8">
                         <h1 className="text-4xl font-bold uppercase mb-4 text-red-500">{details?.brandName}</h1>
                         <h2 className="text-3xl font-semibold">{details?.name}</h2>
