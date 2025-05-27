@@ -3,7 +3,7 @@ import bike from '../../assets/logo/bikeLogo.png';
 import call from '../../assets/logo/callLogo.png';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchTerm } from '@/redux/features/user/userSlice';
-import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { IoHome } from 'react-icons/io5';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
@@ -28,6 +28,7 @@ const NavBar = () => {
             url: "/customer/all-bikes",
             icon: FaMotorcycle
         },
+
         {
             title: "My Orders",
             url: "/customer/my-orders",
@@ -37,7 +38,37 @@ const NavBar = () => {
             title: "About",
             url: "/customer/about",
             icon: LuBadgeInfo
-        }
+        },
+        {
+            title: "Scooters",
+            url: "/customer/all-scooters",
+            icon: FaMotorcycle
+        },
+        {
+            title: "Upcoming",
+            url: "/customer/upcoming-products",
+            icon: FaMotorcycle
+        },
+        {
+            title: "Sell Now",
+            url: "/customer/upcoming-products",
+            icon: FaMotorcycle
+        },
+        {
+            title: "Accessories",
+            url: "/customer/upcoming-products",
+            icon: FaMotorcycle
+        },
+        {
+            title: "Servicing",
+            url: "/customer/upcoming-products",
+            icon: FaMotorcycle
+        },
+        {
+            title: "Blogs",
+            url: "/customer/upcoming-products",
+            icon: FaMotorcycle
+        },
     ]
     const dispatch = useAppDispatch();
     const form = useForm();
@@ -121,7 +152,7 @@ const NavBar = () => {
                                         </div>
                                         <ul className='divide-y'>
                                             {
-                                                items.map((nav) => (
+                                                items.slice(0,4).map((nav) => (
                                                     <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
                                                         <NavLink className={`flex items-center gap-2`} to={nav.url} >
                                                             <nav.icon />

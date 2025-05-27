@@ -11,4 +11,6 @@ export interface IProduct {
     stocks: number;
     images: string[];
     instock?: boolean;
+    type: "new" | "used";
+    bikeType: string;
 }

@@ -4,7 +4,7 @@ import AddProduct from "../pages/admin/AddProduct";
 import UpdateProduct from "../pages/admin/UpdateProduct";
 import Register from "../pages/authentication/Register";
 import Login from "../pages/authentication/Login";
-import CustomerDashboard from "../pages/Customer/CustomerDashboard";
+import Home from "../pages/Customer/Home";
 import ProductDetails from "../pages/universal/ProductDetails";
 import CheckOut from "../pages/Customer/CheckOut";
 import Users from "../pages/admin/Users";
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <CustomerDashboard />
+        element: <Home />
       },
 
     ]
@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <PrivetRoute role="customer"><CustomerDashboard /></PrivetRoute>
+        element: <PrivetRoute role="customer"><Home /></PrivetRoute>
       },
       {
         path: 'all-bikes',

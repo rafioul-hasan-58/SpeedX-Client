@@ -6,34 +6,12 @@ import { useEffect, useState } from 'react';
 import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../redux/hooks';
-import { useSearchParams } from 'react-router-dom';
 interface Filter {
     name: string;
     value: string | number;
 }
-const AllBikes = () => {
+const AllUsedBikes = () => {
     const [queries, setQueries] = useState<Filter[]>([]);
-    const [searchParams] = useSearchParams();
-    const type = searchParams.get('type');
-
-    useEffect(() => {
-         if (type) {
-        setQueries((prevFilters) => {
-            // Check if the filter already exists
-            const exists = prevFilters.some((filter) => filter.name === 'filterBytype');
-            if (exists) {
-                // Replace the existing filter
-                return prevFilters.map((filter) =>
-                    filter.name === 'filterBytype' ? { ...filter, value: type } : filter
-                );
-            } else {
-                // Add new filter
-                return [...prevFilters, { name: 'filterBytype', value: type }];
-            }
-        });
-    }
-    }, [type]);
-
     const { register, handleSubmit } = useForm();
     const { data: products } = useGetAllProductsQuery(queries);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
@@ -156,4 +134,4 @@ const AllBikes = () => {
     );
 };
 
-export default AllBikes;
+export default AllUsedBikes;
