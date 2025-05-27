@@ -9,11 +9,11 @@ interface Filter {
     name: string;
     value: string | number;
 }
-const FeturedBikes = () => {
+const UsedBikes = () => {
     const [queries, setQueries] = useState<Filter[]>([]);
 
     useEffect(() => {
-        setQueries([{ name: 'filterBytype', value: 'new' }, { name: 'filterByBikeType', value: 'bike' }]);
+        setQueries([{ name: 'filterBytype', value: 'used' }, { name: 'filterByBikeType', value: 'bike' }]);
     }, []);
 
     const { data: products } = useGetAllProductsQuery(queries);
@@ -21,7 +21,7 @@ const FeturedBikes = () => {
 
     return (
         <div>
-            <h1 className="text-4xl font-bold my-10">Fearured Bikes</h1>
+            <h1 className="text-4xl font-bold my-10">Used Bikes</h1>
             <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3">
                 {
                     mainData?.map((item) => (
@@ -32,7 +32,7 @@ const FeturedBikes = () => {
             </div>
             <div className="flex justify-center mt-3">
                 <div className=" flex justify-center w-[120px]  rounded-full items-center">
-                     <Link to='/customer/all-bikes'>
+                    <Link to='/customer/all-bikes?type=used'>
                         <Button className="focus:outline-none px-6 py-5 rounded-full bg-sky-400 ">See All</Button>
                     </Link>
                 </div>
@@ -41,4 +41,4 @@ const FeturedBikes = () => {
     );
 };
 
-export default FeturedBikes;
+export default UsedBikes;

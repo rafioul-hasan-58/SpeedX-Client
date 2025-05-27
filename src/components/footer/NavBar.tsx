@@ -3,7 +3,7 @@ import bike from '../../assets/logo/bikeLogo.png';
 import call from '../../assets/logo/callLogo.png';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchTerm } from '@/redux/features/user/userSlice';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { IoHome } from 'react-icons/io5';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
@@ -15,6 +15,7 @@ import { FaMotorcycle } from "react-icons/fa";
 import { BsBagCheck } from 'react-icons/bs';
 import { LogOut } from 'lucide-react';
 import UpdateProfile from '@/utils/UpdateProfile';
+import { useEffect, useState } from 'react';
 
 const NavBar = () => {
     const items = [
@@ -41,7 +42,7 @@ const NavBar = () => {
         },
         {
             title: "Scooters",
-            url: "/customer/all-scooters",
+            url: "/customer/all-bikes?bikeType=scooter",
             icon: FaMotorcycle
         },
         {
@@ -79,9 +80,27 @@ const NavBar = () => {
     const user = useAppSelector(selectCurrentUser);
     const { data } = useGetMyProfileQuery(user?.email);
     const myProfile = data?.data;
+
+    // Scroll hide logic
+    const [prevScrollPos, setPrevScrollPos] = useState(0);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPos = window.pageYOffset;
+            setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+            setPrevScrollPos(currentScrollPos);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [prevScrollPos]);
+
+    const { pathname, search } = useLocation();
     return (
-        <nav className={`fixed bg-white z-50 lg:w-full mb-4`}>
-            <section className="flex  lg:px-20 lg:pt-8 pb-2 w-full items-center gap-3 border border-b">
+        <nav className="fixed bg-white z-50 lg:w-full">
+            <section className="flex  lg:px-20  pb-1 w-full items-center gap-3 border border-b">
                 <aside className="flex w-[50%] justify-between">
                     <section className='lg:mt-0 mt-2'>
                         <img className="lg:w-16 lg:h-16 w-12 h-12" src={bike} alt="" />
@@ -152,7 +171,7 @@ const NavBar = () => {
                                         </div>
                                         <ul className='divide-y'>
                                             {
-                                                items.slice(0,4).map((nav) => (
+                                                items.slice(0, 4).map((nav) => (
                                                     <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
                                                         <NavLink className={`flex items-center gap-2`} to={nav.url} >
                                                             <nav.icon />
@@ -174,12 +193,16 @@ const NavBar = () => {
                 </aside>
             </section>
             {/* main nav section */}
-            <section className='py-4 px-20 lg:block hidden'>
+            <section
+                className={`overflow-hidden transition-all duration-300 ease-in-out lg:block hidden bg-white px-20 ${visible ? 'max-h-20 py-4' : 'max-h-0 py-0'
+                    }`}
+            >
+
                 <ul className='flex gap-4'>
                     {
                         items.map((nav) => (
-                            <NavLink key={nav.title} className={({ isActive }) =>
-                                `text-gray-500 uppercase  ${isActive && 'text-sky-400 font-semibold'}`
+                            <NavLink key={nav.title} className={
+                                `text-sm text-gray-500 uppercase font-semibold ${pathname + search === nav.url ? 'text-sky-400' : ''}`
                             } to={nav.url}>
                                 {nav.title}
                             </NavLink>

@@ -15,24 +15,36 @@ const AllBikes = () => {
     const [queries, setQueries] = useState<Filter[]>([]);
     const [searchParams] = useSearchParams();
     const type = searchParams.get('type');
+    const bikeType = searchParams.get('bikeType');
 
     useEffect(() => {
-         if (type) {
-        setQueries((prevFilters) => {
-            // Check if the filter already exists
-            const exists = prevFilters.some((filter) => filter.name === 'filterBytype');
-            if (exists) {
-                // Replace the existing filter
-                return prevFilters.map((filter) =>
-                    filter.name === 'filterBytype' ? { ...filter, value: type } : filter
-                );
-            } else {
-                // Add new filter
-                return [...prevFilters, { name: 'filterBytype', value: type }];
-            }
-        });
-    }
-    }, [type]);
+        const newFilters: Filter[] = [];
+        if (type) {
+            newFilters.push({ name: 'filterBytype', value: type });
+        }
+
+        if (bikeType) {
+            newFilters.push({ name: 'filterByBikeType', value: bikeType });
+        }
+        if (newFilters.length > 0) {
+            setQueries((prevFilters) => {
+                const updatedFilters = [...prevFilters];
+
+                newFilters.forEach((newFilter) => {
+                    const index = updatedFilters.findIndex((f) => f.name === newFilter.name);
+                    if (index !== -1) {
+                        // Replace existing filter
+                        updatedFilters[index] = newFilter;
+                    } else {
+                        // Add new filter
+                        updatedFilters.push(newFilter);
+                    }
+                });
+
+                return updatedFilters;
+            });
+        }
+    }, [type, bikeType]);
 
     const { register, handleSubmit } = useForm();
     const { data: products } = useGetAllProductsQuery(queries);
@@ -61,7 +73,10 @@ const AllBikes = () => {
         });
         // console.log(data);
     };
-    const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm)
+
+    const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm);
+
+
     useEffect(() => {
         setQueries((prevFilters) => {
             // Remove existing searchTerm filter

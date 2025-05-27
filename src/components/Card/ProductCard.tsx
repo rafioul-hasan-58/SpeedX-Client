@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { IProduct } from '@/types/product.types';
 import { Button } from '../ui/button';
+import { IoCartOutline } from 'react-icons/io5';
 
 
 
 const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
     return (
         <article className='border-[3px] bg-white  border-gray-200 lg:w-[330px] lg:h-[410px] rounded-lg '>
-            <div>
+            <Link to={`/customer/product-details/${item?._id}`}>
                 <img className='lg:h-[200px] w-full  bg-white border-b-[1px] border-gray-200' src={item?.images[0]} alt={item.images[0] || "product img"} />
-            </div>
+            </Link>
             <div className='mx-3'>
                 <div className='flex justify-between  my-2'>
                     <p className='w-[200px] font-semibold'>{item?.name}</p>
@@ -24,22 +25,24 @@ const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
                     <p className='text-[14px] font-semibold text-gray-500'>Available Colors:</p>
                     <p className='w-[250px] font-semibold'>{item?.color}</p>
                 </div>
-                <div className='flex lg:flex-row justify-between flex-col gap-3 lg:mx-7'>
-                    <Link to={`/customer/check-out/${item?._id}`} >
+                <div className="flex lg:flex-row flex-col w-full  gap-2 lg:gap-x-2">
+                    <Link className='w-[50%]' to={`/customer/check-out/${item?._id}`}>
                         <Button
-                            className="h-[40px] text-white bg-sky-400  border border-sky-400 rounded-full text-[15px] w-full hover:bg-sky-500"
+                            className="h-[40px] text-white bg-sky-400 border border-sky-400 rounded-full text-[12px] hover:bg-sky-500  w-full"
                         >
                             BUY NOW
                         </Button>
                     </Link>
-                    <Link to={`/customer/product-details/${item?._id}`}>
+                    <div className='w-[50%]' >
                         <Button
-                            className="h-[40px] text-[15px] text-sky-400 bg-white border border-sky-400 rounded-full hover:bg-sky-100 w-full"
+                            className="h-[40px] text-[12px] text-sky-400 bg-white border border-sky-400 rounded-full hover:bg-sky-100  w-full"
                         >
-                            VIEW MORE
+                            <IoCartOutline />
+                            Add To Cart
                         </Button>
-                    </Link>
+                    </div>
                 </div>
+
             </div>
         </article>
     );

@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useAddProductMutation } from "../../redux/features/admin/productManagement.Api";
 import { toast } from "sonner";
@@ -6,7 +5,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 import { Form } from "../../components/ui/form";
 import BFormInput from "../../components/form/Input/BFormInput";
 import BFormSelect from "../../components/form/Input/BFormSelect";
-import { colorOptions } from "../../constant/ProductConstant";
+import { bikeTypeOptions, brandOptions, colorOptions } from "../../constant/ProductConstant";
 import BFormTextarea from "../../components/form/Input/BFormTextarea";
 import {
   Card,
@@ -18,6 +17,7 @@ import {
 import BFormImageUpload from "../../components/form/Input/BFormImageUploader";
 import { useState } from "react";
 import useImageUploader from "@/utils/useImageUploader";
+import { Button } from "@/components/ui/button";
 
 const AddProduct = () => {
   const [addProduct, { isLoading }] = useAddProductMutation();
@@ -40,6 +40,7 @@ const AddProduct = () => {
       if (res?.data?.success) {
         reset()
         toast.success("Product Added successfully");
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
@@ -67,10 +68,19 @@ const AddProduct = () => {
                   control={control}
                   className="border border-sky-400 bg-white w-full"
                 />
-                <BFormInput
+                <BFormSelect
                   name="brandName"
                   label="Brand Name"
                   placeholder="Brand Name"
+                  options={brandOptions}
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormSelect
+                  name="bikeType"
+                  label="Bike Type"
+                  placeholder="Bike Type"
+                  options={bikeTypeOptions}
                   control={control}
                   className="border border-sky-400 bg-white w-full"
                 />
@@ -118,14 +128,13 @@ const AddProduct = () => {
 
                 <CardFooter className="p-0 pt-4">
                   <Button
-                    style={{ color: "white" }}
+                    type="submit"
                     className="w-full py-3 bg-sky-400 h-[35px] hover:bg-sky-500"
-                    htmlType="submit"
                   >
                     {isLoading || isUploading ? (
                       <LuLoaderCircle className="animate-spin" />
                     ) : (
-                      "Add Product"
+                      <p>Add Product</p>
                     )}
                   </Button>
                 </CardFooter>
