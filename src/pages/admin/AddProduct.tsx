@@ -1,6 +1,5 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useAddProductMutation } from "../../redux/features/admin/productManagement.Api";
-import { toast } from "sonner";
 import { LuLoaderCircle } from "react-icons/lu";
 import { Form } from "../../components/ui/form";
 import BFormInput from "../../components/form/Input/BFormInput";
@@ -18,6 +17,7 @@ import BFormImageUpload from "../../components/form/Input/BFormImageUploader";
 import { useState } from "react";
 import useImageUploader from "@/utils/useImageUploader";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
   const [addProduct, { isLoading }] = useAddProductMutation();

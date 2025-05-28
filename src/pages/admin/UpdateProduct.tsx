@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 import { Form } from "../../components/ui/form";
 import BFormInput from "../../components/form/Input/BFormInput";

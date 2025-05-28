@@ -3,7 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import image from '../../assets/SignUp.jpg'
 import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../../redux/features/auth/authApi";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 
 const Register = () => {

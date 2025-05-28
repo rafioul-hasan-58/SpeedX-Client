@@ -110,6 +110,9 @@ const AllBikes = () => {
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "KTM", e.target.checked)} style={{ color: 'gray' }}>KTM</Checkbox>
                                 </div>
                                 <div>
+                                    <Checkbox onChange={(e) => handleBrandBoxChange('brand', "TVS", e.target.checked)} style={{ color: 'gray' }}>TVS</Checkbox>
+                                </div>
+                                <div>
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "BMW", e.target.checked)} style={{ color: 'gray' }}>BMW</Checkbox>
                                 </div>
                                 <div>

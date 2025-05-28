@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Trash2 } from "lucide-react";
 import { ChangeEvent, InputHTMLAttributes, useState } from "react";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 interface IFormImageUploadProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, "name" | "onChange"> {
@@ -43,7 +43,7 @@ const BFormImageUpload = ({
         if (!files) return;
 
         if (multiple && selectedFiles?.length + files?.length > 5) {
-            toast.warning("You can only upload a maximum of 5 images.");
+            toast.error("You can only upload a maximum of 5 images.");
             return;
         }
 

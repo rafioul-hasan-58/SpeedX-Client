@@ -4,10 +4,15 @@ import { FC } from 'react';
 import { IProduct } from '@/types/product.types';
 import { Button } from '../ui/button';
 import { IoCartOutline } from 'react-icons/io5';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { toast } from 'react-hot-toast';
+import { addProduct } from '@/redux/features/cart/cartSlice';
 
 
 
 const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
+    const dispatch = useAppDispatch();
+    const cart = useAppSelector((state) => state.products.products);
     return (
         <article className='border-[3px] bg-white  border-gray-200 lg:w-[330px] lg:h-[410px] rounded-lg '>
             <Link to={`/customer/product-details/${item?._id}`}>
@@ -26,7 +31,7 @@ const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
                     <p className='w-[250px] font-semibold'>{item?.color}</p>
                 </div>
                 <div className="flex lg:flex-row flex-col w-full  gap-2 lg:gap-x-2">
-                    <Link className='w-[50%]' to={`/customer/check-out/${item?._id}`}>
+                    <Link className='w-[50%]' to={`/customer/check-out?productId=${item?._id}`}>
                         <Button
                             className="h-[40px] text-white bg-sky-400 border border-sky-400 rounded-full text-[12px] hover:bg-sky-500  w-full"
                         >
@@ -35,6 +40,16 @@ const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
                     </Link>
                     <div className='w-[50%]' >
                         <Button
+                            onClick={() => {
+                                const exists = cart.some(p => p._id === item._id);
+                                if (exists) {
+                                    toast.error('Already Exists')
+                                } else {
+                                    dispatch(addProduct(item));
+                                    toast.success('Product added to cart');
+                                }
+
+                            }}
                             className="h-[40px] text-[12px] text-sky-400 bg-white border border-sky-400 rounded-full hover:bg-sky-100  w-full"
                         >
                             <IoCartOutline />

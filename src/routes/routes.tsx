@@ -18,6 +18,7 @@ import MainLayout from "../Layout/MainLayout";
 import AdminLayout from "../Layout/AdminLayout";
 import AllOrders from "@/pages/admin/AllOrders";
 import AllBikes from "@/pages/universal/AllBikes";
+import Cart from "@/pages/universal/Cart";
 
 
 export const router = createBrowserRouter([
@@ -71,13 +72,16 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: 'check-out/:id',
+        path: 'check-out',
         element: <PrivetRoute role="customer"><CheckOut /></PrivetRoute>
       },
-
+      {
+        path: 'cart',
+        element: <Cart />
+      },
       {
         path: 'product-details/:id',
-        element: <PrivetRoute role="customer"><ProductDetails /></PrivetRoute>
+        element: <ProductDetails />
       },
       {
         path: 'verify-order',

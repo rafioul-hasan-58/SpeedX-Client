@@ -8,7 +8,7 @@ import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { IUser } from "../../types/auth.types";
 import { LuLoaderCircle } from "react-icons/lu";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()

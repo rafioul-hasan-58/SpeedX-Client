@@ -3,6 +3,7 @@ import { useGetProductDetailsQuery } from "../../redux/features/admin/productMan
 import { Button } from "antd";
 import { BsInfoCircle } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import ReletedBikes from "../segments/ReletedBikes";
 const ProductDetails = () => {
     const { id } = useParams();
     const { data } = useGetProductDetailsQuery(id);
@@ -34,7 +35,7 @@ const ProductDetails = () => {
                                         details?.images?.length > 0 &&
                                         details.images.slice(0)
                                             .map((img: string, idx: string) => (
-                                                <img key={idx} src={img} alt={img + idx}  onClick={() => setCurrentImg(img)} className={`w-[150px] ${currentImg === img ? 'border border-sky-400' : ''}`} />
+                                                <img key={idx} src={img} alt={img + idx} onClick={() => setCurrentImg(img)} className={`w-[150px] ${currentImg === img ? 'border border-sky-400' : ''}`} />
                                             ))
                                     }
                                 </div>
@@ -49,7 +50,7 @@ const ProductDetails = () => {
                         <p className="text-gray-500">Brand: {details?.brandName} |<span className="text-sky-400"> More Bikes From {details?.brandName}</span></p>
                         <p className="text-gray-500 mt-2">Product Color: <span className="text-black">{details?.color}</span></p>
                         <div className="flex gap-4 mt-16">
-                            <Link to={`/customer/check-out/${id}`}>
+                            <Link to={`/customer/check-out?productId=${id}`}>
                                 <div className=" flex w-[190px]  items-center justify-center ">
                                     <Button className="relative  focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white', fontSize: '16px', borderRadius: '100px 100px 100px 100px', padding: '22px 60px 22px 60px', }}>BUY NOW</Button>
                                 </div>
@@ -74,6 +75,7 @@ const ProductDetails = () => {
                     </p>
                 </div>
             </div>
+            <ReletedBikes name="filterBybrand" value={details?.brandName} />
         </div>
     );
 };

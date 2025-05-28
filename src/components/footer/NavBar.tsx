@@ -13,15 +13,21 @@ import { useGetMyProfileQuery } from '@/redux/features/admin/userManagement.Api'
 import { LuBadgeInfo } from 'react-icons/lu';
 import { FaMotorcycle } from "react-icons/fa";
 import { BsBagCheck } from 'react-icons/bs';
-import { LogOut } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import UpdateProfile from '@/utils/UpdateProfile';
 import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
 
 const NavBar = () => {
     const items = [
         {
             title: "Home",
             url: "/",
+            icon: IoHome
+        },
+        {
+            title: "Dashboard",
+            url: "/customer/dashboard",
             icon: IoHome
         },
         {
@@ -147,48 +153,55 @@ const NavBar = () => {
                             <Link to='/'><IoHome /></Link>
                         </div>
                         {/* profile */}
-                        <div>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Avatar className='relative lg:left-0 left-[135px] cursor-pointer w-[50px] h-[50px] border border-sky-400'>
-                                        <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                </PopoverTrigger>
-                                <PopoverContent className='mr-10'>
-                                    <article>
-                                        <div className='flex justify-center'>
-                                            <Avatar className='flex justify-center cursor-pointer w-[50px] h-[50px] border border-sky-400'>
-                                                <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
-                                                <AvatarFallback>CN</AvatarFallback>
-                                            </Avatar>
-                                        </div>
-                                        <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
-                                        <div className='flex justify-center'>
-                                            {myProfile && (
-                                                <UpdateProfile {...myProfile} />
-                                            )}
-                                        </div>
-                                        <ul className='divide-y'>
-                                            {
-                                                items.slice(0, 4).map((nav) => (
-                                                    <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
-                                                        <NavLink className={`flex items-center gap-2`} to={nav.url} >
-                                                            <nav.icon />
-                                                            {nav.title}
-                                                        </NavLink>
-                                                    </li>
-                                                ))
-                                            }
-                                            <li onClick={() => dispatch(logout())} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full flex items-center gap-2 cursor-pointer">
-                                                <LogOut size={18} />
-                                                Logout
-                                            </li>
-                                        </ul>
-                                    </article>
-                                </PopoverContent>
-                            </Popover>
-                        </div>
+                        {
+                            user ? <div>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Avatar className='relative lg:left-0 left-[135px] cursor-pointer w-[50px] h-[50px] border border-sky-400'>
+                                            <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
+                                            <AvatarFallback>CN</AvatarFallback>
+                                        </Avatar>
+                                    </PopoverTrigger>
+                                    <PopoverContent className='mr-10'>
+                                        <article>
+                                            <div className='flex justify-center'>
+                                                <Avatar className='flex justify-center cursor-pointer w-[50px] h-[50px] border border-sky-400'>
+                                                    <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
+                                                    <AvatarFallback>CN</AvatarFallback>
+                                                </Avatar>
+                                            </div>
+                                            <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
+                                            <div className='flex justify-center'>
+                                                {myProfile && (
+                                                    <UpdateProfile {...myProfile} />
+                                                )}
+                                            </div>
+                                            <ul className='divide-y'>
+                                                {
+                                                    items.slice(0, 4).map((nav) => (
+                                                        <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
+                                                            <NavLink className={`flex items-center gap-2`} to={nav.url} >
+                                                                <nav.icon />
+                                                                {nav.title}
+                                                            </NavLink>
+                                                        </li>
+                                                    ))
+                                                }
+                                                <li onClick={() => {
+                                                    dispatch(logout())
+                                                }} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full flex items-center gap-2 cursor-pointer">
+                                                    <LogOut size={18} />
+                                                    Logout
+                                                </li>
+                                            </ul>
+                                        </article>
+                                    </PopoverContent>
+                                </Popover>
+                            </div> : <Link to='/login'>
+                                <Button className="focus:outline-none py-5 bg-sky-400 hover:bg-sky-500  text-white rounded-full"><User /> Login</Button>
+
+                            </Link>
+                        }
                     </section>
                 </aside>
             </section>

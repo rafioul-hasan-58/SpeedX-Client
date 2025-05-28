@@ -20,7 +20,7 @@ const FeturedBikes = () => {
     const mainData = products?.data?.slice(0, 4);
 
     return (
-        <div>
+        <div className="">
             <h1 className="text-4xl font-bold my-10">Fearured Bikes</h1>
             <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3">
                 {

@@ -16,11 +16,11 @@ const MyOrders = () => {
         console.log(res);
     }
     return (
-        <div>
+        <div className="mt-0">
             <div>
-                <section className="container px-4 pb-10 min-h-screen">
+                <section className=" px-4 min-h-screen">
                     <div>
-                        <h1 className="text-2xl font-bold text-sky-400 text-center my-6 pt-3">My Orders</h1>
+                        <h1 className="text-2xl font-bold text-sky-400 text-center my-6 ">My Orders</h1>
                     </div>
                     <div className="flex flex-col">
                         <div className=" sm:-mx-6 lg:mx-10">
