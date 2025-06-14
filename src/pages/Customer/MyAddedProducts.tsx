@@ -1,13 +1,17 @@
 import { Button } from "antd";
-import { useGetAllProductsQuery, useRemoveProductMutation } from "../../redux/features/admin/productManagement.Api";
+import { useRemoveProductMutation } from "../../redux/features/admin/productManagement.Api";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loader from "../../components/Loader/Loader";
 import { Edit, Trash2 } from "lucide-react";
 import { IProduct } from "@/types/product.types";
+import { useGetMyAddedProductsQuery } from "@/redux/features/user/userReletedApi";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
-const AllProducts = () => {
-    const { data: products, isFetching } = useGetAllProductsQuery(undefined)
+const MyAddedProducts = () => {
+    const user = useAppSelector(selectCurrentUser);
+    const { data: products, isFetching } = useGetMyAddedProductsQuery(user?.email || '');
     const [deleteProduct] = useRemoveProductMutation()
     const handleDelete = (id: string) => {
         Swal.fire({
@@ -36,7 +40,7 @@ const AllProducts = () => {
             <div>
 
                 <section className="container px-4 mx-auto">
-                    <h2 className="text-2xl font-semibold">All Products | Admin</h2>
+                    <h2 className="text-2xl font-semibold">My Added Products | Customer</h2>
                     <p className="text-lg text-gray-500 mb-4">Manage, update, or delete  products from here.</p>
                     <div className="flex flex-col">
                         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -69,7 +73,7 @@ const AllProducts = () => {
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200 ">
                                             {
-                                                products?.data?.map((item: IProduct) => <tr key={item._id} className="w-full">
+                                                products?.data?.map((item: IProduct) => <tr className="w-full">
 
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                                         <img src={item?.images[0]} className="w-[90px] " alt="" />
@@ -80,7 +84,7 @@ const AllProducts = () => {
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.price}</td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.color}</td>
                                                     <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                        <Link to={`/admin/update-product/${item?._id}`}>
+                                                        <Link to={`/customer/dashboard/update-product/${item?._id}`}>
                                                             <Button className="bg-sky-500 text-white h-8 w-8 p-0">
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>
@@ -105,4 +109,4 @@ const AllProducts = () => {
     )
 };
 
-export default AllProducts;
+export default MyAddedProducts;

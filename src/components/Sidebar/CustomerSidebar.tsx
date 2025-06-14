@@ -1,25 +1,23 @@
 
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logout, selectCurrentToken } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import bike from '../../assets/logo/bikeLogo.png'
+import bikeLogo from '../../assets/logo/bikeLogo.png'
 import { verifyToken } from "../../utils/verifyToken";
-import { IoBarChartSharp } from "react-icons/io5";
+import { IoBarChartSharp, IoHome } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { useGetMyProfileQuery } from "../../redux/features/admin/userManagement.Api";
 import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover";
 import { Bell, LogOut } from "lucide-react";
 import { HiChevronUpDown } from "react-icons/hi2";
-import { BsBagCheck } from 'react-icons/bs';
-import { HiUsers } from "react-icons/hi2";
+import { BsBag, BsBagCheck } from 'react-icons/bs';
 
 
-const Sidebar = () => {
+const CustomerSidebar = () => {
     const token = useAppSelector(selectCurrentToken);
     let user;
-
     if (token) {
         user = verifyToken(token);
     }
@@ -32,39 +30,44 @@ const Sidebar = () => {
     }
     const items = [
         {
+            title: "Home",
+            url: "/",
+            icon: IoHome
+        },
+        {
             title: "Dashboard",
-            url: "dashboard",
+            url: "/customer/dashboard",
             icon: IoBarChartSharp
         },
         {
             title: "Add Product",
-            url: "add-product",
+            url: "/customer/dashboard/add-product",
             icon: AiOutlineAppstoreAdd
         },
         {
-            title: "Users",
-            url: "users",
-            icon: HiUsers
+            title: "My Products",
+            url: "/customer/dashboard/my-added-products",
+            icon: RxDashboard
 
         },
         {
-            title: "All Products",
-            url: "all-products",
-            icon: RxDashboard
-        },
-        {
-            title: "All Orders",
-            url: "all-orders",
+            title: "My Orders",
+            url: "/customer/my-orders",
             icon: BsBagCheck
         },
+        {
+            title: "My Cart",
+            url: "/customer/cart",
+            icon: BsBag
+        },
     ]
+    const { pathname } = useLocation();
     return (
         <aside className="  flex flex-col w-[310px] border-r-2 border-sky-400 h-screen px-5 py-8 overflow-y-auto bg-white ">
-            <div className="lg:block hidden gap-1">
-                <img className="w-16 h-16" src={bike} alt="" />
-                <h1 className="text-xl italic font-bold relative bottom-5 text-sky-600">SpeedX Admin Panel</h1>
+            <div className="hidden gap-4 lg:flex items-center justify-center ">
+                <img className="w-16 h-16" src={bikeLogo} alt="" />
+                <h1 className="text-sky-500 font-semibold text-2xl">SpeedX</h1>
             </div>
-
             <div className="flex flex-col justify-between flex-1 mt-6">
                 <nav className="flex-1 -mx-3 space-y-4 ">
                     <div className="relative mx-3">
@@ -77,34 +80,36 @@ const Sidebar = () => {
                     </div>
                     <aside className="space-y-3 p-1">
                         {
-                            items.map((item) => (<NavLink key={item.url} to={`/admin/${item.url}`} className={({ isActive }) =>
-                                `px-2 w-[260px]p flex items-center gap-2  py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
-                            }>
-                                <item.icon className="text-xl" />
-                                <span className=" text-sm font-medium">{item.title}</span>
-                            </NavLink>))
+                            items.map((item) => (
+                                <NavLink key={item.url} to={item.url} className={
+                                    `px-2 w-[260px]p flex items-center gap-2  py-2 text-gray-600 transition-colors duration-300 transform ${pathname === item.url ? "bg-sky-400 font-semibold text-white hover:bg-sky-500" : "hover:bg-sky-500 hover:text-white"}`
+                                }>
+                                    <item.icon className="text-xl" />
+                                    <span className=" text-sm font-medium">{item.title}</span>
+                                </NavLink>
+                            ))
                         }
                     </aside>
                 </nav>
             </div>
             <div>
-                <div className="flex gap-3">
-                    <Avatar>
+                <div className="flex gap-2">
+                    <Avatar >
                         <AvatarImage
-                            className="relative top-1 w-[50px] h-[50px] rounded-full border border-sky-500"
+                            className="relative top-1 rounded-full border border-sky-500"
                             src={myProfile?.image || "https://github.com/shadcn.png"}
                         />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <div>
-                        <h1 className="font-semibold text-[15px]">{myProfile?.data?.name}</h1>
+                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.name}</h1>
                         <p className="font-semibold text-[14px] text-sky-500">
                             {myProfile?.data?.email}
                         </p>
                     </div>
                     <Popover>
                         <PopoverTrigger>
-                            <HiChevronUpDown className="text-xl ml-16 cursor-pointer" />
+                            <HiChevronUpDown className=" text-xl ml-16 cursor-pointer" />
                         </PopoverTrigger>
                         <PopoverContent className="relative left-52">
                             <div>
@@ -140,28 +145,10 @@ const Sidebar = () => {
                 </div>
 
             </div>
-            {/* <div className="lg:mr-10">
-                <NavLink to='/admin/my-profile' className={({ isActive }) =>
-                    `flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform   ${isActive ? 'bg-sky-400 text-white  font-semibold hover:bg-sky-500' : ''}`
-                }>
-                    <IoMdSettings className="text-xl" />
-                    <span className="mx-2 text-sm font-medium">Profile</span>
-                </NavLink>
-                {
-                    user ? <div onClick={handleLogOut} className="flex relative left-1 gap-1 mt-3 cursor-pointer hover:bg-gray-100 p-2 rounded-md">
-                        <IoIosLogOut className="text-xl" />
-                        <span className="relative bottom-1">Logout</span>
-                    </div> : <Link to='/login'>
-                        <div className="flex gap-1 mt-3 cursor-pointer hover:bg-gray-100 p-2 rounded-md">
-                            <LuLogIn className="text-xl" />
-                            <span className="relative bottom-1">Login</span>
-                        </div>
-                    </Link>
-                }
-            </div> */}
+
         </aside >
     );
 };
 
-export default Sidebar;
+export default CustomerSidebar;
 

@@ -1,10 +1,9 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useAddProductMutation } from "../../redux/features/admin/productManagement.Api";
 import { LuLoaderCircle } from "react-icons/lu";
 import { Form } from "../../components/ui/form";
 import BFormInput from "../../components/form/Input/BFormInput";
 import BFormSelect from "../../components/form/Input/BFormSelect";
-import { bikeTypeOptions, brandOptions, colorOptions } from "../../constant/ProductConstant";
+import { bikeTypeOptions, brandOptions, colorOptions, conditionTypeOptions } from "../../constant/ProductConstant";
 import BFormTextarea from "../../components/form/Input/BFormTextarea";
 import {
   Card,
@@ -18,13 +17,29 @@ import { useState } from "react";
 import useImageUploader from "@/utils/useImageUploader";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useAddProductMutation } from "@/redux/features/utils/utilsApi";
 
 const AddProduct = () => {
+  const user = useAppSelector(selectCurrentUser);
   const [addProduct, { isLoading }] = useAddProductMutation();
   const { uploadImagesToCloudinary, isUploading } = useImageUploader();
   const [previewImages, setPreviewImages] = useState<(string | File)[]>([]);
   const [ImageUrls, setImageUrls] = useState<File | File[]>([]);
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      name: '',
+      brandName: '',
+      bikeType: '',
+      color: '',
+      price: '',
+      stocks: '',
+      description: '',
+      images: [],
+      addedBy: user?.email || ''
+    }
+  });
   const { control, handleSubmit, reset } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -33,7 +48,8 @@ const AddProduct = () => {
       ...data,
       price: Number(data.price),
       stocks: Number(data.stocks),
-      images
+      images,
+      addedBy: user?.email || ''
     };
     try {
       const res = await addProduct(productData);
@@ -47,12 +63,11 @@ const AddProduct = () => {
     }
   };
 
-
   return (
     <div>
       <div className=" w-full p-4">
         <h1 className="text-2xl font-semibold text-center text-sky-500 mb-6">
-          Add New Product | Admin Panel
+          Add New Product | {user?.role.split('')} Panel
         </h1>
         <Card className="max-w-5xl w-full mx-auto shadow-md">
           <CardHeader>
@@ -81,6 +96,14 @@ const AddProduct = () => {
                   label="Bike Type"
                   placeholder="Bike Type"
                   options={bikeTypeOptions}
+                  control={control}
+                  className="border border-sky-400 bg-white w-full"
+                />
+                <BFormSelect
+                  name="type"
+                  label="Condition Type"
+                  placeholder="Condition Type"
+                  options={conditionTypeOptions}
                   control={control}
                   className="border border-sky-400 bg-white w-full"
                 />

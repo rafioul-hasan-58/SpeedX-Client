@@ -19,6 +19,9 @@ import AdminLayout from "../Layout/AdminLayout";
 import AllOrders from "@/pages/admin/AllOrders";
 import AllBikes from "@/pages/universal/AllBikes";
 import Cart from "@/pages/universal/Cart";
+import CustomerDashboard from "@/pages/Customer/CustomerDashboard";
+import CustomerLayout from "@/Layout/CustomerLayout";
+import MyAddedProducts from "@/pages/Customer/MyAddedProducts";
 
 
 export const router = createBrowserRouter([
@@ -92,10 +95,6 @@ export const router = createBrowserRouter([
         element: <PrivetRoute role="customer"><MyOrders /></PrivetRoute>
       },
       {
-        path: 'dashboard',
-        element: <PrivetRoute role="customer"><Home /></PrivetRoute>
-      },
-      {
         path: 'all-bikes',
         element: <PrivetRoute role="customer"><AllBikes /></PrivetRoute>
       },
@@ -103,6 +102,28 @@ export const router = createBrowserRouter([
         path: 'about',
         element: <PrivetRoute role="customer"><About /></PrivetRoute>
       },
+    ]
+  },
+  {
+    path: '/customer/dashboard',
+    element: <PrivetRoute role="customer"><CustomerLayout /></PrivetRoute>,
+    children: [
+      {
+        path: '',
+        element: <CustomerDashboard />
+      },
+      {
+        path: 'add-product',
+        element: <PrivetRoute role="customer"><AddProduct /></PrivetRoute>
+      },
+      {
+        path: 'my-added-products',
+        element: <PrivetRoute role="customer"><MyAddedProducts /></PrivetRoute>
+      },
+      {
+        path: 'update-product/:id',
+        element: <PrivetRoute role="customer"><UpdateProduct /></PrivetRoute>
+      }
     ]
   },
 

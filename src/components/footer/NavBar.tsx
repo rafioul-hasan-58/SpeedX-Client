@@ -12,7 +12,7 @@ import { logout, selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useGetMyProfileQuery } from '@/redux/features/admin/userManagement.Api';
 import { LuBadgeInfo } from 'react-icons/lu';
 import { FaMotorcycle } from "react-icons/fa";
-import { BsBagCheck } from 'react-icons/bs';
+import { BsBag, BsBagCheck } from 'react-icons/bs';
 import { LogOut, User } from 'lucide-react';
 import UpdateProfile from '@/utils/UpdateProfile';
 import { useEffect, useState } from 'react';
@@ -75,6 +75,10 @@ const NavBar = () => {
             title: "Blogs",
             url: "/customer/upcoming-products",
             icon: FaMotorcycle
+        }, {
+            title: "My Cart",
+            url: "/customer/cart",
+            icon: BsBag
         },
     ]
     const dispatch = useAppDispatch();
@@ -197,10 +201,11 @@ const NavBar = () => {
                                         </article>
                                     </PopoverContent>
                                 </Popover>
-                            </div> : <Link to='/login'>
-                                <Button className="focus:outline-none py-5 bg-sky-400 hover:bg-sky-500  text-white rounded-full"><User /> Login</Button>
-
-                            </Link>
+                            </div>
+                                :
+                                <Link to='/login'>
+                                    <Button className="focus:outline-none py-5 bg-sky-400 hover:bg-sky-500  text-white rounded-full"><User /> Login</Button>
+                                </Link>
                         }
                     </section>
                 </aside>

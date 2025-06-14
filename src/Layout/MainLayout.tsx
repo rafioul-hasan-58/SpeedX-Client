@@ -1,22 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import NavBar from "@/components/footer/NavBar";
 import ProductCart from "@/components/Card/ProductCart";
 
-
-
 const MainLayout = () => {
+
     return (
         <div>
-            <div className="">
-                <NavBar />
-            </div>
+            <NavBar />
             <ProductCart />
-            <div className="bg-gray-100 relative top-40">
-                <Outlet></Outlet>
+            <div className={"bg-gray-100 pt-32"}>
+                <Outlet />
             </div>
-            <Footer></Footer>
-
+            <Footer />
         </div>
     );
 };

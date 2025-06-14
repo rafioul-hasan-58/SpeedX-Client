@@ -63,3 +63,14 @@ export const brandOptions = [
         label: 'TVS'
     },
 ]
+
+export const conditionTypeOptions = [
+    {
+        value: 'used',
+        label: 'Used'
+    },
+    {
+        value: 'new',
+        label: 'New'
+    },
+]

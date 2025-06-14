@@ -1,6 +1,7 @@
 import { baseApi } from "../../api/baseApi";
 const productManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        // This endpoint is used to place an order
         pressOrder: builder.mutation({
             query: (orderInfo) => ({
                 url: '/orders/add-order',
@@ -8,7 +9,7 @@ const productManagementApi = baseApi.injectEndpoints({
                 body: orderInfo,
             }),
         }),
-        
+        // This endpoint is used to verify an order
         verifyOrder: builder.query({
             query: (order_id) => ({
                 url: '/orders/verify-order',
@@ -17,7 +18,7 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
-
+        // This endpoint is used to get today's sale and total sale
         getTodaysSale: builder.query({
             query: () => ({
                 url: '/orders/get-today-sale',
@@ -25,7 +26,6 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
-
         getTotalSale: builder.query({
             query: () => ({
                 url: '/orders/get-total-sale',
@@ -33,7 +33,7 @@ const productManagementApi = baseApi.injectEndpoints({
 
             }),
         }),
-
+        // This endpoint is used to get all orders of the user
         getMyOrders: builder.query({
             query: () => ({
                 url: '/orders/get-my-orders',
@@ -42,7 +42,7 @@ const productManagementApi = baseApi.injectEndpoints({
             }),
             providesTags: ['order']
         }),
-
+        // This endpoint is used to get all orders
         getAllOrders: builder.query({
             query: () => ({
                 url: '/orders/get-all-orders',
@@ -50,16 +50,23 @@ const productManagementApi = baseApi.injectEndpoints({
             }),
             providesTags: ['orders']
         }),
-
+        // This endpoint is used to get products added by the user
+        getMyAddedProducts: builder.query({
+            query: (id) => ({
+                url: `/products/get-my-added-products/${id}`,
+                method: 'GET',
+            }),
+        }),
+        // This endpoint is used to change the status of an order
         changeStatus: builder.mutation({
             query: (args) => ({
                 url: `/orders/change-status/${args.id}`,
                 method: 'PATCH',
                 body: args.data
             }),
-            invalidatesTags: ['orders','order']
+            invalidatesTags: ['orders', 'order']
         }),
-
+        // This endpoint is used to delete an order
         deleteOrder: builder.mutation({
             query: (id) => ({
                 url: `/orders/delete-order/${id}`,
@@ -70,4 +77,4 @@ const productManagementApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetTotalSaleQuery,usePressOrderMutation, useVerifyOrderQuery, useGetTodaysSaleQuery, useGetMyOrdersQuery, useGetAllOrdersQuery, useChangeStatusMutation,useDeleteOrderMutation } = productManagementApi;
+export const { useGetTotalSaleQuery, usePressOrderMutation, useVerifyOrderQuery, useGetTodaysSaleQuery, useGetMyOrdersQuery, useGetAllOrdersQuery, useChangeStatusMutation, useDeleteOrderMutation, useGetMyAddedProductsQuery } = productManagementApi;

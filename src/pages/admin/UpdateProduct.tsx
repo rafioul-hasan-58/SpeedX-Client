@@ -1,6 +1,5 @@
-import { Button } from "antd";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
+import { useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 import { Form } from "../../components/ui/form";
@@ -21,10 +20,16 @@ import useImageUploader from "@/utils/useImageUploader";
 import { useParams } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useGetProductDetailsQuery, useRemoveProductImageMutation } from "@/redux/features/utils/utilsApi";
+import { Button } from "@/components/ui/button";
 
 const UpdateProduct = () => {
+    const user = useAppSelector(selectCurrentUser);
     const { id } = useParams();
     const [updateProduct, { isLoading }] = useUpdateProductMutation();
+    const [removeProductImage] = useRemoveProductImageMutation();
     const { data: productData } = useGetProductDetailsQuery(id);
     const previousData = productData?.data;
     const { uploadImagesToCloudinary, isUploading } = useImageUploader();
@@ -75,23 +80,23 @@ const UpdateProduct = () => {
             });
         }
     }, [previousData, reset]);
-    // const handleImageDelete = async (image: string) => {
-    //     try {
-    //         const opData = {
-    //             image,
-    //             id: previousData._id,
-    //         };
-    //         const res = await removeIdeaImage(opData);
-    //         console.log(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    const handleImageDelete = async (image: string) => {
+        try {
+            const args = {
+                id: previousData._id,
+                data: { image }
+            };
+            const res = await removeProductImage(args);
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <div>
             <div className=" w-full p-4">
                 <h1 className="text-2xl font-semibold text-center text-sky-500 mb-6">
-                    Update Product | Admin Panel
+                    Update Product | {user?.role} Panel
                 </h1>
                 <Card className="max-w-5xl w-full mx-auto shadow-md">
                     <CardHeader>
@@ -149,11 +154,11 @@ const UpdateProduct = () => {
                                     <>
                                         <Label htmlFor="image" className="font-semibold text-[14px]">
                                             Current Images
-                                            <span className="text-green-500 text-xl relative top-0.5">
+                                            <span className="text-sky-500 text-xl relative top-0.5">
                                                 *
                                             </span>
                                         </Label>
-                                        <div className="border border-green-500 p-2 grid grid-cols-4 border-dashed">
+                                        <div className="border border-sky-500 p-2 grid grid-cols-4 border-dashed rounded-md">
                                             {previousData?.images?.map((image: string) => (
                                                 <div key={image} className="relative">
                                                     <img
@@ -164,8 +169,10 @@ const UpdateProduct = () => {
                                                         className="rounded-sm"
                                                     />
                                                     <Button
-                                                        className="absolute top-0 right-1 rounded-full shadow-md  hover:scale-110 transition-transform cursor-pointer">
-                                                        <Trash2 size={14} className=" text-white" />
+                                                        type="button"
+                                                        onClick={() => handleImageDelete(image)}
+                                                        className="absolute top-0 right-1 rounded-full shadow-md  hover:scale-110 transition-transform cursor-pointer bg-white hover:bg-red-100">
+                                                        <Trash2 size={14} className=" text-red-500" />
                                                     </Button>
                                                 </div>
                                             ))}
@@ -189,7 +196,7 @@ const UpdateProduct = () => {
                                     <Button
                                         style={{ color: "white" }}
                                         className="w-full py-3 bg-sky-400 h-[35px] hover:bg-sky-500"
-                                        htmlType="submit"
+                                        type="submit"
                                     >
                                         {isLoading || isUploading ? (
                                             <>
