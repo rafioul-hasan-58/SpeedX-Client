@@ -5,7 +5,7 @@ import { logout, selectCurrentToken } from "../../redux/features/auth/authSlice"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import bikeLogo from '../../assets/logo/bikeLogo.png'
 import { verifyToken } from "../../utils/verifyToken";
-import { IoBarChartSharp, IoHome } from "react-icons/io5";
+import { IoHome } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { useGetMyProfileQuery } from "../../redux/features/admin/userManagement.Api";
@@ -33,11 +33,6 @@ const CustomerSidebar = () => {
             title: "Home",
             url: "/",
             icon: IoHome
-        },
-        {
-            title: "Dashboard",
-            url: "/customer/dashboard",
-            icon: IoBarChartSharp
         },
         {
             title: "Add Product",

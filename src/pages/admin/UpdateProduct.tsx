@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import toast from "react-hot-toast";
@@ -52,7 +53,7 @@ const UpdateProduct = () => {
             ...data,
             price: Number(data.price),
             stocks: Number(data.stocks),
-            images
+            images: [...(previousData?.images || []), ...images],
         };
         const updatedData = {
             id: previousData._id,
@@ -61,10 +62,15 @@ const UpdateProduct = () => {
         try {
             const res = await updateProduct(updatedData);
             if (res?.data?.success) {
-                window.location.href = '/admin/all-product'
+                if (user?.role === 'admin') {
+                    window.location.href = '/admin/all-products'
+                } else {
+                    window.location.href = '/customer/dashboard/my-added-products'
+                }
                 toast.success("Product updated successfully");
             }
-        } catch (err) {
+        } catch (err: any) {
+            toast.error(err?.data?.message || "An error occurred");
             console.log(err);
         }
     };
@@ -87,7 +93,9 @@ const UpdateProduct = () => {
                 data: { image }
             };
             const res = await removeProductImage(args);
-            console.log(res);
+            if (res.data?.success) {
+                toast.success('Image removed')
+            }
         } catch (error) {
             console.log(error);
         }

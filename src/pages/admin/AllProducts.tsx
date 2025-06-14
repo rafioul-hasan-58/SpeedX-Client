@@ -1,10 +1,11 @@
 import { Button } from "antd";
-import { useGetAllProductsQuery, useRemoveProductMutation } from "../../redux/features/admin/productManagement.Api";
+import { useRemoveProductMutation } from "../../redux/features/admin/productManagement.Api";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loader from "../../components/Loader/Loader";
 import { Edit, Trash2 } from "lucide-react";
 import { IProduct } from "@/types/product.types";
+import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
 
 const AllProducts = () => {
     const { data: products, isFetching } = useGetAllProductsQuery(undefined)

@@ -27,7 +27,7 @@ const NavBar = () => {
         },
         {
             title: "Dashboard",
-            url: "/customer/dashboard",
+            url: "/customer/dashboard/my-added-products",
             icon: IoHome
         },
         {

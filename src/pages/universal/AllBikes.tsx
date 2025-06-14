@@ -1,12 +1,12 @@
 import { Checkbox } from 'antd';
 import BrandCarosel from '../../components/Brands/BrandCarosel';
 import ProductCard from '../../components/Card/ProductCard';
-import { useGetAllProductsQuery } from '../../redux/features/admin/productManagement.Api';
 import { useEffect, useState } from 'react';
 import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../redux/hooks';
 import { useSearchParams } from 'react-router-dom';
+import { useGetAllProductsQuery } from '@/redux/features/utils/utilsApi';
 interface Filter {
     name: string;
     value: string | number;

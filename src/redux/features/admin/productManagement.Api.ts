@@ -1,5 +1,4 @@
-import { TQueryParam, TResponseRedux } from "../../../types/global";
-import { IProduct } from "../../../types/product.types";
+
 import { baseApi } from "../../api/baseApi";
 
 const productManagementApi = baseApi.injectEndpoints({
@@ -11,29 +10,6 @@ const productManagementApi = baseApi.injectEndpoints({
       }),
     }),
 
-    getAllProducts: builder.query({
-      query: (args) => {
-        const params = new URLSearchParams();
-        if (args) {
-          args.forEach((item: TQueryParam) => {
-            params.append(item.name, item.value as string);
-          });
-        }
-
-        return {
-          url: '/products/get-all-products',
-          method: 'GET',
-          params: params,
-        };
-      },
-      providesTags: ['product'],
-      transformResponse: (response: TResponseRedux<IProduct[]>) => {
-        return {
-          data: response.data,
-          meta: response.meta,
-        };
-      },
-    }),
     updateProduct: builder.mutation({
       query: (args) => ({
         url: `/products/update-product/${args.id}`,
@@ -53,4 +29,4 @@ const productManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllProductsQuery, useRemoveProductMutation, useUpdateProductMutation, useGetAvailableStocksQuery } = productManagementApi;
+export const { useRemoveProductMutation, useUpdateProductMutation, useGetAvailableStocksQuery } = productManagementApi;

@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { useGetProductDetailsQuery } from "../../redux/features/admin/productManagement.Api";
 import { Button } from "antd";
 import { BsInfoCircle } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import ReletedBikes from "../segments/ReletedBikes";
+import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
 const ProductDetails = () => {
     const { id } = useParams();
     const { data } = useGetProductDetailsQuery(id);

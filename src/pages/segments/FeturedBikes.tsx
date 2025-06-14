@@ -1,6 +1,6 @@
 import ProductCard from "@/components/Card/ProductCard";
 import { Button } from "@/components/ui/button";
-import { useGetAllProductsQuery } from "@/redux/features/admin/productManagement.Api";
+import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 

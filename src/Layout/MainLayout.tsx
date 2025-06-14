@@ -4,7 +4,7 @@ import NavBar from "@/components/footer/NavBar";
 import ProductCart from "@/components/Card/ProductCart";
 
 const MainLayout = () => {
-
+    
     return (
         <div>
             <NavBar />

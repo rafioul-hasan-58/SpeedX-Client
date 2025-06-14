@@ -19,7 +19,6 @@ import AdminLayout from "../Layout/AdminLayout";
 import AllOrders from "@/pages/admin/AllOrders";
 import AllBikes from "@/pages/universal/AllBikes";
 import Cart from "@/pages/universal/Cart";
-import CustomerDashboard from "@/pages/Customer/CustomerDashboard";
 import CustomerLayout from "@/Layout/CustomerLayout";
 import MyAddedProducts from "@/pages/Customer/MyAddedProducts";
 
@@ -108,10 +107,6 @@ export const router = createBrowserRouter([
     path: '/customer/dashboard',
     element: <PrivetRoute role="customer"><CustomerLayout /></PrivetRoute>,
     children: [
-      {
-        path: '',
-        element: <CustomerDashboard />
-      },
       {
         path: 'add-product',
         element: <PrivetRoute role="customer"><AddProduct /></PrivetRoute>

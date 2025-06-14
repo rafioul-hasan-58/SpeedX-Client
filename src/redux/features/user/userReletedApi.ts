@@ -77,4 +77,15 @@ const productManagementApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetTotalSaleQuery, usePressOrderMutation, useVerifyOrderQuery, useGetTodaysSaleQuery, useGetMyOrdersQuery, useGetAllOrdersQuery, useChangeStatusMutation, useDeleteOrderMutation, useGetMyAddedProductsQuery } = productManagementApi;
+export const {
+    useGetTotalSaleQuery,
+    usePressOrderMutation,
+    useVerifyOrderQuery,
+    useGetTodaysSaleQuery,
+    useGetMyOrdersQuery,
+    useGetAllOrdersQuery,
+    useChangeStatusMutation,
+    useDeleteOrderMutation,
+    useGetMyAddedProductsQuery
+}
+    = productManagementApi;

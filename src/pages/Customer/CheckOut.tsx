@@ -1,4 +1,3 @@
-import { useGetProductDetailsQuery } from "../../redux/features/admin/productManagement.Api";
 import { Button } from "antd";
 import { useMemo, useState } from "react";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
@@ -9,6 +8,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { decreseQuantity, increseQuantity } from "@/redux/features/cart/cartSlice";
+import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
 const CheckOut = () => {
     const [pressOrder, { isLoading }] = usePressOrderMutation()
     const [quantity, setQuantity] = useState(1);

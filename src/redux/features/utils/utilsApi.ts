@@ -1,7 +1,40 @@
+import { IProduct } from '@/types/product.types';
 import { baseApi } from '../../api/baseApi';
+import { TQueryParam, TResponseRedux } from '@/types/global';
 
 const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        getAllProducts: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    args.forEach((item: TQueryParam) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+
+                return {
+                    url: '/products/get-all-products',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            providesTags: ['product'],
+            transformResponse: (response: TResponseRedux<IProduct[]>) => {
+                return {
+                    data: response.data,
+                    meta: response.meta,
+                };
+            },
+        }),
+
+        getProductDetails: builder.query({
+            query: (id) => ({
+                url: `/products/get-product/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ['productInfo']
+        }),
 
         removeProductImage: builder.mutation({
             query: (args) => ({
@@ -9,8 +42,9 @@ const authApi = baseApi.injectEndpoints({
                 method: 'PATCH',
                 body: args.data,
             }),
-            invalidatesTags: ['product']
+            invalidatesTags: ['productInfo']
         }),
+
         addProduct: builder.mutation({
             query: (userInfo) => ({
                 url: '/products/add-product',
@@ -19,15 +53,15 @@ const authApi = baseApi.injectEndpoints({
             }),
         }),
 
-        getProductDetails: builder.query({
-            query: (id) => ({
-                url: `/products/get-product/${id}`,
-                method: 'GET',
-            }),
-        }),
+
 
 
     }),
 });
 
-export const { useRemoveProductImageMutation,useAddProductMutation,useGetProductDetailsQuery } = authApi;
+export const {
+    useGetAllProductsQuery,
+    useRemoveProductImageMutation,
+    useAddProductMutation,
+    useGetProductDetailsQuery
+} = authApi;
