@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { decreseQuantity, increseQuantity } from "@/redux/features/cart/cartSlice";
+import { decreseQuantity, increseQuantity, removeProduct } from "@/redux/features/cart/cartSlice";
 import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
 const CheckOut = () => {
     const [pressOrder, { isLoading }] = usePressOrderMutation()
@@ -45,7 +45,13 @@ const CheckOut = () => {
         const res = await pressOrder(orderData);
         // console.log(res);
         if (res?.data?.success) {
-            toast.success(res?.data?.message)
+            if (fromCart === 'cart') {
+                products.forEach(product => {
+                    dispatch(removeProduct(product._id))
+                })
+            }
+
+            toast.success(res?.data?.message);
             setTimeout(() => {
             }, 2000);
             reset()

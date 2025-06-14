@@ -38,7 +38,7 @@ const MyAddedProducts = () => {
     return (
         <div>
             {
-                products?.data?.length < 0 ? <div>
+                products?.data?.length > 0 ? <div>
                     <section className="container px-4 mx-auto">
                         <h2 className="text-2xl font-semibold">My Added Products | Customer</h2>
                         <p className="text-lg text-gray-500 mb-4">Manage, update, or delete  products from here.</p>
@@ -73,8 +73,7 @@ const MyAddedProducts = () => {
                                             </thead>
                                             <tbody className="bg-white divide-y divide-gray-200 ">
                                                 {
-                                                    products?.data?.map((item: IProduct) => <tr className="w-full">
-
+                                                    products?.data?.map((item: IProduct) => <tr key={item._id} className="w-full">
                                                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                                             <img src={item?.images[0]} className="w-[90px] " alt="" />
                                                         </td>
