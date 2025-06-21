@@ -14,8 +14,7 @@ export default function TestiCarosel() {
     return (
         <div>
             <Swiper
-                slidesPerView={3}
-                spaceBetween={30}
+                spaceBetween={80}
                 loop={true}
                 autoplay={{
                     delay: 2500,
@@ -25,6 +24,17 @@ export default function TestiCarosel() {
                 navigation={true}
                 modules={[Autoplay, Navigation]}
                 className="mySwiper"
+                breakpoints={{
+                    0: {
+                        slidesPerView: 2
+                    },
+                    768: {
+                        slidesPerView: 3
+                    },
+                    1024: {
+                        slidesPerView: 4
+                    }
+                }}
             >
                 <SwiperSlide>
                     <TestiSlide name='Rafioul Hasan' location='Sreepur,Gazipur' description='Powered by the air-cooled, 149cc single-cylinder engine with closed loop fuel injection system, FZ-S FI V2 ensures' photo='https://i.ibb.co.com/db10zNM/IMG-20211230-WA0030.jpg' />

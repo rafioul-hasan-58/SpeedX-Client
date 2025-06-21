@@ -21,7 +21,7 @@ const ProductDetails = () => {
     return (
         <div className="lg:mx-20">
             <div className="pt-10">
-                <div className="flex  gap-6 bg-white p-3">
+                <div className="flex lg:flex-row flex-col gap-6 bg-white p-3">
                     <div>
                         <section>
                             {
@@ -29,7 +29,7 @@ const ProductDetails = () => {
                             }
                         </section>
                         {
-                            details?.images && details.images.length > 1 && (<section className="w-[600px] mt-3">
+                            details?.images && details.images.length > 1 && (<section className="lg:w-[600px] mt-3">
                                 <div className="grid grid-cols-3 pt-4.5 my-0.5 items-center">
                                     {
                                         details?.images?.length > 0 &&
@@ -42,7 +42,6 @@ const ProductDetails = () => {
                             </section>)
                         }
                     </div>
-
                     <div className="mt-8">
                         <h1 className="text-4xl font-bold uppercase mb-4 text-red-500">{details?.brandName}</h1>
                         <h2 className="text-3xl font-semibold">{details?.name}</h2>

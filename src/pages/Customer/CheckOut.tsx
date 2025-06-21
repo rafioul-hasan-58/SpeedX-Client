@@ -123,7 +123,7 @@ const CheckOut = () => {
 
                     </div>
                 </div>
-                <div className={`w-2/3   lg:max-h-[600px]  ${fromCart === 'cart' && products.length > 1 ? 'overflow-y-auto' : ''}`}>
+                <div className={` lg:w-2/3 lg:max-h-[600px]  ${fromCart === 'cart' && products.length > 1 ? 'overflow-y-auto' : ''}`}>
                     <div className="pt-10">
                         <h1 className="text-[17px] bg-white mb-2 font-semibold h-[50px] p-3 ">Order Summery</h1>
                     </div>

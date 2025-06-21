@@ -22,11 +22,11 @@ const MobileNav = ({ myProfile }: { myProfile: IMyProfile }) => {
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         <p className="text-xl mt-3 italic">Welcome !</p>
-                        <p className="text-sky-500">{myProfile.name}</p>
+                        <p className="text-sky-500">{myProfile?.name}</p>
                     </div>
                     <div className="flex flex-col gap-4 mt-8 ">
                         {
-                            navItems.map((nav) => (<NavLink key={nav.url} to="/customer/dashboard" className={`text-lg font-medium text-gray-500 px-3 ${pathname + search === nav.url ? 'bg-sky-100 text-sky-900 py-1' : ''}`}>{nav.title}</NavLink>))
+                            navItems.map((nav) => (<NavLink key={nav.url} to="/customer/dashboard" className={`text-lg font-medium text-gray-500 px-3 ${pathname + search === nav.url ? 'bg-sky-400 text-white py-1' : ''}`}>{nav.title}</NavLink>))
                         }
 
                     </div>

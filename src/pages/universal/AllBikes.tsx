@@ -10,6 +10,7 @@ import { useGetAllProductsQuery } from '@/redux/features/utils/utilsApi';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { Button } from '@/components/ui/button';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { BiMenuAltLeft } from "react-icons/bi";
 
 interface Filter {
     name: string;
@@ -28,7 +29,7 @@ const AllBikes = () => {
     const type = searchParams.get('type');
     const bikeType = searchParams.get('bikeType');
     const { pathname } = useLocation();
-    
+    const [filterPage, setFilterPage] = useState(false);
 
     useEffect(() => {
         const newFilters: Filter[] = [];
@@ -113,17 +114,22 @@ const AllBikes = () => {
             ];
         });
     }, [currentPage]);
-
     return (
         <div>
-            <div className='mx-[100px] py-12'>
+            <div className='lg:mx-[100px] py-12 mx-2'>
                 <h1 className="text-4xl font-bold border-b border-gray-300 pb-6">Top Brands</h1>
                 <div className='pt-8 pb-16'>
                     <BrandCarosel />
                 </div>
-                <h1 className="text-4xl font-bold border-b border-gray-300 pb-6">All Available Bikes</h1>
-                <div className='mt-8 flex gap-10'>
-                    <div className='bg-white lg:w-[305px] mb-10 lg:h-[760px] pb-16'>
+                <div className='flex justify-between border-b border-gray-300'>
+                    <h1 className="lg:text-4xl text-2xl font-bold  pb-6">All Available Bikes</h1>
+                    <div className='mt-1 lg:hidden'>
+                        <BiMenuAltLeft onClick={() => setFilterPage(!filterPage)} className='text-2xl text-gray-600' />
+                    </div>
+                </div>
+                <div className='mt-8 flex lg:flex-row flex-col gap-10'>
+                    <div className={`bg-white lg:w-[305px] lg:relative absolute mb-10 lg:h-[870px] pb-16 transition-transform duration-300 ${filterPage ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 `}
+                    >
                         <h1 className='text-lg px-8 pt-4 font-semibold pb-4 text-sky-500 border-b border-gray-300'>Filter</h1>
                         <div className='px-8 pt-4'>
                             <h1 className='text-[15px] pb-4 font-semibold'>Brands</h1>
@@ -138,10 +144,16 @@ const AllBikes = () => {
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "TVS", e.target.checked)} style={{ color: 'gray' }}>TVS</Checkbox>
                                 </div>
                                 <div>
+                                    <Checkbox onChange={(e) => handleBrandBoxChange('brand', "Runner", e.target.checked)} style={{ color: 'gray' }}>Runner</Checkbox>
+                                </div>
+                                <div>
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "BMW", e.target.checked)} style={{ color: 'gray' }}>BMW</Checkbox>
                                 </div>
                                 <div>
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "Royal Enfield", e.target.checked)} style={{ color: 'gray' }}>Royal Enfield</Checkbox>
+                                </div>
+                                <div>
+                                    <Checkbox onChange={(e) => handleBrandBoxChange('brand', "bajaj", e.target.checked)} style={{ color: 'gray' }}>Bajaj</Checkbox>
                                 </div>
                                 <div>
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "Hero", e.target.checked)} style={{ color: 'gray' }}>Hero</Checkbox>
@@ -180,13 +192,16 @@ const AllBikes = () => {
                                         <Checkbox onChange={(e) => handleBrandBoxChange('color', "Orange", e.target.checked)} style={{ color: 'gray' }}>Orange</Checkbox>
                                     </div>
                                     <div>
+                                        <Checkbox onChange={(e) => handleBrandBoxChange('color', "gray", e.target.checked)} style={{ color: 'gray' }}>Gray</Checkbox>
+                                    </div>
+                                    <div>
                                         <Checkbox onChange={(e) => handleBrandBoxChange('color', "Blue", e.target.checked)} style={{ color: 'gray' }}>Blue</Checkbox>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='grid lg:grid-cols-3 gap-5'>
+                    <div className='grid lg:grid-cols-3 grid-cols-2 lg:gap-5 gap-2'>
                         {
                             products?.data?.map((item: IProduct) => (
                                 <ProductCard key={item.name} item={item}></ProductCard>

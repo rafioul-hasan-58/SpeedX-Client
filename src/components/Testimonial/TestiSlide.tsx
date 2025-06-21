@@ -1,7 +1,7 @@
 import { FaQuoteRight } from "react-icons/fa";
 const TestiSlide = ({ description, photo, name, location }: { description: string, photo: string, name: string, location: string }) => {
     return (
-        <div className="bg-white w-[450px] ">
+        <div className="bg-white lg:w-[450px] ">
             <div>
                 <p className="px-8 py-8 w-[350px]">{description}</p>
             </div>

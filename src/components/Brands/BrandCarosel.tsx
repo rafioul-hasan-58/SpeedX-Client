@@ -22,7 +22,6 @@ export default function BrandCarosel() {
     return (
         <div>
             <Swiper
-                slidesPerView={5}
                 spaceBetween={30}
                 loop={true}
                 autoplay={{
@@ -33,6 +32,17 @@ export default function BrandCarosel() {
                 navigation={true}
                 modules={[Autoplay, Navigation]}
                 className="mySwiper"
+                breakpoints={{
+                    0: {
+                        slidesPerView: 2
+                    },
+                    768: {
+                        slidesPerView: 3
+                    },
+                    1024: {
+                        slidesPerView: 5
+                    }
+                }}
             >
                 <SwiperSlide>
                     <BrandSlide img={img1} />
@@ -41,22 +51,22 @@ export default function BrandCarosel() {
                     <BrandSlide img={img2} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <BrandSlide img={img3}/>
+                    <BrandSlide img={img3} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <BrandSlide img={img4}/>
+                    <BrandSlide img={img4} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <BrandSlide img={img5}/>
+                    <BrandSlide img={img5} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <BrandSlide img={img6}/>
+                    <BrandSlide img={img6} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <BrandSlide img={img7}/>
+                    <BrandSlide img={img7} />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <BrandSlide img={img8}/>
+                    <BrandSlide img={img8} />
                 </SwiperSlide>
             </Swiper>
         </div>
