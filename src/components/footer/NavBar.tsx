@@ -10,79 +10,17 @@ import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { logout, selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useGetMyProfileQuery } from '@/redux/features/admin/userManagement.Api';
-import { LuBadgeInfo } from 'react-icons/lu';
-import { FaMotorcycle } from "react-icons/fa";
-import { BsBag, BsBagCheck } from 'react-icons/bs';
+
 import { LogOut, User } from 'lucide-react';
 import UpdateProfile from '@/utils/UpdateProfile';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import MobileNav from '../Navbar/MobileSheet';
 import MobileMenuCart from '../Navbar/MovileMenuCart';
+import { navItems } from '../Navbar/Navbar.constant';
 
 const NavBar = () => {
-    const items = [
-        {
-            title: "Home",
-            url: "/",
-            icon: IoHome
-        },
-        {
-            title: "Dashboard",
-            url: "/customer/dashboard/my-added-products",
-            icon: IoHome
-        },
-        {
-            title: "Bikes",
-            url: "/customer/all-bikes?bikeType=bike",
-            icon: FaMotorcycle
-        },
 
-        {
-            title: "My Orders",
-            url: "/customer/dashboard/my-orders",
-            icon: BsBagCheck
-        },
-        {
-            title: "About",
-            url: "/customer/about",
-            icon: LuBadgeInfo
-        },
-        {
-            title: "Scooters",
-            url: "/customer/all-bikes?bikeType=scooter",
-            icon: FaMotorcycle
-        },
-        {
-            title: "Upcoming",
-            url: "/customer/upcoming-products",
-            icon: FaMotorcycle
-        },
-        {
-            title: "Sell Now",
-            url: "/customer/dashboard/add-product",
-            icon: FaMotorcycle
-        },
-        {
-            title: "Accessories",
-            url: "/customer/upcoming-products",
-            icon: FaMotorcycle
-        },
-        {
-            title: "Servicing",
-            url: "/customer/upcoming-products",
-            icon: FaMotorcycle
-        },
-        {
-            title: "Blogs",
-            url: "/customer/upcoming-products",
-            icon: FaMotorcycle
-        }, {
-            title: "My Cart",
-            url: "/customer/cart",
-            icon: BsBag
-        },
-    ]
     const dispatch = useAppDispatch();
     const form = useForm();
     const { register, handleSubmit } = form;
@@ -115,7 +53,7 @@ const NavBar = () => {
             <section className="flex  lg:px-20  lg:pb-1  w-full items-center gap-3 lg:border lg:border-b">
                 <aside className="flex w-[50%] justify-between">
                     <section className='mt-4 ml-4'>
-                        <MobileNav />
+                        <MobileNav myProfile={myProfile} />
                     </section>
                     <section className='lg:mt-0 mt-2 lg:ml-0 ml-28  lg:block flex gap-1 justify-center'>
                         <img className="lg:w-16 lg:h-16 w-14 h-14" src={bike} alt="" />
@@ -188,7 +126,7 @@ const NavBar = () => {
                                                 </div>
                                                 <ul className='divide-y'>
                                                     {
-                                                        items.slice(0, 4).map((nav) => (
+                                                        navItems.slice(0, 4).map((nav) => (
                                                             <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
                                                                 <NavLink className={`flex items-center gap-2`} to={nav.url} >
                                                                     <nav.icon />
@@ -228,7 +166,7 @@ const NavBar = () => {
 
                 <ul className='flex gap-4'>
                     {
-                        items.map((nav) => (
+                        navItems.map((nav) => (
                             <NavLink key={nav.title} className={
                                 `text-sm text-gray-500 uppercase font-semibold ${pathname + search === nav.url ? 'text-sky-400' : ''}`
                             } to={nav.url}>

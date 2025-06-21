@@ -62,12 +62,10 @@ const CheckOut = () => {
     const errorSize = Object.keys(errors).length;
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="pb-16">
-            <div className=" flex justify-between mx-24 gap-5">
-                <div className="w-1/3 pt-10">
-                    <div>
-                        <h1 className="text-[17px] mb-2 font-semibold h-[50px] p-3 bg-white">Customer Information</h1>
-                    </div>
-                    <div className={`bg-white p-4 mb-10 lg:h-[${520 + errorSize * 20}px]`}>
+            <div className="flex lg:flex-row flex-col justify-between lg:mx-24 mx-2 lg:gap-5">
+                <div className="w-full lg:w-1/3 pt-10">
+                    <h1 className="text-[17px] mb-2 font-semibold h-[50px] p-3 bg-white">Customer Information</h1>
+                    <div className={`bg-white p-4 mb-10 lg:h-[${520 + errorSize * 20}px] w-full`}>
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-semibold text-gray-500">Full Name</label>
                             <input

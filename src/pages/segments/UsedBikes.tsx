@@ -21,7 +21,7 @@ const UsedBikes = () => {
 
     return (
         <div>
-            <h1 className="text-4xl font-bold my-10">Used Bikes</h1>
+            <h1 className="lg:text-4xl text-3xl mt-4 font-bold lg:my-10">Used Bikes</h1>
             <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3">
                 {
                     mainData?.map((item) => (
