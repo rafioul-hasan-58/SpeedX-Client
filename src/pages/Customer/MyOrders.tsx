@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { useChangeStatusMutation, useGetMyOrdersQuery } from "../../redux/features/user/userReletedApi";
 import moment from 'moment'
+import { IOrder } from "@/types/order.types";
 const MyOrders = () => {
     const { data } = useGetMyOrdersQuery(undefined);
     const [cancelOrder] = useChangeStatusMutation()
@@ -16,17 +17,17 @@ const MyOrders = () => {
         const res = await cancelOrder(cancelData);
         console.log(res);
     }
-    console.log(data);
     return (
-        <div className="mt-0">
+        <div className="pt-5">
             {
                 data?.data?.length > 0 ? <div>
-                    <section className=" px-4 min-h-screen">
-                        <div>
-                            <h1 className="text-2xl font-bold text-sky-400 text-center my-6 ">My Orders</h1>
+                    <section className=" px-4 ">
+                        <div className="mx-2">
+                            <h2 className="text-2xl font-semibold">All Customer Orders | Admin</h2>
+                            <p className="text-lg text-gray-500">Manage, update, or delete customer orders from here.</p>
                         </div>
                         <div className="flex flex-col">
-                            <div className=" sm:-mx-6 lg:mx-10">
+                            <div className=" sm:-mx-6 ">
                                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                                     <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                                         <table className="min-w-full divide-y divide-gray-200 ">
@@ -53,23 +54,25 @@ const MyOrders = () => {
                                             </thead>
                                             <tbody className="bg-white divide-y divide-gray-200 ">
                                                 {
-                                                    orderData?.map((item: { product: { name: string, price: number }, createdAt: string, status: string, _id: string }) => <tr className="w-full">
+                                                    orderData?.map((product: IOrder) => <tr key={product._id} className="w-full">
                                                         <td className="px-8 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                            {item?.product?.name}
+                                                            {product?.product?.name}
                                                         </td>
-                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{moment.utc(item?.createdAt).format('D MMMM YYYY')}</td>
-                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.product?.price}</td>
-                                                        <td className="px-4 py-4 text-sm text-gray-600 whitespace-nowrap flex gap-1 relative top-1">
+                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{moment.utc(product?.createdAt).format('D MMMM YYYY')}</td>
+                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{product?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)}</td>
+                                                        <td className={`px-4 py-4 text-sm text-gray-600 whitespace-nowrap flex gap-1 relative top-1 ${product?.status === 'Pending' ? 'text-yellow-500' : product?.status === 'Delivered' ? 'text-green-500' : 'text-red-500'}`}>
                                                             <p className={`h-2 w-2 relative top-[6px] rounded-full 
-                                                            ${item?.status === 'Pending' && 'bg-yellow-500'} 
-                                                            ${item?.status === 'Delivered' && 'bg-green-500'}
-                                                          ${item?.status === 'Cancelled' && 'bg-red-500'}`}></p>
-                                                            {item?.status}
+                                                            ${product?.status === 'Pending' && 'bg-yellow-500'} 
+                                                            ${product?.status === 'Delivered' && 'bg-green-500'}
+                                                          ${product?.status === 'Cancelled' && 'bg-red-500'}`}>
+
+                                                            </p>
+                                                            {product?.status}
                                                         </td>
                                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                             <Button
-                                                                disabled={item?.status === 'Cancelled' || item?.status === 'Delivered'}
-                                                                onClick={() => handleCancel(item?._id)}
+                                                                disabled={product?.status === 'Cancelled' || product?.status === 'Delivered'}
+                                                                onClick={() => handleCancel(product?._id)}
                                                                 style={{ backgroundColor: 'red' }}>Cancel</Button>
                                                         </td>
                                                     </tr>)

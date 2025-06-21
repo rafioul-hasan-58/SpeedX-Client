@@ -89,10 +89,7 @@ export const router = createBrowserRouter([
         path: 'verify-order',
         element: <VerifyOrder />
       },
-      {
-        path: 'my-orders',
-        element: <PrivetRoute role="customer"><MyOrders /></PrivetRoute>
-      },
+
       {
         path: 'all-bikes',
         element: <PrivetRoute role="customer"><AllBikes /></PrivetRoute>
@@ -118,7 +115,11 @@ export const router = createBrowserRouter([
       {
         path: 'update-product/:id',
         element: <PrivetRoute role="customer"><UpdateProduct /></PrivetRoute>
-      }
+      },
+      {
+        path: 'my-orders',
+        element: <PrivetRoute role="customer"><MyOrders /></PrivetRoute>
+      },
     ]
   },
 

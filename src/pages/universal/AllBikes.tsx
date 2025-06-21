@@ -5,17 +5,30 @@ import { useEffect, useState } from 'react';
 import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../redux/hooks';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useGetAllProductsQuery } from '@/redux/features/utils/utilsApi';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { Button } from '@/components/ui/button';
+import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+
 interface Filter {
     name: string;
     value: string | number;
 }
+interface TMeta {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+}
 const AllBikes = () => {
     const [queries, setQueries] = useState<Filter[]>([]);
     const [searchParams] = useSearchParams();
+    const [currentPage, setCurrentPage] = useState(1);
     const type = searchParams.get('type');
     const bikeType = searchParams.get('bikeType');
+    const { pathname } = useLocation();
+    
 
     useEffect(() => {
         const newFilters: Filter[] = [];
@@ -44,10 +57,10 @@ const AllBikes = () => {
                 return updatedFilters;
             });
         }
-    }, [type, bikeType]);
+    }, [type, bikeType, pathname]);
 
     const { register, handleSubmit } = useForm();
-    const { data: products } = useGetAllProductsQuery(queries);
+    const { data: products, } = useGetAllProductsQuery(queries);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
             setQueries((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
@@ -89,6 +102,18 @@ const AllBikes = () => {
             return updatedFilters;
         });
     }, [searchTerm]);
+
+    const meta = products?.meta as TMeta;
+    useEffect(() => {
+        setQueries((prevFilters) => {
+            const otherFilters = prevFilters.filter(f => f.name !== 'page' && f.name !== 'limit');
+            return [
+                ...otherFilters,
+                { name: 'page', value: currentPage },
+            ];
+        });
+    }, [currentPage]);
+
     return (
         <div>
             <div className='mx-[100px] py-12'>
@@ -161,7 +186,7 @@ const AllBikes = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='grid lg:grid-cols-3 gap-10 '>
+                    <div className='grid lg:grid-cols-3 gap-5'>
                         {
                             products?.data?.map((item: IProduct) => (
                                 <ProductCard key={item.name} item={item}></ProductCard>
@@ -170,6 +195,52 @@ const AllBikes = () => {
                     </div>
                 </div>
             </div>
+            {/* pagination */}
+            {
+                (products?.meta?.totalPage ?? 0) > 1 &&
+                <div className="pb-8">
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <Button
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage((prev) => prev - 1)}
+                                    className="text-sky-500 border border-sky-500 hover:bg-sky-500 hover:text-white bg-white"
+                                >
+                                    <BiLeftArrow /> Previous
+                                </Button>
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <div className="flex gap-2">
+                                    {[...Array(Math.max(1, meta?.totalPage || 1))].map((_, index) => (
+                                        <PaginationItem key={index}>
+                                            <PaginationLink
+                                                onClick={() => setCurrentPage(index + 1)}
+                                                href="#"
+                                                className={`border text-sky-400 border-sky-500 hover:bg-sky-500 hover:border-sky-500 hover:text-white ${index === currentPage - 1 ? "bg-sky-500 text-white" : ""
+                                                    }`}
+                                            >
+                                                {index + 1}
+                                            </PaginationLink>
+                                        </PaginationItem>
+                                    ))}
+                                </div>
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <Button
+                                    disabled={currentPage === meta?.totalPage}
+                                    onClick={() => setCurrentPage((prev) => prev + 1)}
+                                    className="bg-sky-500 text-white hover:bg-white border hover:border-sky-500 hover:text-sky-500"
+                                >
+                                    Next <BiRightArrow />
+                                </Button>
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
+                </div>
+            }
         </div>
     );
 };

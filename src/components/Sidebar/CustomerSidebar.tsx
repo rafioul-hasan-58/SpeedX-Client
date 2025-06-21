@@ -47,7 +47,7 @@ const CustomerSidebar = () => {
         },
         {
             title: "My Orders",
-            url: "/customer/my-orders",
+            url: "/customer/dashboard/my-orders",
             icon: BsBagCheck
         },
         {

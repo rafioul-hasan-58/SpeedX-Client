@@ -17,6 +17,8 @@ import { LogOut, User } from 'lucide-react';
 import UpdateProfile from '@/utils/UpdateProfile';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
+import MobileNav from '../Navbar/MobileSheet';
+import MobileMenuCart from '../Navbar/MovileMenuCart';
 
 const NavBar = () => {
     const items = [
@@ -32,13 +34,13 @@ const NavBar = () => {
         },
         {
             title: "Bikes",
-            url: "/customer/all-bikes",
+            url: "/customer/all-bikes?bikeType=bike",
             icon: FaMotorcycle
         },
 
         {
             title: "My Orders",
-            url: "/customer/my-orders",
+            url: "/customer/dashboard/my-orders",
             icon: BsBagCheck
         },
         {
@@ -58,7 +60,7 @@ const NavBar = () => {
         },
         {
             title: "Sell Now",
-            url: "/customer/upcoming-products",
+            url: "/customer/dashboard/add-product",
             icon: FaMotorcycle
         },
         {
@@ -109,27 +111,30 @@ const NavBar = () => {
 
     const { pathname, search } = useLocation();
     return (
-        <nav className="fixed bg-white z-50 lg:w-full">
-            <section className="flex  lg:px-20  pb-1 w-full items-center gap-3 border border-b">
+        <nav className="fixed bg-white z-50 w-full overflow-y-auto lg:pb-0 pb-[65px] lg:border-none border-b border-b-sky-500">
+            <section className="flex  lg:px-20  lg:pb-1  w-full items-center gap-3 lg:border lg:border-b">
                 <aside className="flex w-[50%] justify-between">
-                    <section className='lg:mt-0 mt-2'>
-                        <img className="lg:w-16 lg:h-16 w-12 h-12" src={bike} alt="" />
-                        <h1 className="lg:text-xl text-lg italic font-bold relative lg:bottom-5 text-sky-600 bottom-4">SpeedX</h1>
+                    <section className='mt-4 ml-4'>
+                        <MobileNav />
+                    </section>
+                    <section className='lg:mt-0 mt-2 lg:ml-0 ml-28  lg:block flex gap-1 justify-center'>
+                        <img className="lg:w-16 lg:h-16 w-14 h-14" src={bike} alt="" />
+                        <h1 className="text-xl italic font-bold relative lg:bottom-5 text-sky-600 lg:top-0 top-1.5">SpeedX</h1>
                     </section>
                     <section>
-                        <div className="flex items-center mt-6">
-                            <form onChange={handleSubmit(onSubmit)}>
-                                <div className='flex lg:mx-0 mx-3'>
+                        <div className=" flex lg:mt-10 mt-8 lg:relative absolute bottom-[15px] right-[17px] justify-center">
+                            <form onChange={handleSubmit(onSubmit)} className='w-full'>
+                                <div className='flex lg:mx-0'>
                                     <input
                                         {...register("searchTerm")}
                                         style={{ borderRadius: '100px 0px 0px 100px' }}
-                                        className="h-[44px] lg:w-[380px] w-[200px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
+                                        className="h-[40px] lg:w-[350px] w-[320px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
                                         type="text"
-                                        placeholder="Search Bike here"
+                                        placeholder="Search Bike Here..."
                                     />
                                     <button >
-                                        <div style={{ borderRadius: '0px 20px 20px 0px' }} className=" bg-sky-400 px-5 h-[44px] cursor-pointer rounded-r-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="relative top-3 feather feather-search text-white" width="22" height="22">
+                                        <div style={{ borderRadius: '0px 20px 20px 0px' }} className=" bg-sky-400 px-4 h-[40px] cursor-pointer rounded-r-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative top-2.5 feather feather-search text-white" width="22" height="22">
                                                 <circle cx="11" cy="11" r="8"></circle>
                                                 <line x1="16" y1="16" x2="21" y2="21"></line>
                                             </svg>
@@ -156,57 +161,62 @@ const NavBar = () => {
                         <div className="lg:block hidden text-3xl text-sky-500 cursor-pointer">
                             <Link to='/'><IoHome /></Link>
                         </div>
-                        {/* profile */}
-                        {
-                            user ? <div>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Avatar className='relative lg:left-0 left-[135px] cursor-pointer w-[50px] h-[50px] border border-sky-400'>
-                                            <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
-                                            <AvatarFallback>CN</AvatarFallback>
-                                        </Avatar>
-                                    </PopoverTrigger>
-                                    <PopoverContent className='mr-10'>
-                                        <article>
-                                            <div className='flex justify-center'>
-                                                <Avatar className='flex justify-center cursor-pointer w-[50px] h-[50px] border border-sky-400'>
-                                                    <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
-                                                    <AvatarFallback>CN</AvatarFallback>
-                                                </Avatar>
-                                            </div>
-                                            <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
-                                            <div className='flex justify-center'>
-                                                {myProfile && (
-                                                    <UpdateProfile {...myProfile} />
-                                                )}
-                                            </div>
-                                            <ul className='divide-y'>
-                                                {
-                                                    items.slice(0, 4).map((nav) => (
-                                                        <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
-                                                            <NavLink className={`flex items-center gap-2`} to={nav.url} >
-                                                                <nav.icon />
-                                                                {nav.title}
-                                                            </NavLink>
-                                                        </li>
-                                                    ))
-                                                }
-                                                <li onClick={() => {
-                                                    dispatch(logout())
-                                                }} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full flex items-center gap-2 cursor-pointer">
-                                                    <LogOut size={18} />
-                                                    Logout
-                                                </li>
-                                            </ul>
-                                        </article>
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-                                :
-                                <Link to='/login'>
-                                    <Button className="focus:outline-none py-5 bg-sky-400 hover:bg-sky-500  text-white rounded-full"><User /> Login</Button>
-                                </Link>
-                        }
+                        <div className='flex lg:relative gap-2 absolute right-5 top-4 lg:top-0 lg:right-0 '>
+                            {/* profile */}
+                            {
+                                user ? <div>
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Avatar className='relative left-0 cursor-pointer lg:w-[50px] w-[40px] h-[40px] lg:h-[50px] border border-sky-400'>
+                                                <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
+                                                <AvatarFallback>CN</AvatarFallback>
+                                            </Avatar>
+                                        </PopoverTrigger>
+                                        <PopoverContent className=' mr-10 max-w-[90vw] overflow-hidden'>
+                                            <article>
+                                                <div className='flex justify-center'>
+                                                    <Avatar className='flex justify-center cursor-pointer w-[50px] h-[50px] border border-sky-400'>
+                                                        <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
+                                                        <AvatarFallback>CN</AvatarFallback>
+                                                    </Avatar>
+                                                </div>
+                                                <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
+                                                <div className='flex justify-center'>
+                                                    {myProfile && (
+                                                        <UpdateProfile {...myProfile} />
+                                                    )}
+                                                </div>
+                                                <ul className='divide-y'>
+                                                    {
+                                                        items.slice(0, 4).map((nav) => (
+                                                            <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
+                                                                <NavLink className={`flex items-center gap-2`} to={nav.url} >
+                                                                    <nav.icon />
+                                                                    {nav.title}
+                                                                </NavLink>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                    <li onClick={() => {
+                                                        dispatch(logout())
+                                                    }} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full flex items-center gap-2 cursor-pointer">
+                                                        <LogOut size={18} />
+                                                        Logout
+                                                    </li>
+                                                </ul>
+                                            </article>
+                                        </PopoverContent>
+                                    </Popover>
+                                </div>
+                                    :
+                                    <Link to='/login'>
+                                        <Button className="focus:outline-none py-5 bg-sky-400 hover:bg-sky-500  text-white rounded-full"><User /> Login</Button>
+                                    </Link>
+                            }
+                            <Link to={'/customer/cart'} className='lg:hidden'>
+                                <MobileMenuCart />
+                            </Link>
+                        </div>
                     </section>
                 </aside>
             </section>

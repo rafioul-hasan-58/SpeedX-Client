@@ -8,11 +8,16 @@ import { useGetMyAddedProductsQuery } from "@/redux/features/user/userReletedApi
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
-
+import { useEffect, useState } from "react";
+import { Filter, TMeta } from "@/types/global";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 const MyAddedProducts = () => {
     const user = useAppSelector(selectCurrentUser);
+    const [queries, setQueries] = useState<Filter[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
     const { data: products, isFetching } = useGetMyAddedProductsQuery(user?.email || '');
-    const [deleteProduct] = useRemoveProductMutation()
+    const [deleteProduct] = useRemoveProductMutation();
     const handleDelete = (id: string) => {
         Swal.fire({
             title: "Are you sure?",
@@ -34,6 +39,17 @@ const MyAddedProducts = () => {
         });
 
     }
+    const meta = products?.meta as TMeta;
+    useEffect(() => {
+        setQueries((prevFilters) => {
+            const otherFilters = prevFilters.filter(f => f.name !== 'page' && f.name !== 'limit');
+            return [
+                ...otherFilters,
+                { name: 'page', value: currentPage },
+                { name: 'limit', value: 5 }
+            ];
+        });
+    }, [currentPage]);
     if (isFetching) return <Loader />
     return (
         <div>
@@ -101,6 +117,52 @@ const MyAddedProducts = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </section>
+                    <section className="pt-4">
+                        {/* pagination */}
+
+                        <div className="pb-8">
+                            <Pagination>
+                                <PaginationContent>
+                                    <PaginationItem>
+                                        <Button
+                                            disabled={currentPage === 1}
+                                            onClick={() => setCurrentPage((prev) => prev - 1)}
+                                            className="text-sky-500 border border-sky-500 hover:bg-sky-500 hover:text-white bg-white"
+                                        >
+                                            <BiLeftArrow /> Previous
+                                        </Button>
+                                    </PaginationItem>
+
+                                    <PaginationItem>
+                                        <div className="flex gap-2">
+                                            {[...Array(Math.max(1, meta?.totalPage || 1))].map((_, index) => (
+                                                <PaginationItem key={index}>
+                                                    <PaginationLink
+                                                        onClick={() => setCurrentPage(index + 1)}
+                                                        href="#"
+                                                        className={`border text-sky-400 border-sky-500 hover:bg-sky-500 hover:border-sky-500 hover:text-white ${index === currentPage - 1 ? "bg-sky-500 text-white" : ""
+                                                            }`}
+                                                    >
+                                                        {index + 1}
+                                                    </PaginationLink>
+                                                </PaginationItem>
+                                            ))}
+                                        </div>
+                                    </PaginationItem>
+
+                                    <PaginationItem>
+                                        <Button
+                                            disabled={currentPage === meta?.totalPage}
+                                            onClick={() => setCurrentPage((prev) => prev + 1)}
+                                            className="bg-sky-500 text-white hover:bg-white border hover:border-sky-500 hover:text-sky-500"
+                                        >
+                                            Next <BiRightArrow />
+                                        </Button>
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
                         </div>
                     </section>
                 </div> :

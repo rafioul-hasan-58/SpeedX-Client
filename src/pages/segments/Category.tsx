@@ -4,8 +4,8 @@ import { categories } from "@/constant/Category.constant";
 const Category = () => {
     return (
         <div>
-            <h1 className="text-4xl font-bold my-10">Categories</h1>
-            <div className="grid grid-cols-4 gap-5">
+            <h1 className="lg:text-4xl lg:mb-0 mb-2 text-3xl font-bold lg:my-10">Categories</h1>
+            <div className="grid lg:grid-cols-4 gap-5 grid-cols-2">
                 {
                     categories.map((category, idx) => (<CategoryCard key={idx} category={category} />))
                 }

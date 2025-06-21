@@ -7,7 +7,7 @@ import UsedBikes from "../segments/UsedBikes";
 const Home = () => {
 
     return (
-        <div className="lg:mx-20">
+        <div className="lg:mx-20 mx-2">
             <Banner />
             <Category />
             <FeturedBikes />

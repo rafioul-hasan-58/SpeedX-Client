@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Banner = () => {
     return (
         <div>
-            <div className="border border-gray-100 pt-4 mb-8">
+            <div className="border border-gray-100 pt-4 mb-8 ">
                 <section className="border h-[550px]  bg-white  sm:mt-6  px-4 sm:px-6 ">
                     <div className="my-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 flex  lg:flex-justify lg:flex flex-col lg:flex-row">
                         <div className="sm:text-center lg:text-left">

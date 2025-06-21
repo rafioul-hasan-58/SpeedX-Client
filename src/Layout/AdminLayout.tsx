@@ -22,7 +22,7 @@ const AdminLayout = () => {
                 user?.role === 'admin' &&
                 <div>
                     <Button className="block lg:hidden" onClick={() => setIsOpen(!isOpen)}><Menu /></Button>
-                    <div className="w-[300px] h-full fixed top-0 left-0 bg-white  shadow-lg">
+                    <div className="w-[250px] h-full fixed top-0 left-0 bg-white  shadow-lg">
                         {
                             isOpen && <Sidebar /> 
                         }

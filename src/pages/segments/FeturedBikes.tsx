@@ -21,7 +21,7 @@ const FeturedBikes = () => {
 
     return (
         <div className="">
-            <h1 className="text-4xl font-bold my-10">Fearured Bikes</h1>
+            <h1 className="lg:text-4xl text-3xl font-bold lg:my-10 lg:mt-0 mt-4">Fearured Bikes</h1>
             <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3">
                 {
                     mainData?.map((item) => (

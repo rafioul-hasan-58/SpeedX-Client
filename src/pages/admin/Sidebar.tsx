@@ -89,9 +89,9 @@ const Sidebar = () => {
             </div>
             <div>
                 <div className="flex gap-3">
-                    <Avatar>
+                    <Avatar className="w-[54px] h-[54px]">
                         <AvatarImage
-                            className="relative top-1 w-[50px] h-[50px] rounded-full border border-sky-500"
+                            className="relative top-1 w-[44px] h-[44px] rounded-full border border-sky-500"
                             src={myProfile?.image || "https://github.com/shadcn.png"}
                         />
                         <AvatarFallback>CN</AvatarFallback>

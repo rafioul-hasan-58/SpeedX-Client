@@ -67,7 +67,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className='  grid lg:grid-cols-4 grid-cols-2 py-10 px-14 gap-2'>
+            <div className='  grid lg:grid-cols-4 grid-cols-2 lg:py-10 lg:px-14 gap-2'>
                 {
                     locations.map((loc, idx) => (
                         <div key={idx} className='text-white'>
