@@ -14,7 +14,7 @@ export default function TestiCarosel() {
     return (
         <div>
             <Swiper
-                spaceBetween={80}
+                spaceBetween={100}
                 loop={true}
                 autoplay={{
                     delay: 2500,
@@ -26,13 +26,13 @@ export default function TestiCarosel() {
                 className="mySwiper"
                 breakpoints={{
                     0: {
-                        slidesPerView: 2
+                        slidesPerView: 1
                     },
                     768: {
                         slidesPerView: 3
                     },
                     1024: {
-                        slidesPerView: 4
+                        slidesPerView: 3
                     }
                 }}
             >

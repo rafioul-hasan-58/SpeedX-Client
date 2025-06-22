@@ -5,7 +5,8 @@ import { verifyToken } from "../utils/verifyToken";
 import { useState } from "react";
 import { Button } from "../components/ui/button";
 import { Menu } from "lucide-react";
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "@/components/common/Sidebar/Sidebar";
+import { adminSidebarItems } from "@/components/common/Sidebar/SidebarItem";
 
 const AdminLayout = () => {
     const [isOpen, setIsOpen] = useState(true)
@@ -22,16 +23,16 @@ const AdminLayout = () => {
                 user?.role === 'admin' &&
                 <div>
                     <Button className="block lg:hidden" onClick={() => setIsOpen(!isOpen)}><Menu /></Button>
-                    <div className="w-[250px] h-full fixed top-0 left-0 bg-white  shadow-lg">
+                    <div className="w-[280px] h-full fixed top-0 left-0 bg-white  shadow-lg">
                         {
-                            isOpen && <Sidebar /> 
+                            isOpen && <Sidebar sidebarItems={adminSidebarItems}/> 
                         }
                     </div>
                 </div>
             }
 
             {/* Main Content (Scrollable) */}
-            <div className={`flex-1  h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'admin' ? 'ml-[300px]' : ''}`}>
+            <div className={`flex-1  h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'admin' ? 'ml-[280px]' : ''}`}>
                 <Outlet />
             </div>
         </div>

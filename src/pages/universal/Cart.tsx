@@ -14,8 +14,8 @@ const Cart = () => {
         .reduce((total, product) => total + product.price * product.quantity, 0);
 
     return (
-        <div className="h-screen w-full flex px-24 gap-6 py-12 overflow-y-auto">
-            <div className="w-[65%] ">
+        <div className="h-screen w-full flex lg:flex-row flex-col lg:px-24 lg:gap-6 lg:py-12 overflow-y-auto">
+            <div className="lg:w-[65%] mx-2">
                 <aside className=" bg-white">
                     <p className="text-xl font-semibold py-3 pl-3">My Cart({products?.length})</p>
                 </aside>
@@ -29,7 +29,7 @@ const Cart = () => {
                                     onChange={() => dispatch(toggleCheckbox(product._id))}
                                     className="relative bottom-10" />
                                 <div>
-                                    <img className="h-[120px] w-[150px]" src={product.images[0] || "https://res.cloudinary.com/dyyhkoj7b/image/upload/v1748237961/oqbajaiaocn27dqr6ihf.jpg"} alt="project1" />
+                                    <img className="lg:h-[120px] h-[80px] w-[150px]" src={product.images[0] || "https://res.cloudinary.com/dyyhkoj7b/image/upload/v1748237961/oqbajaiaocn27dqr6ihf.jpg"} alt="project1" />
                                 </div>
                                 <div className="w-full">
                                     <div className="flex  justify-between">
@@ -64,7 +64,7 @@ const Cart = () => {
                     </aside>
                 }
             </div>
-            <div className="w-[35%]">
+            <div className="lg:w-[35%] mx-2">
                 <aside className=" bg-white">
                     <p className="text-xl font-semibold py-3 pl-3">Order summery</p>
                 </aside>

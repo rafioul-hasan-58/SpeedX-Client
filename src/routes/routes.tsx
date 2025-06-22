@@ -6,7 +6,6 @@ import Register from "../pages/authentication/Register";
 import Login from "../pages/authentication/Login";
 import Home from "../pages/Customer/Home";
 import ProductDetails from "../pages/universal/ProductDetails";
-import CheckOut from "../pages/Customer/CheckOut";
 import Users from "../pages/admin/Users";
 import AllProducts from "../pages/admin/AllProducts";
 import MyProfile from "../pages/universal/MyProfile";
@@ -21,6 +20,7 @@ import AllBikes from "@/pages/universal/AllBikes";
 import Cart from "@/pages/universal/Cart";
 import CustomerLayout from "@/Layout/CustomerLayout";
 import MyAddedProducts from "@/pages/Customer/MyAddedProducts";
+import CheckOut from "@/pages/Customer/CheckOut";
 
 
 export const router = createBrowserRouter([

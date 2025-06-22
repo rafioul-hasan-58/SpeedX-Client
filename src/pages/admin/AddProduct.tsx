@@ -65,9 +65,9 @@ const AddProduct = () => {
 
   return (
     <div>
-      <div className=" w-full p-4">
+      <div className=" w-full lg:p-4">
         <h1 className="text-2xl font-semibold text-center text-sky-500 mb-6">
-          Add New Product | {user?.role.split('')} Panel
+          Add New Product | {user?.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : ""} Panel
         </h1>
         <Card className="max-w-5xl w-full mx-auto shadow-md">
           <CardHeader>

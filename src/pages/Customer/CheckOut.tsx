@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import { useMemo, useState } from "react";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -7,8 +6,9 @@ import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { decreseQuantity, increseQuantity, removeProduct } from "@/redux/features/cart/cartSlice";
+import { removeProduct } from "@/redux/features/cart/cartSlice";
 import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
+import { Button } from "@/components/ui/button";
 const CheckOut = () => {
     const [pressOrder, { isLoading }] = usePressOrderMutation()
     const [quantity, setQuantity] = useState(1);
@@ -124,44 +124,41 @@ const CheckOut = () => {
                     </div>
                 </div>
                 <div className={` lg:w-2/3 lg:max-h-[600px]  ${fromCart === 'cart' && products.length > 1 ? 'overflow-y-auto' : ''}`}>
-                    <div className="pt-10">
+                    <div className="lg:pt-10">
                         <h1 className="text-[17px] bg-white mb-2 font-semibold h-[50px] p-3 ">Order Summery</h1>
                     </div>
                     <div className="bg-white">
                         {/* first child */}
                         {
-                            fromCart === 'cart' ? products.map((product) => (<div key={product._id} className="flex justify-between pt-10 mx-10 ">
-                                <div className="flex gap-5">
-                                    <img className=" h-[200px] w-[250px] border-gray-300" src={product?.images[0]} alt="" />
-                                    <div className="mt-4">
-                                        <h1 className="text-lg py-2 font-semibold w-[150px]">{product?.name}</h1>
+                            fromCart === 'cart' ? products.map((product) => (<div key={product._id} className="flex justify-between pt-10 lg:mx-10 ">
+                                <div className="flex lg:gap-5 gap-2">
+                                    <img className=" lg:h-[200px] h-[150px] w-[150px] lg:w-[250px] border-gray-300" src={product?.images[0]} alt="" />
+                                    <div className="lg:mt-4">
+                                        <h1 className=" text-lg py-2 font-semibold lg:w-[250px] w-[220px]">{product?.name}</h1>
                                         <p className="text-sm font-semibold pb-2 text-sky-400">Color : <span className="text-black">
                                             {product?.color}</span></p>
                                         <p className="text-lg font-semibold text-gray-500">BDT {product?.price}</p>
                                     </div>
                                 </div>
-                                <div className="flex mt-16 gap-5">
-                                    <h1 className="text-lg font-semibold text-gray-500 ">Quantity {product?.quantity}</h1>
-                                    <div className="text-sky-400">
-                                        <CiCirclePlus onClick={() => dispatch(increseQuantity(product._id))} />
-                                        <CiCircleMinus onClick={() => dispatch(decreseQuantity(product._id))} />
-                                    </div>
+                                <div className="flex mt-16 lg:gap-5 ">
+                                    <h1 className="w-[100px] text-lg font-semibold text-gray-500 ">Quantity {product.quantity}</h1>
                                 </div>
-                            </div>))
+                            </div>
+                            ))
                                 :
-                                <div className="flex justify-between pt-10 mx-10 ">
-                                    <div className="flex gap-5">
-                                        <img className=" h-[200px] w-[250px] border-gray-300" src={checkoutData?.images[0]} alt="" />
-                                        <div className="mt-4">
-                                            <h1 className="text-lg py-2 font-semibold w-[150px]">{checkoutData?.name}</h1>
+                                <div className="flex justify-between pt-10 lg:mx-10 ">
+                                    <div className="flex lg:gap-5 gap-2">
+                                        <img className=" lg:h-[200px] h-[150px] w-[150px] lg:w-[250px] border-gray-300" src={checkoutData?.images[0]} alt="" />
+                                        <div className="lg:mt-4">
+                                            <h1 className=" text-lg py-2 font-semibold lg:w-[250px] w-[220px]">{checkoutData?.name}</h1>
                                             <p className="text-sm font-semibold pb-2 text-sky-400">Color : <span className="text-black">
                                                 {checkoutData?.color}</span></p>
                                             <p className="text-lg font-semibold text-gray-500">BDT {checkoutData?.price}</p>
                                         </div>
                                     </div>
-                                    <div className="flex mt-16 gap-5">
-                                        <h1 className="text-lg font-semibold text-gray-500 ">Quantity {quantity}</h1>
-                                        <div className="text-sky-400">
+                                    <div className="flex mt-16 lg:gap-5 ">
+                                        <h1 className="w-[100px] text-lg font-semibold text-gray-500 ">Quantity {quantity}</h1>
+                                        <div className="text-sky-400  mr-2">
                                             <CiCirclePlus onClick={() => setQuantity(quantity + 1)} />
                                             <CiCircleMinus onClick={() => setQuantity(quantity - 1)} />
                                         </div>
@@ -183,8 +180,8 @@ const CheckOut = () => {
                                 <h1>Grand Total</h1>
                                 <p>BDT {fromCart === 'cart' ? subTotal : quantity * checkoutData?.price}</p>
                             </div>
-                            <div>
-                                <Button htmlType="submit" className="w-full mb-5 uppercase" style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '100px 100px 100px 100px', padding: '20px 0px 20px 0px', fontSize: '15px' }} >{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Order Now'}</Button>
+                            <div className="pb-8">
+                                <Button className="w-full rounded-full bg-sky-400 hover:bg-sky-500">{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Order Now'}</Button>
                             </div>
                         </div>
                     </div>
