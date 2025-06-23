@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { useChangeStatusMutation, useGetMyOrdersQuery } from "../../redux/features/user/userReletedApi";
 import moment from 'moment'
 import { IOrder } from "@/types/order.types";
+import OrderDetailSheet from "@/components/common/Orders/orderDetailSheet";
 const MyOrders = () => {
     const { data } = useGetMyOrdersQuery(undefined);
     const [cancelOrder] = useChangeStatusMutation()
@@ -54,26 +55,23 @@ const MyOrders = () => {
                                             </thead>
                                             <tbody className="bg-white divide-y divide-gray-200 ">
                                                 {
-                                                    orderData?.map((product: IOrder) => <tr key={product._id} className="w-full">
+                                                    orderData?.map((order: IOrder) => <tr key={order._id} className="w-full">
                                                         <td className="px-8 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                            {product?.product?.name}
+                                                            {order?.items?.map(item => item.product.name.split(' ').slice(0, 3).join(' ')).join(' , ')}
                                                         </td>
-                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{moment.utc(product?.createdAt).format('D MMMM YYYY')}</td>
-                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{product?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)}</td>
-                                                        <td className={`px-4 py-4 text-sm text-gray-600 whitespace-nowrap flex gap-1 relative top-1 ${product?.status === 'Pending' ? 'text-yellow-500' : product?.status === 'Delivered' ? 'text-green-500' : 'text-red-500'}`}>
+                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{moment.utc(order?.createdAt).format('D MMMM YYYY')}</td>
+                                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{order?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)}</td>
+                                                        <td className={`px-4 py-4 text-sm text-gray-600 whitespace-nowrap flex gap-1 relative top-1 ${order?.status === 'Pending' ? 'text-yellow-500' : order?.status === 'Delivered' ? 'text-green-500' : 'text-red-500'}`}>
                                                             <p className={`h-2 w-2 relative top-[6px] rounded-full 
-                                                            ${product?.status === 'Pending' && 'bg-yellow-500'} 
-                                                            ${product?.status === 'Delivered' && 'bg-green-500'}
-                                                          ${product?.status === 'Cancelled' && 'bg-red-500'}`}>
+                                                            ${order?.status === 'Pending' && 'bg-yellow-500'} 
+                                                            ${order?.status === 'Delivered' && 'bg-green-500'}
+                                                          ${order?.status === 'Cancelled' && 'bg-red-500'}`}>
 
                                                             </p>
-                                                            {product?.status}
+                                                            {order?.status}
                                                         </td>
                                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                            <Button
-                                                                disabled={product?.status === 'Cancelled' || product?.status === 'Delivered'}
-                                                                onClick={() => handleCancel(product?._id)}
-                                                                style={{ backgroundColor: 'red' }}>Cancel</Button>
+                                                            <OrderDetailSheet order={order} />
                                                         </td>
                                                     </tr>)
                                                 }

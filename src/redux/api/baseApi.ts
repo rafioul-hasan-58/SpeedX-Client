@@ -6,8 +6,8 @@ import {
 import { RootState } from '../store';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000/api',
-  // baseUrl: 'https://my-forth-assignment-server.vercel.app/api',
+  // baseUrl: 'http://localhost:8000/api',
+  baseUrl: 'https://speed-x-server-delta.vercel.app/api',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

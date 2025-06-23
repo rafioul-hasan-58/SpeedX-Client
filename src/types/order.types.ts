@@ -1,17 +1,6 @@
 import { IProduct } from "./product.types";
 
 
-export interface IOrder {
-    _id: string;
-    product: {
-        name: string;
-        price: number
-    };
-    createdAt: string;
-    email: string;
-    status: string;
-}
-
 
 export interface IOrderItem {
     _id: string;
@@ -22,13 +11,13 @@ export interface IOrderItem {
 export interface IOrder {
     _id: string;
     items: IOrderItem[];
-    status: string;
+    status: "Pending" | "Delivered" | "Cancelled";
     contact: number;
     totalPrice: number;
     buyer: string;
     email: string;
     address: string;
-    createdAt: string;  // or Date if you're treating as Date
+    createdAt: string;
     updatedAt: string;
     __v?: number;
 }
