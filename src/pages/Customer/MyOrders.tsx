@@ -3,7 +3,7 @@ import { Button } from "../../components/ui/button";
 import { useChangeStatusMutation, useGetMyOrdersQuery } from "../../redux/features/user/userReletedApi";
 import moment from 'moment'
 import { IOrder } from "@/types/order.types";
-import OrderDetailSheet from "@/components/common/Orders/orderDetailSheet";
+import OrderDetailSheet from "@/components/common/Orders/OrderDetailSheet";
 const MyOrders = () => {
     const { data } = useGetMyOrdersQuery(undefined);
     const [cancelOrder] = useChangeStatusMutation()
@@ -24,7 +24,7 @@ const MyOrders = () => {
                 data?.data?.length > 0 ? <div>
                     <section className=" px-4 ">
                         <div className="mx-2">
-                            <h2 className="text-2xl font-semibold">All Customer Orders | Admin</h2>
+                            <h2 className="text-2xl font-semibold">My Orders | Customer</h2>
                             <p className="text-lg text-gray-500">Manage, update, or delete customer orders from here.</p>
                         </div>
                         <div className="flex flex-col">
