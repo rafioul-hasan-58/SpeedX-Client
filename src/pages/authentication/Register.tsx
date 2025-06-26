@@ -25,11 +25,11 @@ const Register = () => {
     }
     return (
         <div className="lg:mx-44 ">
-            <div className="flex">
-                <div className="w-3/5 ">
+            <div className="lg:flex lg:flex-row-reverse">
+                <div className="lg:w-3/5 lg:block hidden">
                     <img src={image} alt="" />
                 </div>
-                <div className="w-2/5   max-h-screen">
+                <div className="lg:w-2/5   max-h-screen mx-3 lg:mt-0  mt-[200px]">
                     <div className="lg:relative top-28 border-2 border-gray-200 border-b-0 p-10 rounded-xl">
                         <h1 className="text-2xl  text-center text-blue-600">Register your account</h1>
                         <form onSubmit={handleSubmit(onSubmit)}>

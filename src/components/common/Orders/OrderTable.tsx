@@ -50,14 +50,22 @@ const OrderTable = ({ data }: { data: IOrder[] | undefined }) => {
 
                                 <td className="px-4  text-sm text-gray-500  whitespace-nowrap">{moment.utc(order?.createdAt).format('D MMMM YYYY')}</td>
 
-                                <td className={`px-4 pt-3  text-sm text-gray-600 whitespace-nowrap flex gap-1 relative top-1 ${order?.status === 'Pending' ? 'text-yellow-500' : order?.status === 'Delivered' ? 'text-green-500' : 'text-red-500'}`}>
-                                    <p className={`h-2 w-2 relative top-[6px] rounded-full 
-                                                            ${order?.status === 'Pending' && 'bg-yellow-500'} 
-                                                            ${order?.status === 'Delivered' && 'bg-green-500'}
-                                                          ${order?.status === 'Cancelled' && 'bg-red-500'}`}>
-                                    </p>
-                                    {order?.status}
+                                <td className="px-4 py-2 whitespace-nowrap">
+                                    <span
+                                        className={`inline-block text-xs font-semibold px-3 py-[2px] rounded-sm ${order?.status === "Pending"
+                                                ? "text-yellow-600 bg-yellow-100"
+                                                : order?.status === "Delivered"
+                                                    ? "text-green-700 bg-green-100"
+                                                    : order?.status === "Cancelled"
+                                                        ? "text-red-600 bg-red-100"
+                                                        : "text-gray-700 bg-gray-100"
+                                            }`}
+                                    >
+                                        {order?.status}
+                                    </span>
                                 </td>
+
+
                                 <td className="px-4  text-sm text-gray-500 whitespace-nowrap">
                                     <OrderDetailSheet order={order} />
                                 </td>

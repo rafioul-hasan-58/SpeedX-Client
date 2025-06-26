@@ -60,7 +60,7 @@ const productManagementApi = baseApi.injectEndpoints({
             },
             providesTags: ['orders'],
             transformResponse: (response: TResponseRedux<IOrder[]>) => {
-                return response.data
+                return response
             },
         }),
         // This endpoint is used to get products added by the user
