@@ -29,7 +29,6 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
         dispatch(logout())
         navigate('/login')
     }
-
     const { pathname } = useLocation();
     return (
         <aside className="  flex flex-col w-[280px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
@@ -74,7 +73,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                             <Avatar >
                                 <AvatarImage
                                     className="relative top-1 rounded-full border border-sky-500"
-                                    src={myProfile?.image || "https://github.com/shadcn.png"}
+                                    src={myProfile?.data?.image || "https://github.com/shadcn.png"}
                                 />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>                        </PopoverTrigger>
@@ -84,7 +83,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                                     <Avatar>
                                         <AvatarImage
                                             className="relative top-1 w-[44px] h-[44px] rounded-full border border-sky-500"
-                                            src={myProfile?.image || "https://github.com/shadcn.png"}
+                                            src={myProfile?.data?.image || "https://github.com/shadcn.png"}
                                         />
                                     </Avatar>
                                     <div>

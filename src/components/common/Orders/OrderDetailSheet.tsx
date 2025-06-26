@@ -5,13 +5,14 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { IOrder } from "@/types/order.types";
+import { Eye } from "lucide-react";
 import moment from "moment";
 const OrderDetailSheet = ({ order }: { order: IOrder }) => {
     return (
         <div>
             <Sheet>
                 <SheetTrigger>
-                    <Button className="bg-white border border-teal-500 text-teal-500">View Details</Button>
+                    <Button className="px-3 py-2 bg-sky-400 hover:bg-sky-500 cursor-pointer"><Eye/></Button>
                 </SheetTrigger>
                 <SheetContent className="rounded-md m-4 max-h-screen lg:h-[600px] overflow-y-auto">
                     <h1 className="text-xl font-semibold border-b pb-4 text-gray-600">Order Details</h1>

@@ -1,3 +1,4 @@
+import { TUser } from "./auth.types";
 import { IProduct } from "./product.types";
 
 
@@ -14,7 +15,7 @@ export interface IOrder {
     status: "Pending" | "Delivered" | "Cancelled";
     contact: number;
     totalPrice: number;
-    buyer: string;
+    buyer: TUser;
     email: string;
     address: string;
     createdAt: string;

@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 
 const useImageUploader = () => {
     const [isUploading, setIsUploading] = useState(false);
-
     const uploadImagesToCloudinary = async (
         selectedFiles: File | File[],
         multiple = false

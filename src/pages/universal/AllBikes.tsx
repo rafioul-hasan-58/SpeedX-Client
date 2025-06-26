@@ -11,6 +11,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@
 import { Button } from '@/components/ui/button';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { BiMenuAltLeft } from "react-icons/bi";
+import Loader from '@/components/Loader/Loader';
 
 interface Filter {
     name: string;
@@ -61,7 +62,7 @@ const AllBikes = () => {
     }, [type, bikeType, pathname]);
 
     const { register, handleSubmit } = useForm();
-    const { data: products, } = useGetAllProductsQuery(queries);
+    const { data: products, isFetching } = useGetAllProductsQuery(queries);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
             setQueries((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
@@ -114,6 +115,8 @@ const AllBikes = () => {
             ];
         });
     }, [currentPage]);
+
+    if (isFetching) <Loader />
     return (
         <div>
             <div className='lg:mx-[100px] py-12 mx-2'>

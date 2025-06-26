@@ -12,7 +12,6 @@ const authApi = baseApi.injectEndpoints({
                         params.append(item.name, item.value as string);
                     });
                 }
-
                 return {
                     url: '/products/get-all-products',
                     method: 'GET',

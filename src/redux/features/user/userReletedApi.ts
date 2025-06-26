@@ -1,4 +1,6 @@
+import { IOrder } from "@/types/order.types";
 import { baseApi } from "../../api/baseApi";
+import { TQueryParam, TResponseRedux } from "@/types/global";
 const productManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         // This endpoint is used to place an order
@@ -42,13 +44,24 @@ const productManagementApi = baseApi.injectEndpoints({
             }),
             providesTags: ['order']
         }),
-        // This endpoint is used to get all orders
         getAllOrders: builder.query({
-            query: () => ({
-                url: '/orders/get-all-orders',
-                method: 'GET',
-            }),
-            providesTags: ['orders']
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    args.forEach((item: TQueryParam) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+                return {
+                    url: '/orders/get-all-orders',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            providesTags: ['orders'],
+            transformResponse: (response: TResponseRedux<IOrder[]>) => {
+                return response.data
+            },
         }),
         // This endpoint is used to get products added by the user
         getMyAddedProducts: builder.query({
@@ -83,9 +96,9 @@ export const {
     useVerifyOrderQuery,
     useGetTodaysSaleQuery,
     useGetMyOrdersQuery,
-    useGetAllOrdersQuery,
     useChangeStatusMutation,
     useDeleteOrderMutation,
-    useGetMyAddedProductsQuery
+    useGetMyAddedProductsQuery,
+    useGetAllOrdersQuery
 }
     = productManagementApi;

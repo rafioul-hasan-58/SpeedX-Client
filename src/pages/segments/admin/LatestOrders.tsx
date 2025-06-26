@@ -2,7 +2,7 @@ import Loader from "@/components/Loader/Loader";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useChangeStatusMutation, useDeleteOrderMutation, useGetAllOrdersQuery } from "@/redux/features/user/userReletedApi";
+import { useChangeStatusMutation, useDeleteOrderMutation, useGetAllOrdersQuery, } from "@/redux/features/user/userReletedApi";
 import { IOrder } from "@/types/order.types";
 import moment from "moment";
 import { useState } from "react";
@@ -11,11 +11,11 @@ interface LatestOrdersProps {
     showLimited?: boolean;
 }
 const LatestOrders = ({ showLimited = false }: LatestOrdersProps) => {
-    const { data: orders, isFetching } = useGetAllOrdersQuery(undefined);
+    const { data: allOrders, isFetching } = useGetAllOrdersQuery(undefined);
+
     const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
     const [status, setStatus] = useState('Pending');
     const [isOpen, setIsOpen] = useState(false);
-    const allOrders = orders?.data;
     const handleSubmit = async (id: string | null) => {
         const updatedData = {
             id,
@@ -57,7 +57,7 @@ const LatestOrders = ({ showLimited = false }: LatestOrdersProps) => {
     return (
         <div>
             {
-                allOrders?.length > 0 ? <section className="container">
+                (allOrders ?? [])?.length > 0 ? <section className="container">
                     <div className="flex flex-col">
                         <div className=" sm:-mx-6 ">
                             <div className="inline-block min-w-full py-2 align-middle md:px-6 px-0">
@@ -87,14 +87,14 @@ const LatestOrders = ({ showLimited = false }: LatestOrdersProps) => {
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200 ">
                                             {
-                                                (showLimited ? allOrders.slice(0, 5) : allOrders)?.map((item: IOrder) =>
+                                                (showLimited ? (allOrders ?? []).slice(0, 5) : (allOrders ?? []))?.map((item: IOrder) =>
                                                     <tr className="w-full">
                                                         <td className="px-8 py-4 text-sm font-semibold text-gray-500  whitespace-nowrap">
-                                                            {item?.product?.name}
+
                                                         </td>
                                                         <td className="px-4 py-4 text-sm font-semibold text-gray-500 whitespace-nowrap">{moment.utc(item?.createdAt).format('D MMMM YYYY')}</td>
                                                         <td className="px-4 py-4 text-sm font-semibold text-gray-500 whitespace-nowrap">{item?.email}</td>
-                                                        <td className="px-4 py-4 text-sm font-semibold text-gray-500   whitespace-nowrap">{item?.product?.price}</td>
+                                                        <td className="px-4 py-4 text-sm font-semibold text-gray-500   whitespace-nowrap"></td>
                                                         <td className="px-4 py-4 text-sm font-semibold text-gray-500 whitespace-nowrap flex gap-1 relative top-1">
                                                             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                                                                 <DialogTrigger asChild>
