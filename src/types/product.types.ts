@@ -13,6 +13,7 @@ export interface IProduct {
     instock?: boolean;
     type: "new" | "used";
     bikeType: string;
+    addedBy: string;
     createdAt: string;  // or Date if you're treating as Date
     updatedAt: string;
 }

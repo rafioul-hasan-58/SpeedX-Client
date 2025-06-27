@@ -1,16 +1,23 @@
 import { Link, useParams } from "react-router-dom";
-import { Button } from "antd";
 import { BsInfoCircle } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import ReletedBikes from "../segments/ReletedBikes";
 import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { Button } from "@/components/ui/button";
+import { IoCartOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { addProduct } from "@/redux/features/cart/cartSlice";
+import { useGetMyProfileQuery } from "@/redux/features/admin/userManagement.Api";
 const ProductDetails = () => {
     const { id } = useParams();
     const { data } = useGetProductDetailsQuery(id);
     const details = data?.data;
     const fallbackImage = 'https://i.ibb.co/mryzXPbL/office-605503-1280.jpg';
     const [currentImg, setCurrentImg] = useState(details?.images && details.images[0]);
-
+    const user = useAppSelector(selectCurrentUser);
+    const { data: sellerProfile } = useGetMyProfileQuery(details?.addedBy);
     useEffect(() => {
         if (details?.images?.length > 0) {
             setCurrentImg(details.images[0]);
@@ -18,6 +25,8 @@ const ProductDetails = () => {
             setCurrentImg(fallbackImage)
         }
     }, [details?.images])
+    const dispatch = useAppDispatch();
+    const cart = useAppSelector((state) => state.products.products);
     return (
         <div className="lg:mx-20">
             <div className="pt-10">
@@ -48,15 +57,28 @@ const ProductDetails = () => {
                         <h2 className="text-3xl font-bold text-sky-400 my-4">BDT.{details?.price}</h2>
                         <p className="text-gray-500">Brand: {details?.brandName} |<span className="text-sky-400"> More Bikes From {details?.brandName}</span></p>
                         <p className="text-gray-500 mt-2">Product Color: <span className="text-black">{details?.color}</span></p>
-                        <div className="flex gap-4 mt-16">
-                            <Link to={`/customer/check-out?productId=${id}`}>
-                                <div className=" flex w-[190px]  items-center justify-center ">
-                                    <Button className="relative  focus:outline-none px-3 py-2" style={{ border: '1px solid #38bdf8', backgroundColor: '#38bdf8', color: 'white', fontSize: '16px', borderRadius: '100px 100px 100px 100px', padding: '22px 60px 22px 60px', }}>BUY NOW</Button>
+                        <div className="flex gap-4 mt-16 items-center">
+                            <Link className="flex-1" to={`/customer/check-out?productId=${id}`}>
+                                <div className=" flex w-full  items-center justify-center ">
+                                    <Button disabled={user?.email === details?.addedBy} className="bg-sky-400 hover:bg-sky-500 rounded-full flex-1 h-11">BUY NOW</Button>
                                 </div>
                             </Link>
-                            <div className='cursor-pointer w-[190px] flex gap-1 border-2 p-2 rounded-full border-sky-400 justify-center'>
-                                <h1 className=' text-[15px] uppercase mt-[1px]'>Add to Cart</h1>
-                            </div>
+                            <Button
+                                disabled={user?.email === details?.addedBy || details?.stocks === 0 || sellerProfile?.data?.role !== 'admin'}
+                                onClick={() => {
+                                    const exists = cart.some(p => p._id === details?._id);
+                                    if (exists) {
+                                        toast.error('Already Exists');
+                                    } else {
+                                        dispatch(addProduct(details));
+                                        toast.success('Product added to cart');
+                                    }
+                                }}
+                                className="h-11 flex-1 text-[12px] text-sky-400 bg-white border border-sky-400 rounded-full hover:bg-sky-100 w-full flex items-center justify-center gap-1"
+                            >
+                                <IoCartOutline />
+                                Add To Cart
+                            </Button>
                         </div>
                     </div>
                 </div>

@@ -50,6 +50,7 @@ const MyAddedProducts = () => {
     //         ];
     //     });
     // }, [currentPage]);
+    console.log(products);
     if (isFetching) return <Loader />
     return (
         <div>

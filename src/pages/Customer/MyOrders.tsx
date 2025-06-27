@@ -106,7 +106,7 @@ const MyOrders = () => {
                                                 {[...Array(Math.max(1, meta?.totalPage || 1))].map((_, index) => (
                                                     <PaginationItem key={index}>
                                                         <PaginationLink
-                                                            onClick={() => setCurrentPage(index + 1)}
+                                                         onClick={() => setCurrentPage(index + 1)}
                                                             href="#"
                                                             className={`border text-sky-400 border-sky-500 hover:bg-sky-500 hover:border-sky-500 hover:text-white ${index === currentPage - 1 ? "bg-sky-500 text-white" : ""
                                                                 }`}
@@ -117,7 +117,6 @@ const MyOrders = () => {
                                                 ))}
                                             </div>
                                         </PaginationItem>
-
                                         <PaginationItem>
                                             <Button
                                                 disabled={currentPage === meta?.totalPage}

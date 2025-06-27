@@ -22,7 +22,7 @@ const FeturedScooters = () => {
     return (
         <div>
             <h1 className=" lg:text-4xl text-3xl font-bold mt-4 lg:my-10">Fearured Scooters</h1>
-            <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3">
+            <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3 gap-1">
                 {
                     mainData?.map((item) => (
                         <ProductCard key={item.name} item={item}></ProductCard>

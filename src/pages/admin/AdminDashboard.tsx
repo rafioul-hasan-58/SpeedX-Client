@@ -3,9 +3,6 @@ import Barchart from "../../components/Charts/Barchart";
 import LevelChart from "../../components/Charts/LavelChart";
 import { useGetTodaysSaleQuery, useGetTotalSaleQuery } from "@/redux/features/user/userReletedApi";
 import LatestOrders from "../segments/admin/LatestOrders";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-
 const AdminDashboard = () => {
   // states
 
@@ -54,13 +51,7 @@ const AdminDashboard = () => {
         <LevelChart />
       </div>
       <div>
-        <h1 className="text-2xl font-bold text-sky-400  my-6 pt-3">Latest Orders</h1>
-        <LatestOrders showLimited />
-        <div className="flex justify-center">
-          <Link to='/admin/all-orders'>
-            <Button className="rounded-full bg-sky-500 hover:bg-sky-600">View More</Button>
-          </Link>
-        </div>
+        <LatestOrders/>
       </div>
     </div>
   );

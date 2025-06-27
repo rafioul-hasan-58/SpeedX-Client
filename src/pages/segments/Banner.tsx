@@ -6,7 +6,7 @@ const Banner = () => {
     return (
         <div>
             <div className="border border-gray-100 pt-4 mb-8 ">
-                <section className="border h-[550px]  bg-white  sm:mt-6  px-4 sm:px-6 ">
+                <section className="border lg:h-[550px] h-[400px]  bg-white  sm:mt-6  px-4 sm:px-6 ">
                     <div className="my-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 flex  lg:flex-justify lg:flex flex-col lg:flex-row">
                         <div className="sm:text-center lg:text-left">
                             <h1 className=" tracking-tight font-bold text-gray-800 lg:text-6xl text-3xl">
@@ -36,7 +36,7 @@ const Banner = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="relative lg:right-6 lg:w-[500px] lg:block hidden">
+                        <div className="lg:relative  absolute lg:right-6 lg:w-[500px] lg:block hidden">
                             <BannerCarosel />
                         </div>
                     </div>

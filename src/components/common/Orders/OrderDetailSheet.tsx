@@ -4,15 +4,51 @@ import {
     SheetContent,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useChangeStatusMutation } from "@/redux/features/user/userReletedApi";
+import { useAppSelector } from "@/redux/hooks";
 import { IOrder } from "@/types/order.types";
 import { Eye } from "lucide-react";
 import moment from "moment";
+import { LuLoaderCircle } from "react-icons/lu";
 const OrderDetailSheet = ({ order }: { order: IOrder }) => {
+    const nextStatus = (currentStatus: string) => {
+        switch (currentStatus) {
+            case 'Pending':
+                return 'Processing';
+            case 'Processing':
+                return 'Shipped';
+            case 'Shipped':
+                return 'Delivered';
+            case 'Delivered':
+                return 'Returned';
+            default:
+                return null
+        }
+
+    }
+    const [changeStatus, { isLoading }] = useChangeStatusMutation();
+    const user = useAppSelector(selectCurrentUser);
+    const changeOrderStatus = (id: string) => {
+        const data = {
+            id,
+            data: { status: 'Cancelled' }
+        }
+        changeStatus(data);
+    }
+    const makeNextStatus = (id: string) => {
+        const newStatus = nextStatus(order?.status);
+        const data = {
+            id,
+            data: { status: newStatus }
+        }
+        changeStatus(data)
+    }
     return (
         <div>
             <Sheet>
                 <SheetTrigger>
-                    <Button className="px-3 py-2 bg-sky-400 hover:bg-sky-500 cursor-pointer"><Eye/></Button>
+                    <Button className="px-3 py-2 bg-sky-400 hover:bg-sky-500 cursor-pointer"><Eye /></Button>
                 </SheetTrigger>
                 <SheetContent className="rounded-md m-4 max-h-screen lg:h-[600px] overflow-y-auto">
                     <h1 className="text-xl font-semibold border-b pb-4 text-gray-600">Order Details</h1>
@@ -38,7 +74,18 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                             </article>
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">Status</p>
-                                <p className="mr-10">{order.status}</p>
+                                <p className="mr-10"> <span
+                                    className={`inline-block text-xs font-semibold px-3 py-[2px] rounded-sm ${order?.status === "Pending"
+                                        ? "text-yellow-600 bg-yellow-100"
+                                        : order?.status === "Delivered"
+                                            ? "text-green-700 bg-green-100"
+                                            : order?.status === "Cancelled"
+                                                ? "text-red-600 bg-red-100"
+                                                : "text-gray-700 bg-gray-100"
+                                        }`}
+                                >
+                                    {order?.status}
+                                </span></p>
                             </article>
                         </section>
                         <section className="text-[15px] border-b pb-5">
@@ -61,15 +108,23 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                                 <p className="text-gray-500 ">Subtotal</p>
                                 <p className="mr-10 text-sky-600">BDT.{order?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)}</p>
                             </article>
-                            <article className="mt-3 flex justify-between">
+                            <article className="mt-3 flex justify-between border-b pb-2">
                                 <p className="text-gray-500 ">Shipping Cost</p>
                                 <p className="mr-10 text-sky-600">BDT.{10.5 * order?.items.reduce((acc, item) => acc + item.quantity, 0)}</p>
                             </article>
-                            <article className="mt-3 flex justify-between">
-                                <p className="text-gray-500 ">Shipping Cost</p>
+                            <article className="mt-2 flex justify-between">
+                                <p className="text-gray-500 ">Total Cost</p>
                                 <p className="mr-10 text-sky-600">BDT.{((10.5 * order?.items.reduce((acc, item) => acc + item.quantity, 0)) + (order?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)))}</p>
                             </article>
                         </section>
+                        <div className="flex justify-center mt-4">
+                            {
+                                user?.email === order.buyer.email ?
+                                    <Button disabled={order.status === 'Cancelled'} onClick={() => changeOrderStatus(order._id)} className="rounded-full w-full bg-red-500 hover:bg-red-600">{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Cancel Order'}</Button>
+                                    :
+                                    <Button disabled={order.status === 'Delivered'} onClick={() => makeNextStatus(order._id)} className={`rounded-full w-full bg-sky-500 hover:bg-sky-600 ${nextStatus(order?.status) === 'Processing' ? 'bg-purple-600' : ''}`}>Make it {nextStatus(order?.status)}</Button>
+                            }
+                        </div>
                     </div>
                 </SheetContent>
             </Sheet>

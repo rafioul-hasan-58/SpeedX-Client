@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeProduct } from "@/redux/features/cart/cartSlice";
 import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
 import { Button } from "@/components/ui/button";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 const CheckOut = () => {
     const [pressOrder, { isLoading }] = usePressOrderMutation()
     const [quantity, setQuantity] = useState(1);
@@ -59,6 +60,7 @@ const CheckOut = () => {
         }
 
     }
+    const user=useAppSelector(selectCurrentUser);
     const errorSize = Object.keys(errors).length;
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="pb-16">
@@ -93,6 +95,7 @@ const CheckOut = () => {
                             <input
                                 className="w-full pl-5 py-3.5 border-gray-300  text-gray-700 border focus:outline-none focus:shadow-outline placeholder-gray-500"
                                 {...register('email', { required: "email is required" })}
+                                defaultValue={user?.email}
                                 name='email'
                                 type="email"
                                 placeholder="Enter your email"
