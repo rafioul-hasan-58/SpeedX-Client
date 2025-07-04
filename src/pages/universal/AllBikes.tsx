@@ -119,7 +119,7 @@ const AllBikes = () => {
     if (isFetching) <Loader />
     return (
         <div>
-            <div className='lg:mx-[100px] py-12 mx-2'>
+            <div className='max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-20 py-12'>
                 <h1 className="text-4xl font-bold border-b border-gray-300 pb-6">Top Brands</h1>
                 <div className='pt-8 pb-16'>
                     <BrandCarosel />
@@ -204,7 +204,7 @@ const AllBikes = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='grid lg:grid-cols-3 grid-cols-2 lg:gap-5 gap-2'>
+                    <div className='grid lg:grid-cols-3 2xl:grid-cols-4 grid-cols-2 lg:gap-5 gap-2'>
                         {
                             products?.data?.map((item: IProduct) => (
                                 <ProductCard key={item.name} item={item}></ProductCard>

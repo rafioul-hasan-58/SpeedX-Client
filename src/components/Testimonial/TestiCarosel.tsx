@@ -33,6 +33,9 @@ export default function TestiCarosel() {
                     },
                     1024: {
                         slidesPerView: 3
+                    },
+                    1960:{
+                        slidesPerView:4
                     }
                 }}
             >

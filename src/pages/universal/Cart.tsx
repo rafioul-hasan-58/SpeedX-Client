@@ -14,7 +14,7 @@ const Cart = () => {
         .reduce((total, product) => total + product.price * product.quantity, 0);
 
     return (
-        <div className="h-screen w-full flex lg:flex-row flex-col lg:px-24 lg:gap-6 lg:py-12 overflow-y-auto">
+        <div className="h-screen w-full flex lg:flex-row flex-col lg:px-24 lg:gap-6 lg:py-12 overflow-y-auto max-w-[1700px] mx-auto px-4 sm:px-6 ">
             <div className="lg:w-[65%] mx-2">
                 <aside className=" bg-white">
                     <p className="text-xl font-semibold py-3 pl-3">My Cart({products?.length})</p>

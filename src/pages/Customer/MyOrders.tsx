@@ -2,35 +2,24 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "../../components/ui/button";
-import { useGetAllOrdersQuery } from "../../redux/features/user/userReletedApi";
+import { useGetMyOrdersQuery } from "../../redux/features/user/userReletedApi";
 import Loader from "@/components/Loader/Loader";
-import { useAppSelector } from "@/redux/hooks";
-import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import OrderTable from "@/components/common/Orders/OrderTable";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
-import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { TMeta } from "@/types/global";
-
 const MyOrders = () => {
-    const [email, setEmail] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const [activeTab, setActiveTab] = useState("All");
-    const user = useAppSelector(selectCurrentUser);
+    const [mode, setMode] = useState('');
+    const [activeTab, setActiveTab] = useState("seller");
     const queryParams = [];
-    if (email) {
-        queryParams.push({ name: 'email', value: email })
+    if (mode) {
+        queryParams.push({ name: 'mode', value: mode })
     }
     if (activeTab !== 'All') {
         queryParams.push({ name: 'status', value: activeTab })
     }
-    const { data: orderData, isFetching } = useGetAllOrdersQuery(queryParams);
+    const { data: orderData, isFetching } = useGetMyOrdersQuery(queryParams);
     const data = orderData?.data;
     const tabs = ["All", "Cancelled", "Delivered", "Pending", "Returned"];
-    const meta = orderData?.meta as TMeta;
-    console.log(meta);
     if (isFetching) return <Loader />;
-
+    console.log(mode);
     return (
         <div className="pt-5 px-4">
             {/* Heading */}
@@ -72,13 +61,13 @@ const MyOrders = () => {
                 </div>
 
                 {/* Select filter */}
-                <Select onValueChange={(value) => setEmail(value === 'all' ? '' : value)}>
+                <Select onValueChange={(value) => setMode(value)}>
                     <SelectTrigger className="w-[120px] h-[32px]">
                         <SelectValue placeholder="orders" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">All Orders</SelectItem>
-                        <SelectItem value={`${user?.email}`}>My Orders</SelectItem>
+                        <SelectItem value="seller">All Orders</SelectItem>
+                        <SelectItem value={`buyer`}>My Orders</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -86,50 +75,6 @@ const MyOrders = () => {
                 (data?.length ?? 0) > 0 ?
                     <>
                         <OrderTable data={data} />
-                        {/* pagination */}
-                       
-                            <div className="py-6">
-                                <Pagination>
-                                    <PaginationContent>
-                                        <PaginationItem>
-                                            <Button
-                                                disabled={currentPage === 1}
-                                                onClick={() => setCurrentPage((prev) => prev - 1)}
-                                                className="text-sky-500 border border-sky-500 hover:bg-sky-500 hover:text-white bg-white"
-                                            >
-                                                <BiLeftArrow /> Previous
-                                            </Button>
-                                        </PaginationItem>
-
-                                        <PaginationItem>
-                                            <div className="flex gap-2">
-                                                {[...Array(Math.max(1, meta?.totalPage || 1))].map((_, index) => (
-                                                    <PaginationItem key={index}>
-                                                        <PaginationLink
-                                                         onClick={() => setCurrentPage(index + 1)}
-                                                            href="#"
-                                                            className={`border text-sky-400 border-sky-500 hover:bg-sky-500 hover:border-sky-500 hover:text-white ${index === currentPage - 1 ? "bg-sky-500 text-white" : ""
-                                                                }`}
-                                                        >
-                                                            {index + 1}
-                                                        </PaginationLink>
-                                                    </PaginationItem>
-                                                ))}
-                                            </div>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <Button
-                                                disabled={currentPage === meta?.totalPage}
-                                                onClick={() => setCurrentPage((prev) => prev + 1)}
-                                                className="bg-sky-500 text-white hover:bg-white border hover:border-sky-500 hover:text-sky-500"
-                                            >
-                                                Next <BiRightArrow />
-                                            </Button>
-                                        </PaginationItem>
-                                    </PaginationContent>
-                                </Pagination>
-                            </div>
-                     
                     </>
                     :
                     <div className="border-t flex items-center justify-center mt-12 py-10 rounded-sm ">

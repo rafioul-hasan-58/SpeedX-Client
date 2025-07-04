@@ -15,7 +15,7 @@ const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
     const user = useAppSelector(selectCurrentUser);
     const { data: sellerProfile } = useGetMyProfileQuery(item?.addedBy);
     return (
-        <article className='border bg-white border-gray-200 rounded-lg flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200 h-full lg:max-h-[390px]'>
+        <article className='border bg-white border-gray-200 rounded-lg flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200 h-full lg:max-h-[390px] max-w-[400px]'>
             <Link to={`/customer/product-details/${item?._id}`}>
                 <img
                     className='h-48 w-full object-cover rounded-t-lg border-b border-gray-200'

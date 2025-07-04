@@ -37,12 +37,23 @@ const productManagementApi = baseApi.injectEndpoints({
         }),
         // This endpoint is used to get all orders of the user
         getMyOrders: builder.query({
-            query: () => ({
-                url: '/orders/get-my-orders',
-                method: 'GET',
-
-            }),
-            providesTags: ['order']
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    args.forEach((item: TQueryParam) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+                return {
+                    url: '/orders/get-my-orders',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            providesTags: ['order'],
+            transformResponse: (response: TResponseRedux<IOrder[]>) => {
+                return response
+            },
         }),
         getAllOrders: builder.query({
             query: (args) => {

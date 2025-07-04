@@ -2,6 +2,7 @@ import { LuBadgeInfo } from 'react-icons/lu';
 import { FaMotorcycle } from "react-icons/fa";
 import { BsBag, BsBagCheck } from 'react-icons/bs';
 import { IoHome } from 'react-icons/io5';
+import { MdOutlineSpaceDashboard } from 'react-icons/md';
 
 export const navItems = [
     {
@@ -12,7 +13,7 @@ export const navItems = [
     {
         title: "Dashboard",
         url: "/customer/dashboard/my-added-products",
-        icon: IoHome
+        icon: MdOutlineSpaceDashboard  
     },
     {
         title: "Bikes",

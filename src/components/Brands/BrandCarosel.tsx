@@ -41,6 +41,9 @@ export default function BrandCarosel() {
                     },
                     1024: {
                         slidesPerView: 5
+                    },
+                    1960: {
+                        slidesPerView: 6
                     }
                 }}
             >

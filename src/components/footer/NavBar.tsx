@@ -49,20 +49,20 @@ const NavBar = () => {
 
     const { pathname, search } = useLocation();
     return (
-        <nav className="fixed bg-white z-50 w-full overflow-y-auto lg:pb-0 pb-[65px] lg:border-none border-b border-b-sky-500">
-            <section className="flex  lg:px-20  lg:pb-1  w-full items-center gap-3 lg:border lg:border-b">
+        <nav className=" fixed bg-white z-50 w-full overflow-y-auto lg:pb-0 pb-[65px] lg:border-none border-b border-b-sky-500">
+            <section className="flex  lg:px-20  lg:pb-1  w-full items-center gap-3 lg:border lg:border-b 2xl:pr-20">
                 <aside className="flex w-[50%] justify-between">
                     <section className='mt-4 ml-4'>
                         <MobileNav myProfile={myProfile} />
                     </section>
-                    <section className='lg:mt-0 mt-2 lg:ml-0 ml-28  lg:block flex gap-1 justify-center'>
-                        <img className="lg:w-16 lg:h-16 w-14 h-14" src={bike} alt="" />
-                        <h1 className="text-xl italic font-bold relative lg:bottom-5 text-sky-600 lg:top-0 top-1.5">SpeedX</h1>
+                    <section className='lg:mt-0 mt-2 lg:ml-0 ml-28 flex items-center relative lg:right-4 2xl:right-20'>
+                        <img className="lg:w-16  lg:h-16 w-14 h-14 relative top-2" src={bike} alt="logoImage" />
+                        <h1 className="text-xl italic font-bold text-sky-600">SpeedX</h1>
                     </section>
                     <section>
-                        <div className=" flex lg:mt-10 mt-8 lg:relative absolute bottom-[15px] right-[17px] justify-center">
+                        <div className=" flex lg:mt-10 mt-8 lg:relative absolute bottom-[15px]  justify-center">
                             <form onChange={handleSubmit(onSubmit)} className='w-full'>
-                                <div className='flex lg:mx-0'>
+                                <div className='flex lg:mx-0 '>
                                     <input
                                         {...register("searchTerm")}
                                         style={{ borderRadius: '100px 0px 0px 100px' }}
@@ -95,8 +95,9 @@ const NavBar = () => {
                             </div>
                         </div>
                     </section>
-                    <section className='flex items-center gap-5'>
-                        <div className="lg:block hidden text-3xl text-sky-500 cursor-pointer">
+                    {/* home & avater */}
+                    <section className='flex items-center gap-5  2xl:pr-20'>
+                        <div className="lg:block hidden text-3xl 2xl:text-4xl text-sky-500 cursor-pointer">
                             <Link to='/'><IoHome /></Link>
                         </div>
                         <div className='flex lg:relative gap-2 absolute right-5 top-4 lg:top-0 lg:right-0 '>
@@ -105,20 +106,20 @@ const NavBar = () => {
                                 user ? <div>
                                     <Popover>
                                         <PopoverTrigger asChild>
-                                            <Avatar className='relative left-0 cursor-pointer lg:w-[50px] w-[40px] h-[40px] lg:h-[50px] border border-sky-400'>
+                                            <Avatar className='relative left-0 cursor-pointer lg:w-[50px] 2xl:w-[60px] 2xl:h-[60px] w-[40px] h-[40px] lg:h-[50px] border border-sky-400'>
                                                 <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
                                                 <AvatarFallback>CN</AvatarFallback>
                                             </Avatar>
                                         </PopoverTrigger>
-                                        <PopoverContent className=' mr-10 max-w-[90vw] overflow-hidden'>
+                                        <PopoverContent className=' mr-10 max-w-[90vw] overflow-hidden 2xl:w-[350px]'>
                                             <article>
                                                 <div className='flex justify-center'>
-                                                    <Avatar className='flex justify-center cursor-pointer w-[50px] h-[50px] border border-sky-400'>
+                                                    <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[50px] h-[50px] border border-sky-400'>
                                                         <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
                                                         <AvatarFallback>CN</AvatarFallback>
                                                     </Avatar>
                                                 </div>
-                                                <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
+                                                <h1 className="text-xl 2xl:text-2xl font-semibold text-center py-2">{myProfile?.name}</h1>
                                                 <div className='flex justify-center'>
                                                     {myProfile && (
                                                         <UpdateProfile {...myProfile} />
@@ -128,7 +129,7 @@ const NavBar = () => {
                                                     {
                                                         navItems.slice(0, 4).map((nav) => (
                                                             <li key={nav.title} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full ">
-                                                                <NavLink className={`flex items-center gap-2`} to={nav.url} >
+                                                                <NavLink className={`flex items-center gap-2 2xl:text-xl`} to={nav.url} >
                                                                     <nav.icon />
                                                                     {nav.title}
                                                                 </NavLink>
@@ -137,7 +138,7 @@ const NavBar = () => {
                                                     }
                                                     <li onClick={() => {
                                                         dispatch(logout())
-                                                    }} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full flex items-center gap-2 cursor-pointer">
+                                                    }} className="hover:bg-sky-400 hover:text-white py-1 px-2 w-full flex items-center gap-2 cursor-pointer 2xl:text-xl">
                                                         <LogOut size={18} />
                                                         Logout
                                                     </li>
@@ -160,7 +161,7 @@ const NavBar = () => {
             </section>
             {/* main nav section */}
             <section
-                className={`overflow-hidden transition-all duration-300 ease-in-out lg:block hidden bg-white px-20 ${visible ? 'max-h-20 py-4' : 'max-h-0 py-0'
+                className={`overflow-hidden transition-all duration-300 ease-in-out lg:block hidden bg-white px-20 2xl:px-[165px] ${visible ? 'max-h-20 py-4' : 'max-h-0 py-0'
                     }`}
             >
 
@@ -168,7 +169,7 @@ const NavBar = () => {
                     {
                         navItems.map((nav) => (
                             <NavLink key={nav.title} className={
-                                `text-sm text-gray-500 uppercase font-semibold ${pathname + search === nav.url ? 'text-sky-400' : ''}`
+                                `text-sm 2xl:text-lg text-gray-500 uppercase font-semibold ${pathname + search === nav.url ? 'text-sky-400' : ''}`
                             } to={nav.url}>
                                 {nav.title}
                             </NavLink>
