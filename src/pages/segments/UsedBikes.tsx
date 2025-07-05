@@ -1,4 +1,5 @@
 import ProductCard from "@/components/Card/ProductCard";
+import BikeCardSkeleton from "@/components/Customer/Skeletons/BikeCardSkeleton";
 import { Button } from "@/components/ui/button";
 import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
 import { useEffect, useState } from "react";
@@ -16,18 +17,20 @@ const UsedBikes = () => {
         setQueries([{ name: 'filterBytype', value: 'used' }, { name: 'filterByBikeType', value: 'bike' }]);
     }, []);
 
-    const { data: products } = useGetAllProductsQuery(queries);
+    const { data: products,isLoading } = useGetAllProductsQuery(queries);
     const mainData = products?.data?.slice(0, 4);
 
     return (
         <div>
             <h1 className="lg:text-4xl text-3xl mt-4 font-bold lg:my-10">Used Bikes</h1>
             <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3 gap-1">
-                {
-                    mainData?.map((item) => (
-                        <ProductCard key={item.name} item={item}></ProductCard>
+               {isLoading
+                    ? Array.from({ length: 4 }).map((_, i) => (
+                        <BikeCardSkeleton key={i} />
                     ))
-                }
+                    : mainData?.map((item) => (
+                        <ProductCard key={item.name} item={item} />
+                    ))}
 
             </div>
             <div className="flex justify-center mt-3">
