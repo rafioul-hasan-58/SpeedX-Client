@@ -31,7 +31,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
     }
     const { pathname } = useLocation();
     return (
-        <aside className="  flex flex-col w-[280px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
+        <aside className="  flex flex-col w-[280px] 2xl:w-[320px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
             <div className="">
                 {
                     user?.role === 'admin' ?

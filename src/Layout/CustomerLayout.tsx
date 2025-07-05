@@ -20,7 +20,7 @@ const CustomerLayout = () => {
             {/* Sidebar */}
             {
                 user?.role === 'customer' &&
-                <div className={`w-[280px] h-full fixed top-0 left-0 bg-white shadow-lg transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
+                <div className={`w-[280px] 2xl:w-[320px] h-full fixed top-0 left-0 bg-white shadow-lg transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
                     <Sidebar sidebarItems={customerSidebarItems} />
                 </div>
             }
@@ -34,7 +34,7 @@ const CustomerLayout = () => {
             )}
 
             {/* Main Content */}
-            <div className={`flex-1 h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'customer' ? 'lg:ml-[280px]' : ''}`}>
+            <div className={`flex-1 h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'customer' ? 'lg:ml-[280px] 2xl:ml-[320px]' : ''}`}>
                 <CgMenuGridO
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     className="text-2xl lg:hidden mb-4 cursor-pointer"

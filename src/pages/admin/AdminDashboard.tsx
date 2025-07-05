@@ -51,7 +51,7 @@ const AdminDashboard = () => {
         <LevelChart />
       </div>
       <div>
-        <LatestOrders/>
+        <LatestOrders />
       </div>
     </div>
   );

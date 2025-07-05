@@ -1,4 +1,5 @@
 import ProductCard from "@/components/Card/ProductCard";
+import BikeCardSkeleton from "@/components/Customer/Skeletons/BikeCardSkeleton";
 import { Button } from "@/components/ui/button";
 import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
 import { useEffect, useState } from "react";
@@ -16,23 +17,24 @@ const FeturedBikes = () => {
         setQueries([{ name: 'filterBytype', value: 'new' }, { name: 'filterByBikeType', value: 'bike' }]);
     }, []);
 
-    const { data: products } = useGetAllProductsQuery(queries);
+    const { data: products, isLoading } = useGetAllProductsQuery(queries);
     const mainData = products?.data?.slice(0, 4);
 
     return (
         <div className="">
             <h1 className="lg:text-4xl text-3xl font-bold lg:my-10  mt-4">Fearured Bikes</h1>
             <div className="grid lg:mx-0 lg:grid-cols-4 grid-cols-2 lg:my-5 lg:gap-10 mt-3 gap-1">
-                {
-                    mainData?.map((item) => (
-                        <ProductCard key={item.name} item={item}></ProductCard>
+                {isLoading
+                    ? Array.from({ length: 4 }).map((_, i) => (
+                        <BikeCardSkeleton key={i} />
                     ))
-                }
-
+                    : mainData?.map((item) => (
+                        <ProductCard key={item.name} item={item} />
+                    ))}
             </div>
             <div className="flex justify-center mt-3">
                 <div className=" flex justify-center w-[120px]  rounded-full items-center">
-                     <Link to='/customer/all-bikes'>
+                    <Link to='/customer/all-bikes'>
                         <Button className="focus:outline-none px-6 py-5 rounded-full bg-sky-400 ">See All</Button>
                     </Link>
                 </div>
