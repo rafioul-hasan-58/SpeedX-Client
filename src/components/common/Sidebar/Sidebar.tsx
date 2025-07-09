@@ -30,6 +30,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
         navigate('/login')
     }
     const { pathname } = useLocation();
+    
     return (
         <aside className="  flex flex-col w-[280px] 2xl:w-[320px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
             <div className="">
@@ -52,11 +53,12 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                         </span>
                         <input type="text" className=" w-full py-1.5 pl-10  text-gray-700 bg-white border  focus:border-blue-400 focus:ring-blue-300 border-sky-300 focus:ring-opacity-40 focus:outline-none focus:ring placeholder-sky-400" placeholder="Search" />
                     </div>
+                    
                     <aside className="space-y-3 p-1">
                         {
                             sidebarItems?.map((item) => (
                                 <NavLink key={item.url} to={item.url} className={
-                                    `px-2 w-[260px] flex items-center gap-2  py-2 text-gray-600 transition-colors duration-300 transform ${pathname === item.url ? "bg-sky-400 font-semibold text-white hover:bg-sky-500" : "hover:bg-sky-500 hover:text-white"}`
+                                    `px-2 w-[260px] 2xl:w-[300px] flex items-center gap-2  py-2 text-gray-600 transition-colors duration-300 transform ${pathname === item.url ? "bg-sky-400 font-semibold text-white hover:bg-sky-500" : "hover:bg-sky-500 hover:text-white"}`
                                 }>
                                     <item.icon className="text-xl" />
                                     <span className=" text-sm font-medium">{item.title}</span>

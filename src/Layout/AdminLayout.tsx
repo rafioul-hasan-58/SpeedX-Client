@@ -32,7 +32,7 @@ const AdminLayout = () => {
             }
 
             {/* Main Content (Scrollable) */}
-            <div className={`flex-1  h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'admin' ? 'ml-[280px]' : ''}`}>
+            <div className={`flex-1  h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'admin' ? 'ml-[280px] 2xl:ml-[300px]' : ''}`}>
                 <Outlet />
             </div>
         </div>

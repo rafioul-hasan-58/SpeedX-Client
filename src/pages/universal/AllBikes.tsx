@@ -62,7 +62,7 @@ const AllBikes = () => {
     }, [type, bikeType, pathname]);
 
     const { register, handleSubmit } = useForm();
-    const { data: products, isFetching } = useGetAllProductsQuery(queries);
+    const { data: products, isLoading } = useGetAllProductsQuery(queries);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
             setQueries((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);
@@ -116,7 +116,6 @@ const AllBikes = () => {
         });
     }, [currentPage]);
 
-    if (isFetching) <Loader />
     return (
         <div>
             <div className='max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-20 py-12'>
@@ -131,7 +130,7 @@ const AllBikes = () => {
                     </div>
                 </div>
                 <div className='mt-8 flex lg:flex-row flex-col gap-10'>
-                    <div className={`bg-white lg:w-[305px] lg:relative absolute mb-10 lg:h-[870px] pb-16 transition-transform duration-300 ${filterPage ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 `}
+                    <div className={`bg-white lg:w-[305px] lg:relative absolute mb-10 lg:h-[791px] pb-16 transition-transform duration-300 ${filterPage ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 `}
                     >
                         <h1 className='text-lg px-8 pt-4 font-semibold pb-4 text-sky-500 border-b border-gray-300'>Filter</h1>
                         <div className='px-8 pt-4'>
@@ -145,9 +144,6 @@ const AllBikes = () => {
                                 </div>
                                 <div>
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "TVS", e.target.checked)} style={{ color: 'gray' }}>TVS</Checkbox>
-                                </div>
-                                <div>
-                                    <Checkbox onChange={(e) => handleBrandBoxChange('brand', "Runner", e.target.checked)} style={{ color: 'gray' }}>Runner</Checkbox>
                                 </div>
                                 <div>
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "BMW", e.target.checked)} style={{ color: 'gray' }}>BMW</Checkbox>
@@ -165,7 +161,7 @@ const AllBikes = () => {
                                     <Checkbox onChange={(e) => handleBrandBoxChange('brand', "Yamaha", e.target.checked)} style={{ color: 'gray' }}>Yamaha</Checkbox>
                                 </div>
                             </div>
-                            <div className='border-y border-gray-200 py-4'>
+                            <div className='py-4'>
                                 <p className='text-[15px] pb-4 font-semibold '>Price Range</p>
                                 <form onChange={handleSubmit(onSubmit)}>
                                     <div className='flex gap-3'>
@@ -204,12 +200,18 @@ const AllBikes = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='grid lg:grid-cols-3 2xl:grid-cols-4 grid-cols-2 lg:gap-5 gap-2'>
-                        {
-                            products?.data?.map((item: IProduct) => (
-                                <ProductCard key={item.name} item={item}></ProductCard>
-                            ))
-                        }
+                    <div className='min-h-[300px] w-full'>
+                        {isLoading ? (
+                            <div className="flex  justify-center w-full h-full min-h-[300px]">
+                                <Loader />
+                            </div>
+                        ) : (
+                            <div className='grid lg:grid-cols-3 2xl:grid-cols-4 grid-cols-2 lg:gap-5 gap-2'>
+                                {products?.data?.map((item: IProduct) => (
+                                    <ProductCard key={item.name} item={item}></ProductCard>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

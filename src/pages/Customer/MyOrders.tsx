@@ -5,21 +5,23 @@ import { Button } from "../../components/ui/button";
 import { useGetMyOrdersQuery } from "../../redux/features/user/userReletedApi";
 import Loader from "@/components/Loader/Loader";
 import OrderTable from "@/components/common/Orders/OrderTable";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 const MyOrders = () => {
-    const [mode, setMode] = useState('');
-    const [activeTab, setActiveTab] = useState("seller");
+    const user = useAppSelector(selectCurrentUser);
+    const [activeTab, setActiveTab] = useState("All");
     const queryParams = [];
-    if (mode) {
-        queryParams.push({ name: 'mode', value: mode })
-    }
+    const [mode, setMode] = useState('seller');
     if (activeTab !== 'All') {
-        queryParams.push({ name: 'status', value: activeTab })
+        queryParams.push({ name: 'status', value: activeTab });
+    }
+    if (mode) {
+        queryParams.push({ name: 'filterBy', value: mode }, { name: 'email', value: user?.email });
     }
     const { data: orderData, isFetching } = useGetMyOrdersQuery(queryParams);
     const data = orderData?.data;
     const tabs = ["All", "Cancelled", "Delivered", "Pending", "Returned"];
     if (isFetching) return <Loader />;
-    console.log(mode);
     return (
         <div className="pt-5 px-4">
             {/* Heading */}
@@ -67,7 +69,7 @@ const MyOrders = () => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="seller">All Orders</SelectItem>
-                        <SelectItem value={`buyer`}>My Orders</SelectItem>
+                        <SelectItem value='buyer'>My Orders</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

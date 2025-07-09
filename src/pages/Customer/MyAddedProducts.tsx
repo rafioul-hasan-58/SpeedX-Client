@@ -50,7 +50,6 @@ const MyAddedProducts = () => {
     //         ];
     //     });
     // }, [currentPage]);
-    console.log(products);
     if (isFetching) return <Loader />
     return (
         <div>
@@ -166,14 +165,15 @@ const MyAddedProducts = () => {
                             </Pagination>
                         </div>
                     </section>
-                </div> :
-                    <div className="flex items-center justify-center h-screen">
-                        <aside className="mt-4">
-                            <p className="text-center text-2xl font-semibold">You have empty data</p>
-                            <p className="text-gray-500 text-lg text-center py-5">Looks like you haven't added anything yet.</p>
+                </div>
+                    :
+                    <div className="flex justify-center items-center  min-h-[calc(100vh-100px)] px-4">
+                        <aside className="">
+                            <p className="text-center text-2xl 2xl:text-3xl font-semibold">You have empty data</p>
+                            <p className="text-gray-500 text-lg 2xl:text-xl text-center py-5">Looks like you haven't added anything yet.</p>
                             <div className="flex justify-center">
                                 <Link to='/customer/dashboard/add-product'>
-                                    <Button className="bg-sky-400 hover:bg-sky-500 rounded-full py-3 px-4 text-[15px]"><Plus size={18} /> Add Data</Button>
+                                    <Button className="bg-sky-400 hover:bg-sky-500 rounded-full py-3 2xl:py-5 px-4 2xl:px-6 2xl:text-[18px] text-[15px]"><Plus className="h-6 w-6 2xl:h-8 2xl:w-8 text-white font-semibold" /> Add Data</Button>
                                 </Link>
                             </div>
                         </aside>

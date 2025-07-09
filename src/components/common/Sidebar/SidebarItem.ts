@@ -22,9 +22,10 @@ export const customerSidebarItems = [
 
     },
     {
-        title: "My Orders",
+        title: "Orders",
         url: "/customer/dashboard/my-orders",
-        icon: BsBagCheck
+        icon: BsBagCheck,
+
     },
     {
         title: "My Cart",
