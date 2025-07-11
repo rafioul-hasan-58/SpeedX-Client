@@ -23,11 +23,11 @@ const MyOrders = () => {
     const tabs = ["All", "Cancelled", "Delivered", "Pending", "Returned"];
     if (isFetching) return <Loader />;
     return (
-        <div className="pt-5 px-4">
+        <div className="pt-5 px-4 2xl:px-10">
             {/* Heading */}
             <div className="mb-4">
-                <h2 className="text-2xl font-semibold">My Orders | Customer</h2>
-                <p className="text-lg text-gray-500">Manage, update, or delete customer orders from here.</p>
+                <h2 className="text-2xl font-semibold">My {mode === 'seller' ? 'Received' : 'Pressed'} Orders | Customer</h2>
+                <p className="text-lg text-gray-500">{mode === 'seller' ? 'Manage, update, or delete customer orders from here.' : 'Cancel or retrun your orders from here.'}</p>
             </div>
             {/* Tabs */}
             <div className="flex flex-wrap gap-2  mb-4">
@@ -37,7 +37,7 @@ const MyOrders = () => {
                         onClick={() => setActiveTab(tab)}
                         className={`px-4 py-1.5 text-sm font-medium transition duration-200 border-b-2
                                     ${activeTab === tab
-                                ? "border-b-2 border-sky-400"
+                                ? `border-b-2 border-sky-400`
                                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                             }`}
                     >
@@ -65,11 +65,11 @@ const MyOrders = () => {
                 {/* Select filter */}
                 <Select onValueChange={(value) => setMode(value)}>
                     <SelectTrigger className="w-[120px] h-[32px]">
-                        <SelectValue placeholder="orders" />
+                        <SelectValue placeholder={mode === 'seller' ? 'Received' : 'Pressed'} />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="seller">All Orders</SelectItem>
-                        <SelectItem value='buyer'>My Orders</SelectItem>
+                        <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value="seller">Received</SelectItem>
+                        <SelectItem className="hover:bg-sky-500  data-[state=checked]:bg-purple-600 data-[state=checked]:text-white" value='buyer'>Pressed </SelectItem>
                     </SelectContent>
                 </Select>
             </div>

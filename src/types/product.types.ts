@@ -14,6 +14,6 @@ export interface IProduct {
     type: "new" | "used";
     bikeType: string;
     addedBy: string;
-    createdAt: string;  // or Date if you're treating as Date
+    createdAt: string;
     updatedAt: string;
 }
