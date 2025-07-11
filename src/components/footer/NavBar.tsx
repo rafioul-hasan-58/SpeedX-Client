@@ -66,18 +66,16 @@ const NavBar = () => {
                                     <input
                                         {...register("searchTerm")}
                                         style={{ borderRadius: '100px 0px 0px 100px' }}
-                                        className="h-[40px] lg:w-[350px] w-[320px] border pl-7 placeholder-gray-600 border-gray-400 focus:outline-none"
+                                        className="h-[38px] lg:w-[350px] w-[320px] border pl-7 placeholder-gray-500 border-gray-400 focus:outline-none placeholder:font-semibold"
                                         type="text"
                                         placeholder="Search Bike Here..."
                                     />
-                                    <button >
-                                        <div style={{ borderRadius: '0px 20px 20px 0px' }} className=" bg-sky-400 px-4 h-[40px] cursor-pointer rounded-r-full">
+                                        <div style={{ borderRadius: '0px 20px 20px 0px' }} className=" bg-sky-400 px-2.5 h-[38px] cursor-pointer rounded-r-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative top-2.5 feather feather-search text-white" width="22" height="22">
                                                 <circle cx="11" cy="11" r="8"></circle>
                                                 <line x1="16" y1="16" x2="21" y2="21"></line>
                                             </svg>
                                         </div>
-                                    </button>
                                 </div>
                             </form>
                         </div>

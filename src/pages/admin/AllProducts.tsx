@@ -8,17 +8,22 @@ import { Filter, TMeta } from "@/types/global";
 import Loader from "@/components/Loader/Loader";
 import BikeTable from "@/components/Admin/All-Bikes/BikeTable";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { setSearchTerm } from "@/redux/features/user/userSlice";
+import { GrPowerReset } from "react-icons/gr";
 const AllProducts = () => {
     const [queries, setQueries] = useState<Filter[]>([]);
     const { data: products, isFetching } = useGetAllProductsQuery(queries);
+    const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm);
     const [activeTab, setActiveTab] = useState("All");
     const tabs = ["All", "Yamaha", "Honda", "Suzuki", "Royal Enfield", "Hero", "Bajaj"];
     const [currentPage, setCurrentPage] = useState(1);
     const meta = products?.meta as TMeta;
     const productData = products?.data;
     const [color, setColor] = useState('All Colors');
-
+    const [resetButtonSpinning, setResetButtonSpinning] = useState(false);
+    // pagination useEffect
     useEffect(() => {
         setQueries((prevFilters) => {
             const otherFilters = prevFilters.filter(f => f.name !== 'page' && f.name !== 'limit');
@@ -29,6 +34,54 @@ const AllProducts = () => {
             ];
         });
     }, [currentPage]);
+    const dispatch = useAppDispatch();
+    const form = useForm();
+    const { handleSubmit, register } = form;
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        dispatch(setSearchTerm(data.searchTerm));
+    }
+    // searchTerm useEffect
+    useEffect(() => {
+        setQueries((prevFilters) => {
+            // Remove existing searchTerm filter
+            const updatedFilters = prevFilters.filter(filter => filter.name !== 'searchTerm');
+            // Add searchTerm only if it's not empty
+            if (searchTerm.trim() !== '') {
+                updatedFilters.push({ name: 'searchTerm', value: searchTerm });
+            }
+            return updatedFilters;
+        });
+    }, [searchTerm]);
+    // set Color useEffect
+    useEffect(() => {
+        setQueries((prevFilters) => {
+            // Remove existing color filter
+            const updatedFilters = prevFilters.filter(filter => filter.name !== 'filterBycolor');
+            updatedFilters.push({ name: 'filterBycolor', value: color !== 'All Colors' ? color : '' });
+            return updatedFilters;
+        });
+    }, [color]);
+    // set ActiveTab useEffect
+    useEffect(() => {
+        setQueries((prevFilters) => {
+            // Remove existing color filter
+            const updatedFilters = prevFilters.filter(filter => filter.name !== 'filterBybrand');
+            updatedFilters.push({ name: 'filterBybrand', value: activeTab !== 'All' ? activeTab : '' });
+            return updatedFilters;
+        });
+    }, [activeTab]);
+    // handle reset Button
+    const handleResetButton = () => {
+        setResetButtonSpinning(true)
+        setColor("All Colors");
+        setActiveTab("All");
+        dispatch(setSearchTerm(""));
+        setCurrentPage(1);
+        setQueries([]);
+        setTimeout(() => {
+            setResetButtonSpinning(false)
+        }, 1000);
+    }
     if (isFetching) return <Loader />
     return (
         <div className="">
@@ -55,16 +108,19 @@ const AllProducts = () => {
                 <div className="flex items-center gap-3 mb-5 flex-wrap">
                     {/* Search */}
                     <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pt-0.5">
-                            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none">
-                                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                            </svg>
-                        </span>
-                        <input
-                            type="text"
-                            placeholder="Search Products..."
-                            className="pl-10 w-[250px] py-1 rounded-sm border border-gray-300 text-sm text-gray-700 placeholder:text-sm bg-white focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
+                        <form onChange={handleSubmit(onSubmit)}>
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pt-0.5">
+                                <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                </svg>
+                            </span>
+                            <input
+                                {...register("searchTerm")}
+                                type="text"
+                                placeholder="Search Products..."
+                                className="pl-10 w-[250px] py-1 rounded-sm border border-gray-300 text-sm text-gray-700 placeholder:text-sm bg-white focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            />
+                        </form>
                     </div>
                     {/* Select Color filter */}
                     <Select onValueChange={(value) => setColor(value)}>
@@ -72,13 +128,14 @@ const AllProducts = () => {
                             <SelectValue placeholder={color} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="All Colors">All Colors</SelectItem>
+                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value="All Colors">All Colors</SelectItem>
                             <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value="Red">Red</SelectItem>
-                            <SelectItem value='Black'>Black </SelectItem>
-                            <SelectItem value='Blue'>Blue </SelectItem>
-                            <SelectItem value='Orange'>Orange </SelectItem>
+                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value='Black'>Black </SelectItem>
+                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value='Blue'>Blue </SelectItem>
+                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value='Orange'>Orange </SelectItem>
                         </SelectContent>
                     </Select>
+                    <Button onClick={handleResetButton} className="h-[32px] bg-sky-400 text-white px-2.5  flex gap-1"><GrPowerReset className={`${resetButtonSpinning ? 'animate-spin' : 'animate-none'}`} />Reset</Button>
                 </div>
                 {/* bikes table */}
                 <BikeTable products={productData ?? []} />

@@ -44,7 +44,6 @@ const AllBikes = () => {
         if (newFilters.length > 0) {
             setQueries((prevFilters) => {
                 const updatedFilters = [...prevFilters];
-
                 newFilters.forEach((newFilter) => {
                     const index = updatedFilters.findIndex((f) => f.name === newFilter.name);
                     if (index !== -1) {

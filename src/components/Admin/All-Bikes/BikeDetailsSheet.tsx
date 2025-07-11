@@ -69,7 +69,7 @@ const BikeDetailSheet = ({ bike }: { bike: IProduct }) => {
                             </article>
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">BikeType</p>
-                                <p className="mr-10  font-semibold">{bike?.bikeType}</p>
+                                <p className="mr-10 ">{bike?.bikeType}</p>
                             </article>
                         </section>
                         <p className="pt-6 text-center text-sm text-gray-500 lg:mt-0 dark:text-gray-400">© Copyright 2023 Meraki UI. </p>
