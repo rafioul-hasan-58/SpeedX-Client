@@ -12,7 +12,7 @@ import { useState } from "react";
 import { TMeta } from "@/types/global";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-const MyAddedProducts = () => {
+const MyAddedBikes = () => {
     const user = useAppSelector(selectCurrentUser);
     // const [queries, setQueries] = useState<Filter[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -99,7 +99,7 @@ const MyAddedProducts = () => {
                                                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.price}</td>
                                                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.color}</td>
                                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                            <Link to={`/customer/dashboard/update-product/${item?._id}`}>
+                                                            <Link to={`/customer/dashboard/update-bike/${item?._id}`}>
                                                                 <Button className="bg-sky-500 text-white h-8 w-8 p-0">
                                                                     <Edit className="h-4 w-4" />
                                                                 </Button>
@@ -183,4 +183,4 @@ const MyAddedProducts = () => {
     )
 };
 
-export default MyAddedProducts;
+export default MyAddedBikes;

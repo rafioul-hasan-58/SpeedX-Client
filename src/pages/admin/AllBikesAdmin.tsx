@@ -28,7 +28,7 @@ const allColorsArray = [
     { name: 'Orange' }
 ];
 
-const AllProducts = () => {
+const AllBikesAdmin = () => {
     // initiate queries for all bikes
     const [queries, setQueries] = useState<Filter[]>([]);
     const tabs = ["All", "Yamaha", "Honda", "Suzuki", "Royal Enfield", "Hero", "Bajaj"];
@@ -220,4 +220,4 @@ const AllProducts = () => {
     )
 };
 
-export default AllProducts;
+export default AllBikesAdmin;

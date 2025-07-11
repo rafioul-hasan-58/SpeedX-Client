@@ -74,7 +74,7 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
                                            <BikeDetailSheet bike={item}/>
                                         </td>
                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            <Link to={`/admin/update-product/${item?._id}`}>
+                                            <Link to={`/admin/update-bike/${item?._id}`}>
                                                 <Button className="bg-green-500 hover:bg-green-600 text-white h-8 w-8 p-0">
                                                     <Edit className="h-4 w-4" />
                                                 </Button>

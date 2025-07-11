@@ -11,13 +11,13 @@ export const customerSidebarItems = [
         icon: IoHome
     },
     {
-        title: "Add Product",
-        url: "/customer/dashboard/add-product",
+        title: "Add Bike",
+        url: "/customer/dashboard/add-bike",
         icon: AiOutlineAppstoreAdd
     },
     {
-        title: "My Products",
-        url: "/customer/dashboard/my-added-products",
+        title: "My Bikes",
+        url: "/customer/dashboard/my-added-bikes",
         icon: RxDashboard
 
     },
@@ -41,8 +41,8 @@ export const adminSidebarItems = [
         icon: IoBarChartSharp
     },
     {
-        title: "Add Product",
-        url: "/admin/add-product",
+        title: "Add Bike",
+        url: "/admin/add-bike",
         icon: AiOutlineAppstoreAdd
     },
     {
@@ -52,8 +52,8 @@ export const adminSidebarItems = [
 
     },
     {
-        title: "All Products",
-        url: "/admin/all-products",
+        title: "All Bikes",
+        url: "/admin/all-bikes",
         icon: RxDashboard
     },
     {

@@ -26,7 +26,7 @@ import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useGetProductDetailsQuery, useRemoveProductImageMutation } from "@/redux/features/utils/utilsApi";
 import { Button } from "@/components/ui/button";
 
-const UpdateProduct = () => {
+const UpdateBike = () => {
     const user = useAppSelector(selectCurrentUser);
     const { id } = useParams();
     const [updateProduct, { isLoading }] = useUpdateProductMutation();
@@ -225,4 +225,4 @@ const UpdateProduct = () => {
     );
 };
 
-export default UpdateProduct;
+export default UpdateBike;

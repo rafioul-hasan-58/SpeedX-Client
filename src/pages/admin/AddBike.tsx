@@ -21,7 +21,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useAddProductMutation } from "@/redux/features/utils/utilsApi";
 
-const AddProduct = () => {
+const AddBike = () => {
   const user = useAppSelector(selectCurrentUser);
   const [addProduct, { isLoading }] = useAddProductMutation();
   const { uploadImagesToCloudinary, isUploading } = useImageUploader();
@@ -170,4 +170,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddBike;

@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import AddProduct from "../pages/admin/AddProduct";
-import UpdateProduct from "../pages/admin/UpdateProduct";
+import AddBike from "../pages/admin/AddBike";
+import UpdateBike from "../pages/admin/UpdateBike";
 import Register from "../pages/authentication/Register";
 import Login from "../pages/authentication/Login";
 import Home from "../pages/Customer/Home";
 import ProductDetails from "../pages/universal/ProductDetails";
 import Users from "../pages/admin/Users";
-import AllProducts from "../pages/admin/AllProducts";
+import AllBikesAdmin from "../pages/admin/AllBikesAdmin";
 import MyProfile from "../pages/universal/MyProfile";
 import PrivetRoute from "./PrivateRoute";
 import VerifyOrder from "../pages/Customer/VerifyOrder";
@@ -15,11 +15,11 @@ import MyOrders from "../pages/Customer/MyOrders";
 import About from "../pages/universal/About";
 import MainLayout from "../Layout/MainLayout";
 import AdminLayout from "../Layout/AdminLayout";
-import AllOrders from "@/pages/admin/AllOrders";
+import AllOrdersAdmin from "@/pages/admin/AllOrdersAdmin";
 import AllBikes from "@/pages/universal/AllBikes";
 import Cart from "@/pages/universal/Cart";
 import CustomerLayout from "@/Layout/CustomerLayout";
-import MyAddedProducts from "@/pages/Customer/MyAddedProducts";
+import MyAddedBikes from "@/pages/Customer/MyAddedBikes";
 import CheckOut from "@/pages/Customer/CheckOut";
 
 
@@ -44,24 +44,24 @@ export const router = createBrowserRouter([
         element: <PrivetRoute role="admin"><AdminDashboard /></PrivetRoute>
       },
       {
-        path: 'add-product',
-        element: <PrivetRoute role="admin"><AddProduct /></PrivetRoute>
+        path: 'add-bike',
+        element: <PrivetRoute role="admin"><AddBike /></PrivetRoute>
       },
       {
-        path: 'update-product/:id',
-        element: <PrivetRoute role="admin"><UpdateProduct /></PrivetRoute>
+        path: 'update-bike/:id',
+        element: <PrivetRoute role="admin"><UpdateBike /></PrivetRoute>
       },
       {
         path: 'users',
         element: <PrivetRoute role="admin"><Users /></PrivetRoute>
       },
       {
-        path: 'all-products',
-        element: <PrivetRoute role="admin"><AllProducts /></PrivetRoute>
+        path: 'all-bikes',
+        element: <PrivetRoute role="admin"><AllBikesAdmin /></PrivetRoute>
       },
       {
         path: 'all-orders',
-        element: <PrivetRoute role="admin"><AllOrders /></PrivetRoute>
+        element: <PrivetRoute role="admin"><AllOrdersAdmin /></PrivetRoute>
       },
       {
         path: 'my-profile',
@@ -105,16 +105,16 @@ export const router = createBrowserRouter([
     element: <PrivetRoute role="customer"><CustomerLayout /></PrivetRoute>,
     children: [
       {
-        path: 'add-product',
-        element: <PrivetRoute role="customer"><AddProduct /></PrivetRoute>
+        path: 'add-bike',
+        element: <PrivetRoute role="customer"><AddBike /></PrivetRoute>
       },
       {
-        path: 'my-added-products',
-        element: <PrivetRoute role="customer"><MyAddedProducts /></PrivetRoute>
+        path: 'my-added-bikes',
+        element: <PrivetRoute role="customer"><MyAddedBikes /></PrivetRoute>
       },
       {
-        path: 'update-product/:id',
-        element: <PrivetRoute role="customer"><UpdateProduct /></PrivetRoute>
+        path: 'update-bike/:id',
+        element: <PrivetRoute role="customer"><UpdateBike /></PrivetRoute>
       },
       {
         path: 'my-orders',

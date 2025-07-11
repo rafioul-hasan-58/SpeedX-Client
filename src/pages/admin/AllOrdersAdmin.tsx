@@ -8,7 +8,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { TMeta } from "@/types/global";
 
-const AllOrders = () => {
+const AllOrdersAdmin = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const [activeTab, setActiveTab] = useState("All");
@@ -129,4 +129,4 @@ const AllOrders = () => {
     );
 };
 
-export default AllOrders;
+export default AllOrdersAdmin;
