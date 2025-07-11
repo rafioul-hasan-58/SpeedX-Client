@@ -1,4 +1,3 @@
-
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logout, selectCurrentToken } from "../../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -7,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { useGetMyProfileQuery } from "../../../redux/features/admin/userManagement.Api";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Bell, LogOut } from "lucide-react";
+import UpdateProfile from "@/utils/UpdateProfile";
 
 interface SidebarItem {
     title: string;
@@ -30,7 +30,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
         navigate('/login')
     }
     const { pathname } = useLocation();
-    
+
     return (
         <aside className="  flex flex-col w-[280px] 2xl:w-[320px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
             <div className="">
@@ -53,7 +53,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                         </span>
                         <input type="text" className=" w-full py-1.5 pl-10  text-gray-700 bg-white border  focus:border-blue-400 focus:ring-blue-300 border-sky-300 focus:ring-opacity-40 focus:outline-none focus:ring placeholder-sky-400" placeholder="Search" />
                     </div>
-                    
+
                     <aside className="space-y-3 p-1">
                         {
                             sidebarItems?.map((item) => (
@@ -92,9 +92,14 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                                         <h1 className="font-semibold text-[15px]">
                                             {myProfile?.data?.name}
                                         </h1>
-                                        <p className="font-semibold text-[14px] text-sky-500">
-                                            {myProfile?.data?.email}
-                                        </p>
+                                        <div className="flex items-center gap-1">
+                                            <p className="font-semibold text-[14px] text-sky-500">
+                                                {myProfile?.data?.email}
+                                            </p>
+                                            {
+                                                user?.role === 'admin' && <UpdateProfile {...myProfile?.data} />
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                                 <ul className="divide-y">

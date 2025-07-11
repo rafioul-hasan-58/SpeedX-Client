@@ -16,7 +16,7 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="mt-6 px-4">
+    <div className="mt-6 lg:px-4 px-1 2xl:px-16">
       <div className="flex flex-wrap gap-4 justify-center">
         <div className="flex gap-6 bg-white p-4 w-full sm:w-[300px] md:w-[320px] lg:w-[350px]">
           <div>
@@ -46,9 +46,13 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="mt-5 flex">
-        <Barchart />
-        <LevelChart />
+      <div className="mt-5 lg:flex w-full lg:gap-6">
+        <div className="lg:w-1/2">
+          <Barchart />
+        </div>
+        <div className="lg:w-1/2 lg:pt-0 pt-5">
+          <LevelChart />
+        </div>
       </div>
       <div>
         <LatestOrders />

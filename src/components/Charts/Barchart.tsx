@@ -31,7 +31,7 @@ const data: ChartData[] = [
 
 const Barchart: React.FC = () => {
     return (
-        <ResponsiveContainer width="50%" height={300} style={{ backgroundColor: "#ffffff", paddingTop: "20px", borderRadius: '5px 5px 5px 5px' }}>
+        <ResponsiveContainer width="100%" height={365} style={{ backgroundColor: "#ffffff", paddingTop: "20px", borderRadius: '5px 5px 5px 5px' }}>
             <BarChart
                 data={data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

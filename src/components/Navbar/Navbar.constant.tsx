@@ -12,7 +12,7 @@ export const navItems = [
     },
     {
         title: "Dashboard",
-        url: "/customer/dashboard/my-added-products",
+        url: "/customer/dashboard/my-added-bikes",
         icon: MdOutlineSpaceDashboard  
     },
     {

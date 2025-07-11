@@ -10,7 +10,7 @@ export default function AnimatedProgressBar() {
     }))
     : [];
   return (
-    <div className="w-full max-w-sm mx-auto space-y-4 bg-white p-6">
+    <div className="w-full lg:max-w-lg 2xl:max-w-2xl mx-auto space-y-4 bg-white p-6">
       <div>
         <h1 className="text-xl font-semibold">Available bikes</h1>
       </div>

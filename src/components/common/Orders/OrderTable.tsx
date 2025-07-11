@@ -46,7 +46,7 @@ const OrderTable = ({ data }: { data: IOrder[] | undefined }) => {
                                         </div>
                                     </article>
                                 </td>
-                                <td className="px-4  text-sm  whitespace-nowrap text-sky-500 font-semibold">$ {order?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)}</td>
+                                <td className="px-4  text-sm  whitespace-nowrap text-sky-500 font-semibold">BDT. {order?.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)}</td>
 
                                 <td className="px-4  text-sm text-gray-500  whitespace-nowrap">{moment.utc(order?.createdAt).format('D MMMM YYYY')}</td>
 

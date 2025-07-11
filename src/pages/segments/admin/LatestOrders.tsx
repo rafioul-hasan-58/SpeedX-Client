@@ -11,7 +11,7 @@ const LatestOrders = () => {
     if (isFetching) return <Loader />;
 
     return (
-        <div className="pt-5 ">
+        <div>
             <h1 className="text-2xl font-bold text-sky-400  my-6 pt-3">Latest Orders</h1>
 
             {

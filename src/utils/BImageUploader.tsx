@@ -49,7 +49,7 @@ const BImageUploader = ({
             <label
                 htmlFor="image-uploader"
                 className="w-[400px]  flex justify-center items-center  border-dashed  cursor-pointer text-center border border-sky-500 transition mt-3 py-1 text-sky-400">
-                <File size={15} color="green" /> {imageFiles?.length === 0 ? "Upload your image" : imageFiles[0].name}
+                <File size={15} className="text-sky-400" /> {imageFiles?.length === 0 ? "Upload your image" : imageFiles[0].name}
             </label>
         </div>
     );

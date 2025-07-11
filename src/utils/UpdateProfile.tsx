@@ -11,6 +11,7 @@ import BFormInput from "@/components/form/Input/BFormInput";
 import { Label } from "@/components/ui/label";
 import BImageUploader from "./BImageUploader";
 import { LuLoaderCircle } from "react-icons/lu";
+import { CiEdit } from "react-icons/ci";
 
 const UpdateProfile = (myProfile: TUser) => {
     const form = useForm({
@@ -20,7 +21,7 @@ const UpdateProfile = (myProfile: TUser) => {
     });
     const { handleSubmit } = form;
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-    const { uploadImagesToCloudinary,isUploading } = useImageUploader();
+    const { uploadImagesToCloudinary, isUploading } = useImageUploader();
     const [updateUser, { isLoading }] = useUpdateProfileMutation();
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -48,13 +49,18 @@ const UpdateProfile = (myProfile: TUser) => {
         }
 
     }
+    console.log(myProfile.name);
     return (
         <div>
             <Popover>
                 <PopoverTrigger asChild>
-                    <Button className="bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button>
+                    {
+                        myProfile?.role === 'customer' ? <Button className="bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button> : <Button className="shadow-none bg-white hover:bg-white"><CiEdit className="text-xl cursor-pointer text-black" /></Button>
+
+                    }
+
                 </PopoverTrigger>
-                <PopoverContent className="relative right-[300px] bottom-[50px]">
+                <PopoverContent className={`relative ${myProfile.role === 'customer' ? 'right-[300px]' : ''}  bottom-[50px]`}>
                     <h1 className="text-center text-xl font-semibold">Update your Profile</h1>
                     <Form {...form}>
 
@@ -73,7 +79,7 @@ const UpdateProfile = (myProfile: TUser) => {
                             />
                             <Button className="mt-2 w-full rounded-none bg-sky-500 cursor-pointer">
                                 {
-                                    isLoading || isUploading? <div className="flex items-center gap-1"><p>Updating</p> <LuLoaderCircle className="animate-spin mt-1.5" /></div> :<p>Update</p>
+                                    isLoading || isUploading ? <div className="flex items-center gap-1"><p>Updating</p> <LuLoaderCircle className="animate-spin mt-1.5" /></div> : <p>Update</p>
                                 }
                             </Button>
                         </form>

@@ -104,8 +104,8 @@ const AllBikesAdmin = () => {
     }
     if (isFetching) return <Loader />
     return (
-        <div className="">
-            <section className="container px-2 lg:px-4 mx-auto">
+        <div className="2xl:px-12">
+            <section className="container px-2 lg:px-4  mx-auto">
                 <h2 className="text-2xl font-semibold">All Products | Admin</h2>
                 <p className="text-lg text-gray-500 mb-4">Manage, update, or delete  products from here.</p>
                 {/* Tabs */}

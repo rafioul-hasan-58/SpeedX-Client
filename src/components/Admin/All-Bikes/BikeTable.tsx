@@ -37,24 +37,24 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
                         <table className="min-w-full divide-y divide-gray-200 ">
                             <thead className="bg-sky-400 h-[35px]">
                                 <tr>
-                                    <th scope="col" className="px-4 text-sm font-normal text-left rtl:text-right text-white ">
+                                    <th scope="col" className="px-4 text-sm text-left rtl:text-right text-white font-semibold">
                                         Photo
                                     </th>
-                                    <th scope="col" className="px-4 text-sm font-normal text-left rtl:text-right text-white ">
+                                    <th scope="col" className="px-4 text-sm font-semibold text-left rtl:text-right text-white ">
                                         Name
                                     </th>
 
-                                    <th scope="col" className="px-4  text-sm font-normal text-left rtl:text-right text-white ">
+                                    <th scope="col" className="px-4  text-sm font-semibold text-left rtl:text-right text-white ">
                                         Price
                                     </th>
 
-                                    <th scope="col" className="px-4 text-sm font-normal text-left rtl:text-right text-white ">
+                                    <th scope="col" className="px-4 text-sm font-semibold text-left rtl:text-right text-white ">
                                         View
                                     </th>
-                                    <th scope="col" className="px-4 text-sm font-normal text-left rtl:text-right text-white ">
+                                    <th scope="col" className="px-4 text-sm font-semibold text-left rtl:text-right text-white ">
                                         Update
                                     </th>
-                                    <th scope="col" className="px-4 py-2.5 text-sm font-normal text-left rtl:text-right text-white ">
+                                    <th scope="col" className="px-4 py-2.5 text-sm font-semibold text-left rtl:text-right text-white ">
                                         Delete
                                     </th>
                                 </tr>
@@ -66,10 +66,10 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
                                         <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                             <img src={item?.images[0]} className="w-[90px] " alt="" />
                                         </td>
-                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap font-semibold">
                                             {item?.name}
                                         </td>
-                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">{item?.price}</td>
+                                        <td className="px-4 py-4 text-sm text-sky-500  whitespace-nowrap font-semibold">BDT. {item?.price}</td>
                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
                                            <BikeDetailSheet bike={item}/>
                                         </td>
