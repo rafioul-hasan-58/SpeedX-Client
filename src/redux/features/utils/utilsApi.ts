@@ -7,7 +7,6 @@ const authApi = baseApi.injectEndpoints({
         getAllProducts: builder.query({
             query: (args) => {
                 const params = new URLSearchParams();
-                console.log(args);
                 if (args) {
                     args.forEach((item: TQueryParam) => {
                         params.append(item.name, item.value as string);

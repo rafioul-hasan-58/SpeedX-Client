@@ -25,7 +25,13 @@ const BikeDetailSheet = ({ bike }: { bike: IProduct }) => {
                                 <img className="w-20 h-15 border rounded-md" src={bike?.images[0]} alt="img" />
                                 <article>
                                     <p className="text-gray-500">{bike?.name.split(' ').slice(0, 4).join(' ')}</p>
-                                    <p className="text-gray-500">Color: {bike?.color}</p>
+                                    <p>Color: <span className={`
+    ${bike?.color === 'Black' ? 'text-black' : ''}
+    ${bike?.color === 'Blue' ? 'text-blue-500' : ''}
+    ${bike?.color === 'Red' ? 'text-red-500' : ''}
+    ${bike?.color === 'Orange' ? 'text-orange-500' : ''}
+    ${!['Black', 'Blue', 'Red', 'Orange'].includes(bike?.color) ? 'text-gray-500' : ''}
+ font-semibold `}>{bike?.color}</span></p>
                                 </article>
                             </section>
                         </div>

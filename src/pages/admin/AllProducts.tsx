@@ -1,4 +1,3 @@
-
 import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
 import { useEffect, useState } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
@@ -12,17 +11,40 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { setSearchTerm } from "@/redux/features/user/userSlice";
 import { GrPowerReset } from "react-icons/gr";
+const allBrandsArray = [
+    { name: 'All' },
+    { name: 'Yamaha' },
+    { name: 'Honda' },
+    { name: 'Suzuki' },
+    { name: 'Royal Enfield' },
+    { name: 'Hero' },
+    { name: 'Bajaj' },
+];
+const allColorsArray = [
+    { name: 'All Colors' },
+    { name: 'Red' },
+    { name: 'Black' },
+    { name: 'Blue' },
+    { name: 'Orange' }
+];
+
 const AllProducts = () => {
+    // initiate queries for all bikes
     const [queries, setQueries] = useState<Filter[]>([]);
+    const tabs = ["All", "Yamaha", "Honda", "Suzuki", "Royal Enfield", "Hero", "Bajaj"];
     const { data: products, isFetching } = useGetAllProductsQuery(queries);
+    // get searchTerm from redux
     const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm);
     const [activeTab, setActiveTab] = useState("All");
-    const tabs = ["All", "Yamaha", "Honda", "Suzuki", "Royal Enfield", "Hero", "Bajaj"];
     const [currentPage, setCurrentPage] = useState(1);
     const meta = products?.meta as TMeta;
+    // get product data
     const productData = products?.data;
     const [color, setColor] = useState('All Colors');
     const [resetButtonSpinning, setResetButtonSpinning] = useState(false);
+    const dispatch = useAppDispatch();
+    const form = useForm();
+    const { handleSubmit, register } = form;
     // pagination useEffect
     useEffect(() => {
         setQueries((prevFilters) => {
@@ -34,12 +56,6 @@ const AllProducts = () => {
             ];
         });
     }, [currentPage]);
-    const dispatch = useAppDispatch();
-    const form = useForm();
-    const { handleSubmit, register } = form;
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        dispatch(setSearchTerm(data.searchTerm));
-    }
     // searchTerm useEffect
     useEffect(() => {
         setQueries((prevFilters) => {
@@ -70,6 +86,10 @@ const AllProducts = () => {
             return updatedFilters;
         });
     }, [activeTab]);
+    // set searchTerm to redux
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        dispatch(setSearchTerm(data.searchTerm));
+    }
     // handle reset Button
     const handleResetButton = () => {
         setResetButtonSpinning(true)
@@ -85,11 +105,11 @@ const AllProducts = () => {
     if (isFetching) return <Loader />
     return (
         <div className="">
-            <section className="container px-4 mx-auto">
+            <section className="container px-2 lg:px-4 mx-auto">
                 <h2 className="text-2xl font-semibold">All Products | Admin</h2>
                 <p className="text-lg text-gray-500 mb-4">Manage, update, or delete  products from here.</p>
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2  mb-4">
+                <div className="lg:flex flex-wrap gap-2 mb-4  hidden">
                     {tabs.map((tab) => (
                         <button
                             key={tab}
@@ -104,7 +124,7 @@ const AllProducts = () => {
                         </button>
                     ))}
                 </div>
-                {/* Search and Filter */}
+                {/* Search ,Filter & Reset*/}
                 <div className="flex items-center gap-3 mb-5 flex-wrap">
                     {/* Search */}
                     <div className="relative">
@@ -128,11 +148,20 @@ const AllProducts = () => {
                             <SelectValue placeholder={color} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value="All Colors">All Colors</SelectItem>
-                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value="Red">Red</SelectItem>
-                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value='Black'>Black </SelectItem>
-                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value='Blue'>Blue </SelectItem>
-                            <SelectItem className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value='Orange'>Orange </SelectItem>
+                            {
+                                allColorsArray.map((color) => (<SelectItem key={color.name} className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value={color.name}>{color.name}</SelectItem>)) 
+                            }
+                        </SelectContent>
+                    </Select>
+                    {/* Select Brand filter */}
+                    <Select onValueChange={(value) => setActiveTab(value)}>
+                        <SelectTrigger className="w-[120px] h-[32px] text-gray-500 data-[placeholder]:text-gray-500 lg:hidden">
+                            <SelectValue placeholder={activeTab} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {
+                                allBrandsArray.map((brand) => (<SelectItem key={brand.name} className="hover:bg-sky-500 data-[state=checked]:bg-sky-400 data-[state=checked]:text-white" value={brand.name}>{brand.name}</SelectItem>))
+                            }
                         </SelectContent>
                     </Select>
                     <Button onClick={handleResetButton} className="h-[32px] bg-sky-400 text-white px-2.5  flex gap-1"><GrPowerReset className={`${resetButtonSpinning ? 'animate-spin' : 'animate-none'}`} />Reset</Button>
@@ -173,7 +202,6 @@ const AllProducts = () => {
                                         ))}
                                     </div>
                                 </PaginationItem>
-
                                 <PaginationItem>
                                     <Button
                                         disabled={currentPage === meta?.totalPage}
