@@ -32,7 +32,6 @@ const CustomerLayout = () => {
                     onClick={() => setIsSidebarOpen(false)}
                 />
             )}
-
             {/* Main Content */}
             <div className={`flex-1 h-full overflow-y-auto bg-gray-100 p-4 ${user?.role === 'customer' ? 'lg:ml-[280px] 2xl:ml-[320px]' : ''}`}>
                 <CgMenuGridO

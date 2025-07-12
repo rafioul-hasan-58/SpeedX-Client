@@ -93,7 +93,7 @@ const Footer = () => {
                 <p>Terms & Conditions</p>
             </div>
         </div>
-    );
+    )
 };
 
 export default Footer;

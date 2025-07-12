@@ -12,6 +12,7 @@ import { Eye } from "lucide-react";
 import moment from "moment";
 import { LuLoaderCircle } from "react-icons/lu";
 const OrderDetailSheet = ({ order }: { order: IOrder }) => {
+    const user = useAppSelector(selectCurrentUser);
     const nextStatus = (currentStatus: string) => {
         switch (currentStatus) {
             case 'Pending':
@@ -20,22 +21,30 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                 return 'Shipped';
             case 'Shipped':
                 return 'Delivered';
-            case 'Delivered':
-                return 'Returned';
             default:
                 return null
         }
 
     }
+    const customerNextStatus = (currentStatus: string) => {
+        switch (currentStatus) {
+            case 'Pending':
+                return 'Cancelled';
+            case 'Delivered':
+                return 'Returned';
+        }
+    }
     const [changeStatus, { isLoading }] = useChangeStatusMutation();
-    const user = useAppSelector(selectCurrentUser);
+    // for customer
     const changeOrderStatus = (id: string) => {
+        const status = customerNextStatus(order?.status);
         const data = {
             id,
-            data: { status: 'Cancelled' }
+            data: { status }
         }
         changeStatus(data);
     }
+    // for admin
     const makeNextStatus = (id: string) => {
         const newStatus = nextStatus(order?.status);
         const data = {
@@ -120,8 +129,18 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                         <div className="flex justify-center mt-4">
                             {
                                 user?.email === order.buyer.email ?
-                                    <Button disabled={order.status === 'Cancelled'} onClick={() => changeOrderStatus(order._id)} className="rounded-full w-full bg-red-500 hover:bg-red-600">{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Cancel Order'}</Button>
+                                    // customer view button
+                                    <>
+                                        {
+                                            order.status !== 'Shipped' && order.status !== 'Processing' && order.status !== 'Cancelled' && order.status !== 'Returned' && (
+                                                <Button
+                                                    onClick={() => changeOrderStatus(order._id)} className={`rounded-full w-full ${order?.status === 'Pending' ? 'bg-red-500' : 'bg-gray-600'} hover:bg-red-600`}>{isLoading ? <LuLoaderCircle className="animate-spin" /> : <p>Make it {customerNextStatus(order?.status)}</p>}
+                                                </Button>
+                                            )
+                                        }
+                                    </>
                                     :
+                                    // seller or admin view button
                                     <Button disabled={order.status === 'Delivered'} onClick={() => makeNextStatus(order._id)} className={`rounded-full w-full bg-sky-500 hover:bg-sky-600 ${nextStatus(order?.status) === 'Processing' ? 'bg-purple-600' : ''}`}>Make it {nextStatus(order?.status)}</Button>
                             }
                         </div>

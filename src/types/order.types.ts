@@ -12,7 +12,7 @@ export interface IOrderItem {
 export interface IOrder {
     _id: string;
     items: IOrderItem[];
-    status: "Pending" | "Delivered" | "Cancelled";
+    status: "Pending" | "Delivered" | "Cancelled" | "Processing" | "Shipped" | "Returned";
     contact: number;
     totalPrice: number;
     buyer: TUser;

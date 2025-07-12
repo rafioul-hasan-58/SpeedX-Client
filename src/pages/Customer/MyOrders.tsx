@@ -7,9 +7,11 @@ import OrderTable from "@/components/common/Orders/OrderTable";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useGetMyOrdersQuery } from "@/redux/features/common/orderManagementApi";
+import { GrPowerReset } from "react-icons/gr";
 const MyOrders = () => {
     const user = useAppSelector(selectCurrentUser);
     const [activeTab, setActiveTab] = useState("All");
+    const [resetButtonSpinning, setResetButtonSpinning] = useState(false);
     const queryParams = [];
     const [mode, setMode] = useState('seller');
     if (activeTab !== 'All') {
@@ -21,6 +23,14 @@ const MyOrders = () => {
     const { data: orderData, isFetching } = useGetMyOrdersQuery(queryParams);
     const data = orderData?.data;
     const tabs = ["All", "Cancelled", "Delivered", "Pending", "Returned"];
+    const handleResetButton = () => {
+        setResetButtonSpinning(true);
+        setActiveTab("All");
+        setMode('seller');
+        setTimeout(() => {
+            setResetButtonSpinning(false);
+        }, 1000);
+    }
     if (isFetching) return <Loader />;
     return (
         <div className="pt-5 px-4 2xl:px-10">
@@ -72,6 +82,8 @@ const MyOrders = () => {
                         <SelectItem className="hover:bg-sky-500  data-[state=checked]:bg-purple-600 data-[state=checked]:text-white" value='buyer'>Pressed </SelectItem>
                     </SelectContent>
                 </Select>
+                <Button onClick={handleResetButton} className="h-[32px] bg-sky-400 text-white px-2.5  flex gap-1"><GrPowerReset className={`${resetButtonSpinning ? 'animate-spin' : 'animate-none'}`} />Reset</Button>
+
             </div>
             {
                 (data?.length ?? 0) > 0 ?
