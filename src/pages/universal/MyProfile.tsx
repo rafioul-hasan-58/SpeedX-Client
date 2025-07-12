@@ -2,12 +2,12 @@ import defPic from '../../assets/Images/default.jpg'
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../../components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../components/ui/dialog";
-import { useGetMyProfileQuery, useUpdateProfileMutation } from "../../redux/features/admin/userManagement.Api";
 import { selectCurrentToken } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { verifyToken } from "../../utils/verifyToken";
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { useGetMyProfileQuery, useUpdateProfileMutation } from '@/redux/features/user/userReletedApi';
 
 const MyProfile = () => {
     const [isOpen, setIsOpen] = useState(false)

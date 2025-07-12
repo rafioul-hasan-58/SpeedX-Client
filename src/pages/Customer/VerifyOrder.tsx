@@ -1,10 +1,10 @@
 import { Button } from "../../components/ui/button";
 import Skeleton from "../../components/Loader/Skeleton";
-import { useVerifyOrderQuery } from "../../redux/features/user/userReletedApi";
 import { Link, useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
 import { CheckCircle, AlertCircle } from "lucide-react";
+import { useVerifyOrderQuery } from "@/redux/features/common/orderManagementApi";
 
 interface OrderData {
     id: number;

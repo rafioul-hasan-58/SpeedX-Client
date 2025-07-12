@@ -1,6 +1,6 @@
 import ProductCard from "@/components/Card/ProductCard";
 import { Button } from "@/components/ui/button";
-import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
+import { useGetAllBikesQuery } from "@/redux/features/common/bikeManagementApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const ReletedBikes = ({ name, value }: Filter) => {
         setQueries([{ name, value }]);
     }, [name, value]);
 
-    const { data: products } = useGetAllProductsQuery(queries);
+    const { data: products } = useGetAllBikesQuery(queries);
     const mainData = products?.data?.slice(0, 4);
 
     return (

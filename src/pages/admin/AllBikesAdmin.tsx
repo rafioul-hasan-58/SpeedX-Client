@@ -1,4 +1,3 @@
-import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
 import { useEffect, useState } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { setSearchTerm } from "@/redux/features/user/userSlice";
 import { GrPowerReset } from "react-icons/gr";
+import { useGetAllBikesQuery } from "@/redux/features/common/bikeManagementApi";
 const allBrandsArray = [
     { name: 'All' },
     { name: 'Yamaha' },
@@ -32,7 +32,7 @@ const AllBikesAdmin = () => {
     // initiate queries for all bikes
     const [queries, setQueries] = useState<Filter[]>([]);
     const tabs = ["All", "Yamaha", "Honda", "Suzuki", "Royal Enfield", "Hero", "Bajaj"];
-    const { data: products, isFetching } = useGetAllProductsQuery(queries);
+    const { data: products, isFetching } = useGetAllBikesQuery(queries);
     // get searchTerm from redux
     const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm);
     const [activeTab, setActiveTab] = useState("All");

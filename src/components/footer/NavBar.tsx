@@ -9,7 +9,6 @@ import { Avatar, AvatarImage } from '../ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { logout, selectCurrentUser } from '@/redux/features/auth/authSlice';
-import { useGetMyProfileQuery } from '@/redux/features/admin/userManagement.Api';
 
 import { LogOut, User } from 'lucide-react';
 import UpdateProfile from '@/utils/UpdateProfile';
@@ -18,6 +17,7 @@ import { Button } from '../ui/button';
 import MobileNav from '../Navbar/MobileSheet';
 import MobileMenuCart from '../Navbar/MovileMenuCart';
 import { navItems } from '../Navbar/Navbar.constant';
+import { useGetMyProfileQuery } from '@/redux/features/user/userReletedApi';
 
 const NavBar = () => {
 

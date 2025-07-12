@@ -1,10 +1,8 @@
-import { useRemoveProductMutation } from "../../redux/features/admin/productManagement.Api";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Loader from "../../components/Loader/Loader";
 import { Edit, Plus, Trash2 } from "lucide-react";
 import { IProduct } from "@/types/product.types";
-import { useGetMyAddedProductsQuery } from "@/redux/features/user/userReletedApi";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
@@ -12,12 +10,13 @@ import { useState } from "react";
 import { TMeta } from "@/types/global";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { useGetMyAddedBikesQuery, useRemoveBikeMutation } from "@/redux/features/common/bikeManagementApi";
 const MyAddedBikes = () => {
     const user = useAppSelector(selectCurrentUser);
     // const [queries, setQueries] = useState<Filter[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const { data: products, isFetching } = useGetMyAddedProductsQuery(user?.email || '');
-    const [deleteProduct] = useRemoveProductMutation();
+    const { data: products, isFetching } = useGetMyAddedBikesQuery(user?.email || '');
+    const [deleteProduct] = useRemoveBikeMutation();
     const handleDelete = (id: string) => {
         Swal.fire({
             title: "Are you sure?",

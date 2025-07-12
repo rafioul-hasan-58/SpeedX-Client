@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "../../components/ui/button";
-import { useGetMyOrdersQuery } from "../../redux/features/user/userReletedApi";
 import Loader from "@/components/Loader/Loader";
 import OrderTable from "@/components/common/Orders/OrderTable";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useGetMyOrdersQuery } from "@/redux/features/common/orderManagementApi";
 const MyOrders = () => {
     const user = useAppSelector(selectCurrentUser);
     const [activeTab, setActiveTab] = useState("All");

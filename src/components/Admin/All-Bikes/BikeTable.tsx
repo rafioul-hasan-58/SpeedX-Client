@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { Edit,Trash2 } from "lucide-react";
 import { IProduct } from "@/types/product.types";
 import Swal from "sweetalert2";
-import { useRemoveProductMutation } from "@/redux/features/admin/productManagement.Api";
 import { Button } from "@/components/ui/button";
 import BikeDetailSheet from "./BikeDetailsSheet";
+import { useRemoveBikeMutation } from "@/redux/features/common/bikeManagementApi";
 const BikeTable = ({ products }: { products: IProduct[] }) => {
-    const [deleteProduct] = useRemoveProductMutation();
+    const [deleteProduct] = useRemoveBikeMutation();
 
     const handleDelete = (id: string) => {
         Swal.fire({

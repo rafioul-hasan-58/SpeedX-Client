@@ -3,7 +3,6 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useImageUploader from "./useImageUploader";
 import toast from "react-hot-toast";
-import { useUpdateProfileMutation } from "@/redux/features/admin/userManagement.Api";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -12,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import BImageUploader from "./BImageUploader";
 import { LuLoaderCircle } from "react-icons/lu";
 import { CiEdit } from "react-icons/ci";
+import { useUpdateProfileMutation } from "@/redux/features/user/userReletedApi";
 
 const UpdateProfile = (myProfile: TUser) => {
     const form = useForm({

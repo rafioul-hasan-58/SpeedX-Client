@@ -2,6 +2,14 @@ import { baseApi } from '../../api/baseApi';
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    googleLogin: builder.mutation({
+      query: (token: string) => ({
+        url: '/auth/google-login',
+        method: 'POST',
+        body: { token },
+      }),
+    }),
+
     login: builder.mutation({
       query: (userInfo) => ({
         url: '/auth/login',
@@ -9,7 +17,7 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
-    
+
     signUp: builder.mutation({
       query: (userInfo) => ({
         url: '/users/register',
@@ -17,7 +25,8 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+
   }),
 });
 
-export const { useLoginMutation, useSignUpMutation } = authApi;
+export const { useGoogleLoginMutation, useLoginMutation, useSignUpMutation } = authApi;

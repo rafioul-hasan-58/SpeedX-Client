@@ -2,18 +2,18 @@ import { Link, useParams } from "react-router-dom";
 import { BsInfoCircle } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import ReletedBikes from "../segments/ReletedBikes";
-import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { IoCartOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { addProduct } from "@/redux/features/cart/cartSlice";
-import { useGetMyProfileQuery } from "@/redux/features/admin/userManagement.Api";
+import { useGetBikeDetailsQuery } from "@/redux/features/common/bikeManagementApi";
+import { useGetMyProfileQuery } from "@/redux/features/user/userReletedApi";
 
 const ProductDetails = () => {
     const { id } = useParams();
-    const { data } = useGetProductDetailsQuery(id);
+    const { data } = useGetBikeDetailsQuery(id);
     const details = data?.data;
     const fallbackImage = 'https://i.ibb.co/mryzXPbL/office-605503-1280.jpg';
     const [currentImg, setCurrentImg] = useState(details?.images && details.images[0]);

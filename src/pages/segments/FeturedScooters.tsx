@@ -1,7 +1,7 @@
 import ProductCard from "@/components/Card/ProductCard";
 import BikeCardSkeleton from "@/components/Customer/Skeletons/BikeCardSkeleton";
 import { Button } from "@/components/ui/button";
-import { useGetAllProductsQuery } from "@/redux/features/utils/utilsApi";
+import { useGetAllBikesQuery } from "@/redux/features/common/bikeManagementApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const FeturedScooters = () => {
         setQueries([{ name: 'filterByBikeType', value: 'scooter' }]);
     }, []);
 
-    const { data: products,isLoading } = useGetAllProductsQuery(queries);
+    const { data: products,isLoading } = useGetAllBikesQuery(queries);
     const mainData = products?.data?.slice(0, 4);
 
     return (

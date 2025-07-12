@@ -1,9 +1,9 @@
 
 import Loader from "@/components/Loader/Loader";
-import { useGetAllOrdersQuery } from "@/redux/features/user/userReletedApi";
 import OrderTable from "@/components/common/Orders/OrderTable";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useGetAllOrdersQuery } from "@/redux/features/common/orderManagementApi";
 
 const LatestOrders = () => {
     const { data: orderData, isFetching } = useGetAllOrdersQuery(undefined);

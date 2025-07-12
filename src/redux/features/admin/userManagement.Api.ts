@@ -1,9 +1,6 @@
 import { TUser } from "../../../types/auth.types";
 import { TQueryParam, TResponseRedux } from "../../../types/global";
 import { baseApi } from "../../api/baseApi";
-
-
-
 const usersManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllUsers: builder.query({
@@ -30,27 +27,6 @@ const usersManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
-        getMyProfile: builder.query({
-            query: (email) => {
-                return {
-                    url: `/users/get-profile/${email}`,
-                    method: 'GET',
-                }
-            },
-            providesTags:['profile']
-        }),
-
-        updateProfile: builder.mutation({
-            query: (args) => {
-                return {
-                    url: `/users/update/${args.id}`,
-                    method: 'PATCH',
-                    body: args.data
-                }
-            },
-            invalidatesTags:['profile']
-        }),
-        
         deleteUser: builder.mutation({
             query: (id) => {
                 return {
@@ -63,4 +39,7 @@ const usersManagementApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetAllUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useDeleteUserMutation } = usersManagementApi;
+export const {
+    useGetAllUsersQuery,
+    useDeleteUserMutation
+} = usersManagementApi;

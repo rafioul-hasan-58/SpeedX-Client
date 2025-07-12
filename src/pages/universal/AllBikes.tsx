@@ -6,12 +6,12 @@ import { IProduct } from '../../types/product.types';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../redux/hooks';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { useGetAllProductsQuery } from '@/redux/features/utils/utilsApi';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { Button } from '@/components/ui/button';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { BiMenuAltLeft } from "react-icons/bi";
 import Loader from '@/components/Loader/Loader';
+import { useGetAllBikesQuery } from '@/redux/features/common/bikeManagementApi';
 
 interface Filter {
     name: string;
@@ -61,7 +61,7 @@ const AllBikes = () => {
     }, [type, bikeType, pathname]);
 
     const { register, handleSubmit } = useForm();
-    const { data: products, isLoading } = useGetAllProductsQuery(queries);
+    const { data: products, isLoading } = useGetAllBikesQuery(queries);
     const handleBrandBoxChange = (name: string, value: string, checked: boolean) => {
         if (checked) {
             setQueries((prevFilters) => [...prevFilters, { name: `filterBy${name}`, value }]);

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
-import { useGetAllOrdersQuery } from "../../redux/features/user/userReletedApi";
 import Loader from "@/components/Loader/Loader";
 import OrderTable from "@/components/common/Orders/OrderTable";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
@@ -9,6 +8,7 @@ import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { TMeta } from "@/types/global";
 import { GrPowerReset } from "react-icons/gr";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useGetAllOrdersQuery } from "@/redux/features/common/orderManagementApi";
 const allStatusArray = [
     { name: "All" },
     { name: "Pending" },

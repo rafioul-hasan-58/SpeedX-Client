@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useUpdateProductMutation } from "../../redux/features/admin/productManagement.Api";
 import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 import { Form } from "../../components/ui/form";
@@ -23,15 +22,16 @@ import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useGetProductDetailsQuery, useRemoveProductImageMutation } from "@/redux/features/utils/utilsApi";
 import { Button } from "@/components/ui/button";
+import { useGetBikeDetailsQuery, useRemoveBikeImageMutation, useUpdateBikeMutation } from "@/redux/features/common/bikeManagementApi";
+
 
 const UpdateBike = () => {
     const user = useAppSelector(selectCurrentUser);
     const { id } = useParams();
-    const [updateProduct, { isLoading }] = useUpdateProductMutation();
-    const [removeProductImage] = useRemoveProductImageMutation();
-    const { data: productData } = useGetProductDetailsQuery(id);
+    const [updateProduct, { isLoading }] = useUpdateBikeMutation();
+    const [removeProductImage] = useRemoveBikeImageMutation();
+    const { data: productData } = useGetBikeDetailsQuery(id);
     const previousData = productData?.data;
     const { uploadImagesToCloudinary, isUploading } = useImageUploader();
     const [previewImages, setPreviewImages] = useState<(string | File)[]>([]);

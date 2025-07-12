@@ -1,15 +1,15 @@
 import { useMemo, useState } from "react";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { usePressOrderMutation } from "../../redux/features/user/userReletedApi";
 import toast from "react-hot-toast";
 import { LuLoaderCircle } from "react-icons/lu";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeProduct } from "@/redux/features/cart/cartSlice";
-import { useGetProductDetailsQuery } from "@/redux/features/utils/utilsApi";
 import { Button } from "@/components/ui/button";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useGetBikeDetailsQuery } from "@/redux/features/common/bikeManagementApi";
+import { usePressOrderMutation } from "@/redux/features/common/orderManagementApi";
 const CheckOut = () => {
     const [pressOrder, { isLoading }] = usePressOrderMutation()
     const [quantity, setQuantity] = useState(1);
@@ -18,7 +18,7 @@ const CheckOut = () => {
     const id = useMemo(() => searchParams.get('productId'), [searchParams]);
     const fromCart = useMemo(() => searchParams.get('from'), [searchParams]);
     // conditional rendering to avoid unnessesary render
-    const { data } = useGetProductDetailsQuery(id, { skip: !id || fromCart === 'cart' });
+    const { data } = useGetBikeDetailsQuery(id, { skip: !id || fromCart === 'cart' });
     // data from cart
     const products = useAppSelector((state) => state.products.products).filter(p => p.isChecked === true);
     const dispatch = useAppDispatch();

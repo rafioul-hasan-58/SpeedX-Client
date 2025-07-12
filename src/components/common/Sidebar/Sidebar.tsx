@@ -3,10 +3,10 @@ import { logout, selectCurrentToken } from "../../../redux/features/auth/authSli
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { verifyToken } from "../../../utils/verifyToken";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { useGetMyProfileQuery } from "../../../redux/features/admin/userManagement.Api";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Bell, LogOut } from "lucide-react";
 import UpdateProfile from "@/utils/UpdateProfile";
+import { useGetMyProfileQuery } from "@/redux/features/user/userReletedApi";
 
 interface SidebarItem {
     title: string;

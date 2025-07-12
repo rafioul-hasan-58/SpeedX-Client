@@ -1,8 +1,8 @@
 import RevenueChart from "../../components/Charts/ReviewChart";
 import Barchart from "../../components/Charts/Barchart";
 import LevelChart from "../../components/Charts/LavelChart";
-import { useGetTodaysSaleQuery, useGetTotalSaleQuery } from "@/redux/features/user/userReletedApi";
 import LatestOrders from "../segments/admin/LatestOrders";
+import { useGetTodaysSaleQuery, useGetTotalSaleQuery } from "@/redux/features/common/orderManagementApi";
 const AdminDashboard = () => {
   // states
 

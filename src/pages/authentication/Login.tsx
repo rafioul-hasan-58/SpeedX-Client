@@ -9,6 +9,7 @@ import { verifyToken } from "../../utils/verifyToken";
 import { IUser } from "../../types/auth.types";
 import { LuLoaderCircle } from "react-icons/lu";
 import toast from "react-hot-toast";
+import GooLogin from "@/components/Login/GoogleLogin/GoogleLogin";
 const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
@@ -68,9 +69,10 @@ const Login = () => {
                                     placeholder="Password"
                                 />
                             </div>
-                            <div className="w-full">
+                            <div className="w-full mb-5">
                                 <Button style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '0px 0px 0px 0px', fontSize: '16px' }} className="w-full py-2 bg" htmlType="submit">{isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Login'}</Button>
                             </div>
+                            <GooLogin />
                             <h1 className="text-center mt-2 text-blue-500">New here?<Link className="text-black" to='/register'>Register</Link></h1>
                         </form>
                     </div>

@@ -19,11 +19,11 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useAddProductMutation } from "@/redux/features/utils/utilsApi";
+import { useAddBikeMutation } from "@/redux/features/common/bikeManagementApi";
 
 const AddBike = () => {
   const user = useAppSelector(selectCurrentUser);
-  const [addProduct, { isLoading }] = useAddProductMutation();
+  const [addProduct, { isLoading }] = useAddBikeMutation();
   const { uploadImagesToCloudinary, isUploading } = useImageUploader();
   const [previewImages, setPreviewImages] = useState<(string | File)[]>([]);
   const [ImageUrls, setImageUrls] = useState<File | File[]>([]);
