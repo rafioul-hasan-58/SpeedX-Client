@@ -33,11 +33,8 @@ const OrderTable = ({ data }: { data: IOrder[] | undefined }) => {
 
                                 <td className="px-4  text-sm text-gray-500  whitespace-nowrap py-2">
                                     <article className="flex gap-2">
-                                        <Avatar>
-                                            <AvatarImage
-                                                className="relative top-1 rounded-full border border-sky-500"
-                                                src={order.buyer.image || "https://github.com/shadcn.png"}
-                                            />
+                                        <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[40px] h-[40px] border border-sky-400'>
+                                            <AvatarImage src={order?.buyer?.image || "https://github.com/shadcn.png"} />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>
                                         <div>
@@ -53,16 +50,16 @@ const OrderTable = ({ data }: { data: IOrder[] | undefined }) => {
                                 <td className="px-4 py-2 whitespace-nowrap">
                                     <span
                                         className={`inline-block text-xs font-semibold px-3 py-[2px] rounded-sm ${order?.status === "Pending"
-                                                ? "text-yellow-600 bg-yellow-100"
-                                                : order?.status === "Delivered"
-                                                    ? "text-green-700 bg-green-100"
-                                                    : order?.status === "Cancelled"
-                                                        ? "text-red-600 bg-red-100"
-                                                        : order?.status === "Processing"
-                                                            ? "text-blue-700 bg-blue-100"
-                                                            : order?.status === "Shipped"
-                                                                ? "text-purple-700 bg-purple-100"
-                                                                : "text-gray-700 bg-gray-100"
+                                            ? "text-yellow-600 bg-yellow-100"
+                                            : order?.status === "Delivered"
+                                                ? "text-green-700 bg-green-100"
+                                                : order?.status === "Cancelled"
+                                                    ? "text-red-600 bg-red-100"
+                                                    : order?.status === "Processing"
+                                                        ? "text-blue-700 bg-blue-100"
+                                                        : order?.status === "Shipped"
+                                                            ? "text-purple-700 bg-purple-100"
+                                                            : "text-gray-700 bg-gray-100"
                                             }`}
                                     >
                                         {order?.status}

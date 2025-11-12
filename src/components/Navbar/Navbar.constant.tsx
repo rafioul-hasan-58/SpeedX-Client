@@ -36,31 +36,14 @@ export const navItems = [
         url: "/customer/all-bikes?bikeType=scooter",
         icon: FaMotorcycle
     },
-    {
-        title: "Upcoming",
-        url: "/customer/upcoming-products",
-        icon: FaMotorcycle
-    },
+
     {
         title: "Sell Now",
         url: "/customer/dashboard/add-product",
         icon: FaMotorcycle
     },
-    {
-        title: "Accessories",
-        url: "/customer/upcoming-products",
-        icon: FaMotorcycle
-    },
-    {
-        title: "Servicing",
-        url: "/customer/upcoming-products",
-        icon: FaMotorcycle
-    },
-    {
-        title: "Blogs",
-        url: "/customer/upcoming-products",
-        icon: FaMotorcycle
-    }, {
+
+ {
         title: "My Cart",
         url: "/customer/cart",
         icon: BsBag

@@ -12,7 +12,7 @@ export const customerSidebarItems = [
     },
     {
         title: "Add Bike",
-        url: "/customer/dashboard/add-bike",
+        url: "/common/add-bike",
         icon: AiOutlineAppstoreAdd
     },
     {
@@ -42,7 +42,7 @@ export const adminSidebarItems = [
     },
     {
         title: "Add Bike",
-        url: "/admin/add-bike",
+        url: "/common/add-bike",
         icon: AiOutlineAppstoreAdd
     },
     {

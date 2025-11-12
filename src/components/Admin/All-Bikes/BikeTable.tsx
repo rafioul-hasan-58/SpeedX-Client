@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { Edit,Trash2 } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import { IProduct } from "@/types/product.types";
 import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import BikeDetailSheet from "./BikeDetailsSheet";
 import { useRemoveBikeMutation } from "@/redux/features/common/bikeManagementApi";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks";
 const BikeTable = ({ products }: { products: IProduct[] }) => {
     const [deleteProduct] = useRemoveBikeMutation();
 
@@ -29,6 +31,7 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
         });
 
     }
+    console.log("current user", useAppSelector(selectCurrentUser));
     return (
         <div className="flex flex-col">
             <div className="-mx-1 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -71,10 +74,10 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
                                         </td>
                                         <td className="px-4 py-4 text-sm text-sky-500  whitespace-nowrap font-semibold">BDT. {item?.price}</td>
                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                           <BikeDetailSheet bike={item}/>
+                                            <BikeDetailSheet bike={item} />
                                         </td>
                                         <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            <Link to={`/admin/update-bike/${item?._id}`}>
+                                            <Link to={`/common/update-bike/${item?._id}`}>
                                                 <Button className="bg-green-500 hover:bg-green-600 text-white h-8 w-8 p-0">
                                                     <Edit className="h-4 w-4" />
                                                 </Button>

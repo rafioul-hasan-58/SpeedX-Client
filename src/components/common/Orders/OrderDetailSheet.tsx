@@ -83,24 +83,30 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                             </article>
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">Status</p>
-                                <p className="mr-10"> <span
-                                    className={`inline-block text-xs font-semibold px-3 py-[2px] rounded-sm ${order?.status === "Pending"
-                                        ? "text-yellow-600 bg-yellow-100"
-                                        : order?.status === "Delivered"
-                                            ? "text-green-700 bg-green-100"
-                                            : order?.status === "Cancelled"
-                                                ? "text-red-600 bg-red-100"
-                                                : "text-gray-700 bg-gray-100"
-                                        }`}
-                                >
-                                    {order?.status}
-                                </span></p>
+                                <p className="mr-10">
+                                    <span
+                                        className={`inline-block text-xs font-semibold px-3 py-[2px] rounded-sm ${order?.status === "Pending"
+                                            ? "text-yellow-600 bg-yellow-100"
+                                            : order?.status === "Delivered"
+                                                ? "text-green-700 bg-green-100"
+                                                : order?.status === "Cancelled"
+                                                    ? "text-red-600 bg-red-100"
+                                                    : order?.status === "Processing"
+                                                        ? "text-blue-700 bg-blue-100"
+                                                        : order?.status === "Shipped"
+                                                            ? "text-purple-700 bg-purple-100"
+                                                            : "text-gray-700 bg-gray-100"
+                                            }`}
+                                    >
+                                        {order?.status}
+                                    </span>
+                                </p>
                             </article>
                         </section>
                         <section className="text-[15px] border-b pb-5">
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">Cumtomer Name</p>
-                                <p className="mr-10">{ }</p>
+                                <p className="mr-10">{order?.buyer?.name}</p>
                             </article>
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">Email</p>
@@ -132,16 +138,20 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                                     // customer view button
                                     <>
                                         {
-                                            order.status !== 'Shipped' && order.status !== 'Processing' && order.status !== 'Cancelled' && order.status !== 'Returned' && (
-                                                <Button
-                                                    onClick={() => changeOrderStatus(order._id)} className={`rounded-full w-full ${order?.status === 'Pending' ? 'bg-red-500' : 'bg-gray-600'} hover:bg-red-600`}>{isLoading ? <LuLoaderCircle className="animate-spin" /> : <p>Make it {customerNextStatus(order?.status)}</p>}
-                                                </Button>
-                                            )
+                                            order.status !== 'Shipped' && order.status !== 'Processing' && order.status !== 'Cancelled' && order.status !== 'Returned' && (<Button
+                                                onClick={() => changeOrderStatus(order._id)} className={`rounded-full w-full ${order?.status === 'Pending' ? 'bg-red-500' : 'bg-gray-600'} hover:bg-red-600`}>{isLoading ? <LuLoaderCircle className="animate-spin" /> : <p>Make it {customerNextStatus(order?.status)}</p>}
+                                            </Button>)
                                         }
                                     </>
                                     :
                                     // seller or admin view button
-                                    <Button disabled={order.status === 'Delivered'} onClick={() => makeNextStatus(order._id)} className={`rounded-full w-full bg-sky-500 hover:bg-sky-600 ${nextStatus(order?.status) === 'Processing' ? 'bg-purple-600' : ''}`}>Make it {nextStatus(order?.status)}</Button>
+                                    <>
+                                        {
+                                            order.status !== 'Delivered' && order.status !== 'Cancelled' && order.status !== 'Returned' && (<Button onClick={() => makeNextStatus(order._id)} className={`rounded-full w-full bg-sky-500 hover:bg-sky-600 ${nextStatus(order?.status) === 'Processing' ? 'bg-purple-600' : ''}`}>Make it {nextStatus(order?.status)}
+                                            </Button>)
+                                        }
+
+                                    </>
                             }
                         </div>
                     </div>

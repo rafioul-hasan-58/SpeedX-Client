@@ -1,29 +1,39 @@
-import { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../redux/hooks';
-import { selectCurrentToken } from '../redux/features/auth/authSlice';
-import { verifyToken } from '../utils/verifyToken';
-
+import { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
+import { selectCurrentToken } from "../redux/features/auth/authSlice";
+import { verifyToken } from "../utils/verifyToken";
+import { IUser } from "@/types/auth.types";
 
 type TProtectedRoute = {
   children: ReactNode;
-  role: string | undefined;
+  roles?: string[]; // optional allowed roles
 };
 
-const PrivetRoute = ({ children, role }: TProtectedRoute) => {
+const PrivateRoute = ({ children, roles }: TProtectedRoute) => {
   const token = useAppSelector(selectCurrentToken);
-  let user;
-  if (token) {
-    user = verifyToken(token);
-  }
-  if (role !== undefined && role !== user?.role) {
-    return <Navigate to="/login" replace={true} />;
-  }
 
   if (!token) {
-    return <Navigate to="/login" replace={true} />;
+    return <Navigate to="/login" replace />;
   }
+
+  let user: IUser | null = null;
+  try {
+    user = verifyToken(token);
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return <Navigate to="/login" replace />;
+  }
+
+  // Defensive: user might be null or role undefined
+  const userRole = user?.role ?? "";
+
+  // Check role-based access only if roles are defined
+  if (roles && roles.length > 0 && !roles.includes(userRole)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
   return children;
 };
 
-export default PrivetRoute;
+export default PrivateRoute;

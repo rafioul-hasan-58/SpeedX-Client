@@ -6,7 +6,7 @@ const Banner = () => {
     return (
         <div>
             <div className="border border-gray-100 pt-4 mb-8">
-                <section className="border lg:h-[550px]  h-[400px] bg-white sm:mt-6 px-4 sm:px-6 lg:px-8 ">
+                <section className="border lg:h-[550px]  h-[430px] bg-white sm:mt-6 px-4 sm:px-6 lg:px-8 ">
                     <div className="my-10 mx-auto max-w-[1500px] px-4 sm:mt-12 sm:px-6 md:mt-16  lg:px-8 flex flex-col lg:flex-row lg:items-center">
                         {/* Left Content */}
                         <div className="sm:text-center lg:text-left flex-1">
@@ -14,7 +14,6 @@ const Banner = () => {
                                 <span className="block xl:inline">SpeedX Moto – Ride the Thrill</span>
                                 <span className="block text-sky-400 xl:inline">, Own the Road!</span>
                             </h1>
-
                             <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0 2xl:text-2xl 2xl:max-w-3xl">
                                 At SpeedX Moto, we bring you the best selection of motorcycles, accessories, and expert services to fuel your passion for riding. Whether you're looking for a high-speed sportbike, a classic cruiser, or a reliable commuter, we have the perfect ride for you.
                             </p>

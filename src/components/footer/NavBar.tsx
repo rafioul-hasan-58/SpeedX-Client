@@ -55,18 +55,18 @@ const NavBar = () => {
                     <section className='mt-4 ml-4'>
                         <MobileNav myProfile={myProfile} />
                     </section>
-                    <section className='lg:mt-0 mt-2 lg:ml-0 ml-28 flex items-center relative lg:right-4 2xl:right-20'>
+                    <section className='lg:mt-0  lg:ml-0 ml-2 flex items-center relative lg:right-4 2xl:right-20'>
                         <img className="lg:w-16  lg:h-16 w-14 h-14 relative top-2" src={bike} alt="logoImage" />
                         <h1 className="text-xl italic font-bold text-sky-600">SpeedX</h1>
                     </section>
                     <section>
-                        <div className=" flex lg:mt-10 mt-8 lg:relative absolute bottom-[15px]  justify-center">
+                        <div className=" flex lg:mt-10 mt-8 lg:relative absolute bottom-[15px]  justify-center left-6">
                             <form onChange={handleSubmit(onSubmit)} className='w-full'>
                                 <div className='flex lg:mx-0 '>
                                     <input
                                         {...register("searchTerm")}
                                         style={{ borderRadius: '100px 0px 0px 100px' }}
-                                        className="h-[38px] lg:w-[350px] w-[320px] border pl-7 placeholder-gray-500 border-gray-400 focus:outline-none placeholder:font-semibold"
+                                        className="h-[38px] lg:w-[350px] w-[280px] border pl-7 placeholder-gray-500 border-gray-400 focus:outline-none placeholder:font-semibold"
                                         type="text"
                                         placeholder="Search Bike Here..."
                                     />

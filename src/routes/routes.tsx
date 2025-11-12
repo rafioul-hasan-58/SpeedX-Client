@@ -9,7 +9,7 @@ import ProductDetails from "../pages/universal/ProductDetails";
 import Users from "../pages/admin/Users";
 import AllBikesAdmin from "../pages/admin/AllBikesAdmin";
 import MyProfile from "../pages/universal/MyProfile";
-import PrivetRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import VerifyOrder from "../pages/Customer/VerifyOrder";
 import MyOrders from "../pages/Customer/MyOrders";
 import About from "../pages/universal/About";
@@ -21,114 +21,156 @@ import Cart from "@/pages/universal/Cart";
 import CustomerLayout from "@/Layout/CustomerLayout";
 import MyAddedBikes from "@/pages/Customer/MyAddedBikes";
 import CheckOut from "@/pages/Customer/CheckOut";
-
+import { userRole } from "@/components/constants/namingConstant";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     children: [
       {
-        path: '/',
-        element: <Home />
+        path: "/",
+        element: <Home />,
       },
-
-    ]
+    ],
   },
   {
     path: "/admin",
     element: <AdminLayout />,
     children: [
       {
-        path: 'dashboard',
-        element: <PrivetRoute role="admin"><AdminDashboard /></PrivetRoute>
+        path: "dashboard",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN]}>
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'add-bike',
-        element: <PrivetRoute role="admin"><AddBike /></PrivetRoute>
+        path: "users",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN]}>
+            <Users />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'update-bike/:id',
-        element: <PrivetRoute role="admin"><UpdateBike /></PrivetRoute>
+        path: "all-bikes",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN]}>
+            <AllBikesAdmin />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'users',
-        element: <PrivetRoute role="admin"><Users /></PrivetRoute>
+        path: "all-orders",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN]}>
+            <AllOrdersAdmin />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'all-bikes',
-        element: <PrivetRoute role="admin"><AllBikesAdmin /></PrivetRoute>
+        path: "my-profile",
+        element: <MyProfile />,
       },
-      {
-        path: 'all-orders',
-        element: <PrivetRoute role="admin"><AllOrdersAdmin /></PrivetRoute>
-      },
-      {
-        path: 'my-profile',
-        element: <MyProfile />
-      },
-    ]
+    ],
   },
   {
-    path: '/customer',
+    path: "/customer",
     element: <MainLayout />,
     children: [
       {
-        path: 'check-out',
-        element: <PrivetRoute role="customer"><CheckOut /></PrivetRoute>
+        path: "check-out",
+        element: (
+          <PrivateRoute roles={[userRole.CUSTOMER]}>
+            <CheckOut />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'cart',
-        element: <Cart />
+        path: "cart",
+        element: <Cart />,
       },
       {
-        path: 'product-details/:id',
-        element: <ProductDetails />
+        path: "product-details/:id",
+        element: <ProductDetails />,
       },
       {
-        path: 'verify-order',
-        element: <VerifyOrder />
-      },
-
-      {
-        path: 'all-bikes',
-        element: <PrivetRoute role="customer"><AllBikes /></PrivetRoute>
+        path: "verify-order",
+        element: <VerifyOrder />,
       },
       {
-        path: 'about',
-        element: <PrivetRoute role="customer"><About /></PrivetRoute>
+        path: "all-bikes",
+        element: (
+          <PrivateRoute roles={[userRole.CUSTOMER]}>
+            <AllBikes />
+          </PrivateRoute>
+        ),
       },
-    ]
+      {
+        path: "about",
+        element: (
+          <PrivateRoute roles={[userRole.CUSTOMER]}>
+            <About />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
   {
-    path: '/customer/dashboard',
-    element: <PrivetRoute role="customer"><CustomerLayout /></PrivetRoute>,
+    path: "/customer/dashboard",
+    element: (
+      <PrivateRoute roles={[userRole.CUSTOMER]}>
+        <CustomerLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: 'add-bike',
-        element: <PrivetRoute role="customer"><AddBike /></PrivetRoute>
+        path: "my-added-bikes",
+        element: (
+          <PrivateRoute roles={[userRole.CUSTOMER]}>
+            <MyAddedBikes />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'my-added-bikes',
-        element: <PrivetRoute role="customer"><MyAddedBikes /></PrivetRoute>
+        path: "my-orders",
+        element: (
+          <PrivateRoute roles={[userRole.CUSTOMER]}>
+            <MyOrders />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/common",
+    children: [
+      {
+        path: "update-bike/:id",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN, userRole.CUSTOMER]}>
+            <UpdateBike />
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'update-bike/:id',
-        element: <PrivetRoute role="customer"><UpdateBike /></PrivetRoute>
-      },
-      {
-        path: 'my-orders',
-        element: <PrivetRoute role="customer"><MyOrders /></PrivetRoute>
+        path: "add-bike",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN,userRole.CUSTOMER]}>
+            <AddBike />
+          </PrivateRoute>
+        ),
       },
     ]
   },
-
   {
-    path: '/register',
-    element: <Register />
+    path: "/register",
+    element: <Register />,
   },
   {
-    path: '/login',
-    element: <Login />
-  }
+    path: "/login",
+    element: <Login />,
+  },
 ]);

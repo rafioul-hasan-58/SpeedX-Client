@@ -72,21 +72,16 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                 <div className="flex gap-2">
                     <Popover>
                         <PopoverTrigger>
-                            <Avatar >
-                                <AvatarImage
-                                    className="relative top-1 rounded-full border border-sky-500"
-                                    src={myProfile?.data?.image || "https://github.com/shadcn.png"}
-                                />
+                            <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[45px] h-[45px] border border-sky-400'>
+                                <AvatarImage src={myProfile?.data?.image || "https://github.com/shadcn.png"} />
                                 <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>                        </PopoverTrigger>
+                            </Avatar>                      </PopoverTrigger>
                         <PopoverContent className="relative lg:left-52 left-24">
                             <div>
                                 <div className="flex gap-3 border-b border-sky-500 pb-4">
-                                    <Avatar>
-                                        <AvatarImage
-                                            className="relative top-1 w-[44px] h-[44px] rounded-full border border-sky-500"
-                                            src={myProfile?.data?.image || "https://github.com/shadcn.png"}
-                                        />
+                                    <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[45px] h-[45px] border border-sky-400'>
+                                        <AvatarImage src={myProfile?.data?.image || "https://github.com/shadcn.png"} />
+                                        <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     <div>
                                         <h1 className="font-semibold text-[15px]">
