@@ -3,14 +3,13 @@ import bike from '../../assets/logo/bikeLogo.png';
 import call from '../../assets/logo/callLogo.png';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSearchTerm } from '@/redux/features/user/userSlice';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { IoHome } from 'react-icons/io5';
 import { Avatar, AvatarImage } from '../ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { logout, selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { LogOut, User } from 'lucide-react';
-import UpdateProfile from '@/utils/UpdateProfile';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import MobileNav from '../Navbar/MobileSheet';
@@ -44,7 +43,7 @@ const NavBar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [prevScrollPos]);
 
-    const { pathname, search } = useLocation();
+    // const { pathname, search } = useLocation();
 
     return (
         <nav className="fixed bg-white z-50 w-full lg:pb-0 pb-[65px] lg:border-none border-b border-b-sky-500">
@@ -73,7 +72,7 @@ const NavBar = () => {
                     {/* On mobile the search sits in the bottom mobile bar; on lg it shows here */}
                     <form
                         onChange={handleSubmit(onSubmit)}
-                        className="lg:w-full lg:max-w-[420px] w-full"
+                        className="lg:w-full lg:max-w-[460px] w-full"
                     >
                         <div className="flex group">
                             <div className="relative flex-1">
@@ -92,7 +91,7 @@ const NavBar = () => {
                             <button
                                 type="submit"
                                 style={{ borderRadius: '0px 30px 30px 0px' }}
-                                className="relative overflow-hidden bg-sky-500 px-2 lg:px-5 h-11 cursor-pointer transition-all duration-300 group-hover:bg-sky-500 group-hover:shadow-[0_0_14px_rgba(56,189,248,0.5)] flex items-center justify-center"
+                                className="relative overflow-hidden bg-sky-500 px-2 lg:px-4 h-11 cursor-pointer transition-all duration-300 group-hover:bg-sky-500 group-hover:shadow-[0_0_14px_rgba(56,189,248,0.5)] flex items-center justify-center"
                             >
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                                 <svg
@@ -156,7 +155,10 @@ const NavBar = () => {
                                     <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
                                     {/* <h1 className="text-lg font-semibold text-center">{myProfile?.name}</h1> */}
                                     <div className="flex justify-center">
-                                        {myProfile && <UpdateProfile {...myProfile} />}
+                                        {myProfile && 
+                                        <Link to="/customer/dashboard/settings">
+                                            <Button className="bg-sky-400 hover:bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button>
+                                        </Link>}
                                     </div>
                                     <ul className="divide-y mt-2">
                                         {navItems.slice(0, 4).map((nav) => (
@@ -195,20 +197,32 @@ const NavBar = () => {
 
             {/* ── Bottom nav links (desktop, hide-on-scroll) ── */}
             <section
-                className={`border-t-2 border-t-sky-50 overflow-hidden transition-all duration-300 ease-in-out hidden lg:block bg-white ${
-                    visible ? 'max-h-20 py-3' : 'max-h-0 py-0'
-                }`}
+                className={`border-t-2  border-t-sky-50 overflow-hidden transition-all duration-300 ease-in-out hidden lg:block bg-white ${visible ? 'max-h-20 py-3' : 'max-h-0 py-0'
+                    }`}
             >
-                <ul className="flex gap-8 max-w-[1400px] mx-auto px-10">
+                <ul className="flex gap-2 max-w-[1400px] mx-auto px-10">
                     {navItems.map((nav) => (
                         <NavLink
                             key={nav.title}
-                            className={`text-sm text-gray-500 uppercase font-bold hover:text-sky-400 transition-colors ${
-                                pathname + search === nav.url ? 'text-sky-400' : ''
-                            }`}
                             to={nav.url}
+                            className={({ isActive }) =>
+                                `relative text-sm uppercase font-bold tracking-wide px-4 py-1.5 rounded-full transition-all duration-200 group overflow-hidden
+    ${isActive
+                                    ? 'text-sky-500 bg-sky-100 border border-sky-400'
+                                    : 'text-gray-500 hover:text-sky-500 hover:bg-sky-50 border border-transparent hover:border-sky-300'
+                                }`
+                            }
                         >
-                            {nav.title}
+                            {({ isActive }) => (
+                                <>
+                                    {nav.title}
+                                    {/* Animated underline — always present on active, animates in on hover */}
+                                    <span
+                                        className={`absolute bottom-0 left-0 h-[2.5px] bg-sky-400 rounded-full transition-all duration-300
+                        ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}
+                                    />
+                                </>
+                            )}
                         </NavLink>
                     ))}
                 </ul>

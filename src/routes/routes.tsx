@@ -22,6 +22,7 @@ import CustomerLayout from "@/Layout/CustomerLayout";
 import MyAddedBikes from "@/pages/Customer/MyAddedBikes";
 import CheckOut from "@/pages/Customer/CheckOut";
 import { userRole } from "@/components/constants/namingConstant";
+import Settings from "@/pages/universal/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -142,6 +143,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "settings",
+        element: (
+          <PrivateRoute roles={[userRole.ADMIN, userRole.CUSTOMER]}>
+            <Settings />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -158,11 +167,12 @@ export const router = createBrowserRouter([
       {
         path: "add-bike",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN,userRole.CUSTOMER]}>
+          <PrivateRoute roles={[userRole.ADMIN, userRole.CUSTOMER]}>
             <AddBike />
           </PrivateRoute>
         ),
       },
+
     ]
   },
   {

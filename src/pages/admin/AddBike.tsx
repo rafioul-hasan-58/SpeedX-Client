@@ -37,7 +37,7 @@ const AddBike = () => {
       stocks: '',
       description: '',
       images: [],
-      addedBy: user?.email || ''
+      addedBy: user?.userId|| ''
     }
   });
   const { control, handleSubmit, reset } = form;
@@ -49,7 +49,7 @@ const AddBike = () => {
       price: Number(data.price),
       stocks: Number(data.stocks),
       images,
-      addedBy: user?.email || ''
+      addedBy: user?.userId || ''
     };
     try {
       const res = await addProduct(productData);
