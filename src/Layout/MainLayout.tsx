@@ -16,7 +16,7 @@ const MainLayout = () => {
         <div>
             <NavBar />
             {isLargeScreen && <ProductCart />}
-            <div className={"bg-gray-100 pt-32 w-full"}>
+            <div className={"bg-gray-100 pt-24 w-full"}>
                 <Outlet />
             </div>
             <Footer />

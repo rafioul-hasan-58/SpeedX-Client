@@ -49,7 +49,7 @@ const NavBar = () => {
     return (
         <nav className="fixed bg-white z-50 w-full lg:pb-0 pb-[65px] lg:border-none border-b border-b-sky-500">
             {/* ── Top bar ── */}
-            <section className="flex items-center w-full max-w-[1400px] mx-auto px-5 lg:px-10">
+            <section className="flex items-center w-full max-w-[1500px] mx-auto px-5 lg:px-10">
 
                 {/* ── LEFT: Mobile hamburger + Logo ── */}
                 <div className="flex items-center gap-2 flex-shrink-0">
@@ -154,6 +154,7 @@ const NavBar = () => {
                                         </Avatar>
                                     </div>
                                     <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
+                                    {/* <h1 className="text-lg font-semibold text-center">{myProfile?.name}</h1> */}
                                     <div className="flex justify-center">
                                         {myProfile && <UpdateProfile {...myProfile} />}
                                     </div>
