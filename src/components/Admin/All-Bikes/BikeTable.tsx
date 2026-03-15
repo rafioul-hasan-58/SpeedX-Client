@@ -5,8 +5,6 @@ import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import BikeDetailSheet from "./BikeDetailsSheet";
 import { useRemoveBikeMutation } from "@/redux/features/common/bikeManagementApi";
-import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useAppSelector } from "@/redux/hooks";
 const BikeTable = ({ products }: { products: IProduct[] }) => {
     const [deleteProduct] = useRemoveBikeMutation();
 
@@ -31,9 +29,9 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
         });
 
     }
-    console.log("current user", useAppSelector(selectCurrentUser));
+    // console.log("current user", useAppSelector(selectCurrentUser));
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col max-w-7xl mx-auto">
             <div className="-mx-1 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div className="overflow-hidden border border-gray-200">
@@ -51,42 +49,43 @@ const BikeTable = ({ products }: { products: IProduct[] }) => {
                                         Price
                                     </th>
 
-                                    <th scope="col" className="px-4 text-sm font-semibold text-left rtl:text-right text-white ">
-                                        View
+                                    <th scope="col" className="pl-8 text-sm font-semibold text-left rtl:text-right text-white align-middle">
+                                        Action
                                     </th>
-                                    <th scope="col" className="px-4 text-sm font-semibold text-left rtl:text-right text-white ">
+                                    {/* <th scope="col" className="px-4 text-sm font-semibold text-left rtl:text-right text-white ">
                                         Update
                                     </th>
                                     <th scope="col" className="px-4 py-2.5 text-sm font-semibold text-left rtl:text-right text-white ">
                                         Delete
-                                    </th>
+                                    </th> */}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200 ">
                                 {
                                     products?.map((item: IProduct) => <tr key={item._id} className="w-full">
 
-                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                        <td className="px-2 py-2 text-sm text-gray-500  whitespace-nowrap">
                                             <img src={item?.images[0]} className="w-[90px] " alt="" />
                                         </td>
-                                        <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap font-semibold">
+                                        <td className="px-2 py-2 text-sm text-gray-500  whitespace-nowrap font-semibold">
                                             {item?.name}
                                         </td>
-                                        <td className="px-4 py-4 text-sm text-sky-500  whitespace-nowrap font-semibold">BDT. {item?.price}</td>
-                                        <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            <BikeDetailSheet bike={item} />
-                                        </td>
-                                        <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            <Link to={`/common/update-bike/${item?._id}`}>
-                                                <Button className="bg-green-500 hover:bg-green-600 text-white h-8 w-8 p-0">
-                                                    <Edit className="h-4 w-4" />
+                                        <td className="px-2 py-2 text-sm text-sky-500  whitespace-nowrap font-semibold">BDT. {item?.price}</td>
+                                        <td className="px-2 py-2 text-sm text-gray-500 whitespace-nowrap">
+                                            <div className="flex items-end space-x-2">
+                                                {/* view button */}
+                                                <BikeDetailSheet bike={item} />
+                                                {/* edit button */}
+                                                <Link to={`/common/update-bike/${item?._id}`}>
+                                                    <Button className="bg-green-500 hover:bg-green-600 text-white h-8 w-8 p-0">
+                                                        <Edit className="h-4 w-4" />
+                                                    </Button>
+                                                </Link>
+                                                {/* delete button */}
+                                                <Button onClick={() => handleDelete(item._id)} className="bg-red-500 hover:bg-red-600 text-white h-8 w-8 p-0">
+                                                    <Trash2 className="h-4 w-4" />
                                                 </Button>
-                                            </Link>
-                                        </td>
-                                        <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            <Button onClick={() => handleDelete(item._id)} className="bg-red-500 hover:bg-red-600 text-white h-8 w-8 p-0">
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
+                                            </div>
                                         </td>
                                     </tr>)
                                 }

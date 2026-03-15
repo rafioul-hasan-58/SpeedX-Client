@@ -2,7 +2,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-const MobileMenuCart = () => {
+const MobileMenuCard = () => {
     const products = useAppSelector((state) => state.products.products);
 
     return (
@@ -15,4 +15,4 @@ const MobileMenuCart = () => {
     );
 };
 
-export default MobileMenuCart;
+export default MobileMenuCard;

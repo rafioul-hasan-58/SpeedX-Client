@@ -26,7 +26,7 @@ const PrivateRoute = ({ children, roles }: TProtectedRoute) => {
   }
 
   // Defensive: user might be null or role undefined
-  const userRole = user?.role ?? "";
+  const userRole = user?.activeRole ?? "";
 
   // Check role-based access only if roles are defined
   if (roles && roles.length > 0 && !roles.includes(userRole)) {

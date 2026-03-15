@@ -53,7 +53,7 @@ const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
                     </Link>
                     <div className='flex-1'>
                        <Button
-                            disabled={user?.email === item.addedBy || item.stocks === 0 ||sellerProfile?.data?.role!=='admin'}
+                            disabled={user?.email === item.addedBy || item.stocks === 0 ||sellerProfile?.data?.activeRole!=='admin'}
                             onClick={() => {
                                 const exists = cart.some(p => p._id === item._id);
                                 if (exists) {

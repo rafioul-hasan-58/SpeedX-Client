@@ -13,6 +13,7 @@ function GooLogin() {
     const navigate = useNavigate()
     const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
         const token = credentialResponse.credential;
+        console.log(token)
         if (!token) {
             toast.error('Google login failed');
             return;
@@ -23,7 +24,7 @@ function GooLogin() {
         }
         const user = verifyToken(res.data.accessToken) as IUser;
         dispatch(setUser({ user: user, token: res.data.accessToken }));
-        if (user?.role === 'admin') {
+        if (user?.activeRole === 'admin') {
             navigate(`/admin/dashboard`)
         } else {
             navigate(`/`)

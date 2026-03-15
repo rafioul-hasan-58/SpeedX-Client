@@ -55,12 +55,12 @@ const UpdateProfile = (myProfile: TUser) => {
             <Popover>
                 <PopoverTrigger asChild>
                     {
-                        myProfile?.role === 'customer' ? <Button className="bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button> : <Button className="shadow-none bg-white hover:bg-white"><CiEdit className="text-xl cursor-pointer text-black" /></Button>
+                        myProfile?.activeRole === 'customer' ? <Button className="bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button> : <Button className="shadow-none bg-white hover:bg-white"><CiEdit className="text-xl cursor-pointer text-black" /></Button>
 
                     }
 
                 </PopoverTrigger>
-                <PopoverContent className={`relative ${myProfile.role === 'customer' ? 'right-[300px]' : ''}  bottom-[50px]`}>
+                <PopoverContent className={`relative ${myProfile.activeRole === 'customer' ? 'right-[300px]' : ''}  bottom-[50px]`}>
                     <h1 className="text-center text-xl font-semibold">Update your Profile</h1>
                     <Form {...form}>
 

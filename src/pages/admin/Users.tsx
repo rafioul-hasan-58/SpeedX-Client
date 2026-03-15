@@ -75,7 +75,7 @@ const Users = () => {
                                                     {item?.email}
                                                 </td>
                                                 <td className="px-4 py-2.5 text-[15px]  text-gray-600 font-semibold whitespace-nowrap">
-                                                    {item?.role}
+                                                    {item?.activeRole}
                                                 </td>
                                                 <td className="px-4 py-2.5 text-sm  text-gray-600 whitespace-nowrap">
                                                     <Button onClick={() => handleDelete(item._id)} className="bg-red-500 hover:bg-red-600 text-white h-8 w-8 p-0">

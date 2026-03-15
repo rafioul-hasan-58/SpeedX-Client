@@ -30,6 +30,7 @@ const MyAddedBikes = () => {
         });
     }, [currentPage]);
     if (isFetching) return <Loader />
+    console.log("pro",products)
     return (
         <div>
             {

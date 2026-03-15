@@ -26,9 +26,11 @@ const Login = () => {
             if (res?.success) {
                 toast.success(res?.message)
             }
+
             const user = verifyToken(res.data.accessToken) as IUser;
+            console.log("user",user)
             dispatch(setUser({ user: user, token: res.data.accessToken }));
-            if (user?.role === 'admin') {
+            if (user?.activeRole === 'admin') {
                 navigate(`/admin/dashboard`)
             } else {
                 navigate(`/`)

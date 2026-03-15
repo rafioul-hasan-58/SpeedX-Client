@@ -35,7 +35,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
         <aside className="  flex flex-col w-[280px] 2xl:w-[320px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
             <div className="">
                 {
-                    user?.role === 'admin' ?
+                    user?.activeRole === 'admin' ?
                         <h1 className="text-center pb-4 text-sky-500 font-semibold text-xl border-b-2 border-b-sky-400">Admin Panel | SpeedX</h1>
                         :
                         <h1 className="text-center pb-4 text-sky-500 font-semibold text-xl border-b-2 border-b-sky-400">Dashboard | SpeedX</h1>
@@ -92,7 +92,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                                                 {myProfile?.data?.email}
                                             </p>
                                             {
-                                                user?.role === 'admin' && <UpdateProfile {...myProfile?.data} />
+                                                user?.activeRole === 'admin' && <UpdateProfile {...myProfile?.data} />
                                             }
                                         </div>
                                     </div>
