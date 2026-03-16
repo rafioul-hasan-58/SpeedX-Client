@@ -34,11 +34,11 @@ const OrderTable = ({ data }: { data: IOrder[] | undefined }) => {
                                 <td className="px-4  text-sm text-gray-500  whitespace-nowrap py-2">
                                     <article className="flex gap-2">
                                         <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[40px] h-[40px] border border-sky-400'>
-                                            <AvatarImage src={order?.buyer?.image || "https://github.com/shadcn.png"} />
+                                            <AvatarImage src={order?.buyer?.fullName || "https://github.com/shadcn.png"} />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>
                                         <div>
-                                            <h1 className="font-semibold text-black">{order.buyer.name}</h1>
+                                            <h1 className="font-semibold text-black">{order.buyer.fullName}</h1>
                                             <p className="text-sm">{order.buyer.email}</p>
                                         </div>
                                     </article>

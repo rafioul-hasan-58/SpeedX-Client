@@ -7,13 +7,13 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toast } from 'react-hot-toast';
 import { addProduct } from '@/redux/features/cart/cartSlice';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
-import { useGetMyProfileQuery } from '@/redux/features/user/userReletedApi';
+import { useGetMyProfileQuery } from '@/redux/features/user/userRelatedApi';
 
 const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
     const dispatch = useAppDispatch();
     const cart = useAppSelector((state) => state.products.products);
     const user = useAppSelector(selectCurrentUser);
-    const { data: sellerProfile } = useGetMyProfileQuery(item?.addedBy);
+    const { data: sellerProfile } = useGetMyProfileQuery();
     return (
         <article className='border bg-white border-gray-200 rounded-sm flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200 h-full lg:max-h-[390px] max-w-[400px]'>
             <Link to={`/customer/product-details/${item?._id}`}>

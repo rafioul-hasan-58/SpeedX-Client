@@ -6,20 +6,12 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Camera } from 'lucide-react'
-import { useAppSelector } from '@/redux/hooks'
-import { selectCurrentToken } from '@/redux/features/auth/authSlice'
-import { verifyToken } from '@/utils/verifyToken'
-import { useGetMyProfileQuery } from '@/redux/features/user/userReletedApi'
+import { useGetMyProfileQuery } from '@/redux/features/user/userRelatedApi'
 import SecurityPage from '@/components/common/Security'
 
-const Settings = () => {
-
-    const token = useAppSelector(selectCurrentToken);
-    let user;
-    if (token) {
-        user = verifyToken(token);
-    }
-    const { data: myProfile } = useGetMyProfileQuery(user?.email);
+const Settings = () => {   
+    const { data } = useGetMyProfileQuery();
+    const myProfile = data?.data;
 
     return (
         <div className="w-full ">
@@ -39,9 +31,9 @@ const Settings = () => {
                         <div className="flex flex-col items-center gap-2 flex-shrink-0">
                             <div className="relative">
                                 <Avatar className="w-24 h-24 border-2 border-sky-400">
-                                    <AvatarImage src={myProfile?.data.name || "https://i.ibb.co.com/hFPk2s03/download.jpg"} alt={myProfile?.data.name} />
+                                    <AvatarImage src={myProfile?.fullName || "https://i.ibb.co.com/hFPk2s03/download.jpg"} alt={myProfile?.fullName} />
                                     <AvatarFallback className="bg-gray-200">
-                                        {myProfile?.data?.name
+                                        {myProfile?.fullName
                                             .split(' ')
                                             .map((n: any) => n[0])
                                             .join('')}
@@ -63,7 +55,7 @@ const Settings = () => {
                                 <Input
                                     id="fullName"
                                     type="text"
-                                    value={myProfile?.data?.name || "Sourav Prodhan"}
+                                    value={myProfile?.fullName || "Sourav Prodhan"}
                                     className="bg-white border border-gray-300"
                                     placeholder="Enter your full name"
                                 />
@@ -77,7 +69,7 @@ const Settings = () => {
                                 <Input
                                     id="email"
                                     type="text"
-                                    value={myProfile?.data?.email || "rafioulhasan2@gmail.com"}
+                                    value={myProfile?.email || "rafioulhasan2@gmail.com"}
 
                                     className="bg-white border border-gray-300"
                                     placeholder="Enter your professional email"

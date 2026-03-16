@@ -7,8 +7,8 @@ export interface IUser {
 
 export type TUser = {
     _id: string;
-    image: string;
-    name: string;
+    profileImage: string;
+    fullName: string;
     email: string;
     password: string;
     activeRole: 'admin' | 'customer';
@@ -16,9 +16,9 @@ export type TUser = {
 }
 export interface IMyProfile {
     _id: string;
-    name: string;
+    fullName: string;
     email: string;
-    image: string;
+    profileImage: string;
     password: string;
     activeRole: 'customer' | 'admin'
     isBlocked: boolean;

@@ -11,12 +11,12 @@ import { Label } from "@/components/ui/label";
 import BImageUploader from "./BImageUploader";
 import { LuLoaderCircle } from "react-icons/lu";
 import { CiEdit } from "react-icons/ci";
-import { useUpdateProfileMutation } from "@/redux/features/user/userReletedApi";
+import { useUpdateProfileMutation } from "@/redux/features/user/userRelatedApi";
 
 const UpdateProfile = (myProfile: TUser) => {
     const form = useForm({
         defaultValues: {
-            name: myProfile?.name,
+            name: myProfile?.fullName,
         }
     });
     const { handleSubmit } = form;
@@ -26,17 +26,17 @@ const UpdateProfile = (myProfile: TUser) => {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const image = await uploadImagesToCloudinary(imageFiles);
-        const { name } = data;
+        const { fullName } = data;
         const userData = {
-            name,
-            image: image || myProfile?.image,
+            fullName,
+            profileImage : image || myProfile?.profileImage,
         };
         const userUpdateData = {
             id: myProfile?._id,
             data: userData
         }
         try {
-            const { data } = await updateUser(userUpdateData);
+            // const { data } = await updateUser(userUpdateData);
             if (data?.success) {
                 toast.success("Profile updated successfully");
                 setImageFiles([]);
@@ -49,7 +49,6 @@ const UpdateProfile = (myProfile: TUser) => {
         }
 
     }
-    console.log(myProfile.name);
     return (
         <div>
             <Popover>

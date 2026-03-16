@@ -8,21 +8,14 @@ import { customerSidebarItems } from "./SidebarItem"
 import bike from '../../../assets/logo/bikeLogo.png';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import UpdateProfile from "@/utils/UpdateProfile";
 import { Bell, LogOut, Settings } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logout, selectCurrentToken } from "@/redux/features/auth/authSlice";
-import { verifyToken } from "@/utils/verifyToken";
-import { useGetMyProfileQuery } from "@/redux/features/user/userReletedApi";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useGetMyProfileQuery } from "@/redux/features/user/userRelatedApi";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export function AppSidebar() {
-    const token = useAppSelector(selectCurrentToken);
-    let user;
-    if (token) {
-        user = verifyToken(token);
-    }
-    const { data: myProfile } = useGetMyProfileQuery(user?.email);
+    const { data: myProfile } = useGetMyProfileQuery();
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const handleLogOut = () => {
@@ -79,7 +72,7 @@ export function AppSidebar() {
                         <PopoverTrigger asChild>
                             <span>
                                 <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[45px] h-[45px] border border-sky-400'>
-                                    <AvatarImage src={myProfile?.data?.image || "https://github.com/shadcn.png"} />
+                                    <AvatarImage src={myProfile?.data?.profileImage || "https://github.com/shadcn.png"} />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                             </span>
@@ -88,20 +81,20 @@ export function AppSidebar() {
                             <div>
                                 <div className="flex gap-3 border-b border-sky-500 pb-4">
                                     <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[45px] h-[45px] border border-sky-400'>
-                                        <AvatarImage src={myProfile?.data?.image || "https://github.com/shadcn.png"} />
+                                        <AvatarImage src={myProfile?.data?.profileImage || "https://github.com/shadcn.png"} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     <div>
                                         <h1 className="font-semibold text-[15px]">
-                                            {myProfile?.data?.name}
+                                            {myProfile?.data?.fullName}
                                         </h1>
                                         <div className="flex items-center gap-1">
                                             <p className="font-semibold text-[14px] text-sky-500">
                                                 {myProfile?.data?.email}
                                             </p>
-                                            {
+                                            {/* {
                                                 user?.activeRole === 'admin' && <UpdateProfile {...myProfile?.data} />
-                                            }
+                                            } */}
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +112,7 @@ export function AppSidebar() {
                         </PopoverContent>
                     </Popover>
                     <div>
-                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.name}</h1>
+                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.fullName}</h1>
                         <p className="font-semibold text-[14px] text-sky-500">
                             {myProfile?.data?.email}
                         </p>

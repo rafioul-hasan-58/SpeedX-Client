@@ -9,7 +9,7 @@ import { IoCartOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { addProduct } from "@/redux/features/cart/cartSlice";
 import { useGetBikeDetailsQuery } from "@/redux/features/common/bikeManagementApi";
-import { useGetMyProfileQuery } from "@/redux/features/user/userReletedApi";
+import { useGetMyProfileQuery } from "@/redux/features/user/userRelatedApi";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -18,7 +18,7 @@ const ProductDetails = () => {
     const fallbackImage = 'https://i.ibb.co/mryzXPbL/office-605503-1280.jpg';
     const [currentImg, setCurrentImg] = useState(details?.images && details.images[0]);
     const user = useAppSelector(selectCurrentUser);
-    const { data: sellerProfile } = useGetMyProfileQuery(details?.addedBy);
+    const { data: sellerProfile } = useGetMyProfileQuery();
 
     useEffect(() => {
         if (details?.images?.length > 0) {
@@ -95,7 +95,7 @@ const ProductDetails = () => {
                                 disabled={
                                     user?.email === details?.addedBy ||
                                     details?.stocks === 0 ||
-                                    sellerProfile?.data?.role !== 'admin'
+                                    sellerProfile?.data?.activeRole !== 'admin'
                                 }
                                 onClick={() => {
                                     const exists = cart.some((p) => p._id === details?._id);

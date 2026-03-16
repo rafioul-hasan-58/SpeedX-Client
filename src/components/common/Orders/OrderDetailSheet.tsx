@@ -106,7 +106,7 @@ const OrderDetailSheet = ({ order }: { order: IOrder }) => {
                         <section className="text-[15px] border-b pb-5">
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">Cumtomer Name</p>
-                                <p className="mr-10">{order?.buyer?.name}</p>
+                                <p className="mr-10">{order?.buyer?.fullName}</p>
                             </article>
                             <article className="mt-3 flex justify-between">
                                 <p className="text-gray-500 ">Email</p>

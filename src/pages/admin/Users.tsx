@@ -66,10 +66,10 @@ const Users = () => {
                                             users?.data?.map((item) => <tr className="w-full">
 
                                                 <td className="px-4 py-2.5 text-sm text-gray-500  whitespace-nowrap">
-                                                    <img src={item?.image || head} className="w-[60px] h-[60px] rounded-full border-2 border-sky-400 " alt="" />
+                                                    <img src={item?.profileImage || head} className="w-[60px] h-[60px] rounded-full border-2 border-sky-400 " alt="" />
                                                 </td>
                                                 <td className="px-4 py-2.5 text-[15px] text-gray-600 font-semibold whitespace-nowrap">
-                                                    {item?.name}
+                                                    {item?.fullName}
                                                 </td>
                                                 <td className="px-4 py-2.5 text-[15px] text-sky-500 font-semibold whitespace-nowrap">
                                                     {item?.email}

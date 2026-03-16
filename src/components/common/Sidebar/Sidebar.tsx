@@ -5,8 +5,7 @@ import { verifyToken } from "../../../utils/verifyToken";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Bell, LogOut } from "lucide-react";
-import UpdateProfile from "@/utils/UpdateProfile";
-import { useGetMyProfileQuery } from "@/redux/features/user/userReletedApi";
+import { useGetMyProfileQuery } from "@/redux/features/user/userRelatedApi";
 
 interface SidebarItem {
     title: string;
@@ -22,7 +21,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
     if (token) {
         user = verifyToken(token);
     }
-    const { data: myProfile } = useGetMyProfileQuery(user?.email);
+    const { data: myProfile } = useGetMyProfileQuery();
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const handleLogOut = () => {
@@ -73,27 +72,27 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                     <Popover>
                         <PopoverTrigger>
                             <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[45px] h-[45px] border border-sky-400'>
-                                <AvatarImage src={myProfile?.data?.image || "https://github.com/shadcn.png"} />
+                                <AvatarImage src={myProfile?.data?.profileImage || "https://github.com/shadcn.png"} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>                      </PopoverTrigger>
                         <PopoverContent className="relative lg:left-52 left-24">
                             <div>
                                 <div className="flex gap-3 border-b border-sky-500 pb-4">
                                     <Avatar className='flex justify-center cursor-pointer 2xl:w-[60px] 2xl:h-[60px] w-[45px] h-[45px] border border-sky-400'>
-                                        <AvatarImage src={myProfile?.data?.image || "https://github.com/shadcn.png"} />
+                                        <AvatarImage src={myProfile?.data?.profileImage || "https://github.com/shadcn.png"} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     <div>
                                         <h1 className="font-semibold text-[15px]">
-                                            {myProfile?.data?.name}
+                                            {myProfile?.data?.fullName}
                                         </h1>
                                         <div className="flex items-center gap-1">
                                             <p className="font-semibold text-[14px] text-sky-500">
                                                 {myProfile?.data?.email}
                                             </p>
-                                            {
+                                            {/* {
                                                 user?.activeRole === 'admin' && <UpdateProfile {...myProfile?.data} />
-                                            }
+                                            } */}
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +110,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
                         </PopoverContent>
                     </Popover>
                     <div>
-                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.name}</h1>
+                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.fullName}</h1>
                         <p className="font-semibold text-[14px] text-sky-500">
                             {myProfile?.data?.email}
                         </p>

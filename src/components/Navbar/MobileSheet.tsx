@@ -3,11 +3,11 @@ import { CgMenuLeft } from "react-icons/cg";
 import { NavLink, useLocation } from "react-router-dom"
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { IMyProfile } from "@/types/auth.types";
 import { navItems } from "./Navbar.constant";
 import call from '../../assets/logo/callLogo.png';
+import { TUserProfile } from "@/types/user.types";
 
-const MobileNav = ({ myProfile }: { myProfile: IMyProfile }) => {
+const MobileNav = ({ myProfile }: { myProfile: TUserProfile | undefined }) => {
     const { pathname, search } = useLocation();
     return (
         <div className="lg:hidden">
@@ -18,11 +18,11 @@ const MobileNav = ({ myProfile }: { myProfile: IMyProfile }) => {
                 <SheetContent side="left" className="w-[350px] px-0 pt-10">
                     <div className="border-b pb-7 px-2">
                         <Avatar className='relative left-0 cursor-pointer w-[50px] h-[50px] border border-sky-400'>
-                            <AvatarImage src={myProfile?.image || "https://github.com/shadcn.png"} />
+                            <AvatarImage src={myProfile?.profileImage || "https://github.com/shadcn.png"} />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         <p className="text-xl mt-3 italic">Welcome !</p>
-                        <p className="text-sky-500">{myProfile?.name}</p>
+                        <p className="text-sky-500">{myProfile?.fullName}</p>
                     </div>
                     <div className="flex flex-col gap-4 mt-8 ">
                         {
@@ -40,8 +40,8 @@ const MobileNav = ({ myProfile }: { myProfile: IMyProfile }) => {
                                 <p>01752966422</p>
                             </div>
                         </div>
-                    </section>                
-                    </SheetContent>
+                    </section>
+                </SheetContent>
             </Sheet>
         </div>
     )

@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import MobileNav from '../Navbar/MobileSheet';
 import { navItems } from '../Navbar/Navbar.constant';
-import { useGetMyProfileQuery } from '@/redux/features/user/userReletedApi';
+import { useGetMyProfileQuery } from '@/redux/features/user/userRelatedApi';
 import MobileMenuCard from '../Navbar/MobileMenuCard';
 
 const NavBar = () => {
@@ -27,7 +27,7 @@ const NavBar = () => {
     };
 
     const user = useAppSelector(selectCurrentUser);
-    const { data } = useGetMyProfileQuery(user?.email);
+    const { data } = useGetMyProfileQuery();
     const myProfile = data?.data;
 
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -83,7 +83,7 @@ const NavBar = () => {
                                 <input
                                     {...register('searchTerm')}
                                     style={{ borderRadius: '100px 0px 0px 100px' }}
-                                    className="h-11 w-full border-2 pl-5 placeholder-gray-400 border-sky-200 focus:outline-none placeholder:font-semibold shadow-inner transition-all duration-300 group-hover:border-sky-400 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.25)] bg-white border-r-0"
+                                    className="h-11 w-full border-2 pl-5 placeholder-gray-400 border-sky-300 focus:outline-none placeholder:font-semibold shadow-inner transition-all duration-300 group-hover:border-sky-400 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.25)] bg-white border-r-0"
                                     type="text"
                                     placeholder="Search Bike Here..."
                                 />
@@ -140,7 +140,7 @@ const NavBar = () => {
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Avatar className="cursor-pointer w-10 h-10 lg:w-[50px] lg:h-[50px] border border-sky-400">
-                                    <AvatarImage src={myProfile?.image || 'https://github.com/shadcn.png'} />
+                                    <AvatarImage src={myProfile?.profileImage || 'https://github.com/shadcn.png'} />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                             </PopoverTrigger>
@@ -148,17 +148,17 @@ const NavBar = () => {
                                 <article>
                                     <div className="flex justify-center">
                                         <Avatar className="cursor-pointer w-[50px] h-[50px] border border-sky-400">
-                                            <AvatarImage src={myProfile?.image || 'https://github.com/shadcn.png'} />
+                                            <AvatarImage src={myProfile?.profileImage || 'https://github.com/shadcn.png'} />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>
                                     </div>
-                                    <h1 className="text-xl font-semibold text-center py-2">{myProfile?.name}</h1>
+                                    <h1 className="text-xl font-semibold text-center py-2">{myProfile?.fullName}</h1>
                                     {/* <h1 className="text-lg font-semibold text-center">{myProfile?.name}</h1> */}
                                     <div className="flex justify-center">
-                                        {myProfile && 
-                                        <Link to="/customer/dashboard/settings">
-                                            <Button className="bg-sky-400 hover:bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button>
-                                        </Link>}
+                                        {myProfile &&
+                                            <Link to="/customer/dashboard/settings">
+                                                <Button className="bg-sky-400 hover:bg-sky-500 2xl:p-5 cursor-pointer mb-5 2xl:text-[17px]">Edit Profile</Button>
+                                            </Link>}
                                     </div>
                                     <ul className="divide-y mt-2">
                                         {navItems.slice(0, 4).map((nav) => (
