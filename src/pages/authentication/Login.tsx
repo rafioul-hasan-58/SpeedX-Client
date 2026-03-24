@@ -28,7 +28,6 @@ const Login = () => {
             }
 
             const user = verifyToken(res.data.accessToken) as IUser;
-            console.log("user",user)
             dispatch(setUser({ user: user, token: res.data.accessToken }));
             if (user?.activeRole === 'admin') {
                 navigate(`/admin/dashboard`)
@@ -37,7 +36,7 @@ const Login = () => {
             }
         } catch (err: unknown) {
             const error = err as { data: { message: string } };
-            toast.error(error?.data?.message)
+            toast.error(error?.data?.message || "Login Failed!")
         }
     }
     return (
