@@ -18,6 +18,6 @@ createRoot(document.getElementById('root')!).render(
         </PersistGate>
         <Toaster />
       </Provider>
-    </GoogleOAuthProvider>;
+    </GoogleOAuthProvider>
   </StrictMode>,
 )

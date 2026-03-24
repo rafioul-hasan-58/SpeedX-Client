@@ -23,6 +23,7 @@ export function AppSidebar() {
         navigate('/login')
     }
     const { pathname } = useLocation();
+    console.log("profile",myProfile)
     return (
         <Sidebar collapsible="icon" className="w-72 border-r-2 border-r-sky-500">
             <SidebarContent>
@@ -86,7 +87,7 @@ export function AppSidebar() {
                                     </Avatar>
                                     <div>
                                         <h1 className="font-semibold text-[15px]">
-                                            {myProfile?.data?.fullName}
+                                            {myProfile?.data?.fullName ||"Sourav Prodhan"}
                                         </h1>
                                         <div className="flex items-center gap-1">
                                             <p className="font-semibold text-[14px] text-sky-500">
@@ -112,7 +113,7 @@ export function AppSidebar() {
                         </PopoverContent>
                     </Popover>
                     <div>
-                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.fullName}</h1>
+                        <h1 className="font-semibold text-[15px]  w-full truncate">{myProfile?.data?.fullName ||"Sourav Prodhan"}</h1>
                         <p className="font-semibold text-[14px] text-sky-500">
                             {myProfile?.data?.email}
                         </p>

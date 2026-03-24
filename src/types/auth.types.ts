@@ -26,3 +26,7 @@ export interface IMyProfile {
     updatedAt: string;
     __v: number;
 }
+export interface IChangePassword {
+    newPassword: string;
+    oldPassword: string;
+};

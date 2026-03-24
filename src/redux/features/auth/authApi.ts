@@ -1,3 +1,4 @@
+import { IChangePassword } from '@/types/auth.types';
 import { baseApi } from '../../api/baseApi';
 
 const authApi = baseApi.injectEndpoints({
@@ -17,6 +18,13 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+    changePassword: builder.mutation<void, IChangePassword>({
+      query: (bodyData) => ({
+        url: '/auth/change-password',
+        method: 'POST',
+        body: bodyData,
+      }),
+    }),
 
     signUp: builder.mutation({
       query: (userInfo) => ({
@@ -29,4 +37,9 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGoogleLoginMutation, useLoginMutation, useSignUpMutation } = authApi;
+export const {
+  useGoogleLoginMutation,
+  useChangePasswordMutation,
+  useLoginMutation,
+  useSignUpMutation
+} = authApi;

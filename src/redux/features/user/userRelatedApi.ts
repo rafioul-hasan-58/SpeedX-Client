@@ -1,4 +1,4 @@
-import { TProfileResponse, TUpdateProfileArgs } from "@/types/user.types";
+import { TProfileResponse } from "@/types/user.types";
 import { baseApi } from "../../api/baseApi";
 const userRelatedApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,12 +9,12 @@ const userRelatedApi = baseApi.injectEndpoints({
             }),
             providesTags: ["profile"],
         }),
-        updateProfile: builder.mutation<TProfileResponse, TUpdateProfileArgs>({
-            query: (args) => {
+        updateProfile: builder.mutation<TProfileResponse, FormData>({
+            query: (formData) => {
                 return {
-                    url: `/users/update/${args.id}`,
+                    url: `/users/update-profile`,
                     method: 'PATCH',
-                    body: args.data
+                    body: formData
                 }
             },
             invalidatesTags: ['profile']

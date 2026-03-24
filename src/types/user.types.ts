@@ -3,6 +3,7 @@ export type TUserProfile = {
     fullName: string;
     email: string;
     phone?: string;
+    bio?: string;
     profileImage?: string;
     location?: string;
     roles?: string[];
