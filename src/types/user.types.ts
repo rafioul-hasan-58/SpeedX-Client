@@ -6,8 +6,8 @@ export type TUserProfile = {
     bio?: string;
     profileImage?: string;
     location?: string;
-    roles?: string[];
-    activeRole: 'customer' | 'admin' | 'seller';
+    roles: string[];
+    activeRole: 'CUSTOMER' | 'ADMIN' | 'SELLER';
     isBlocked: boolean;
 
 

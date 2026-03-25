@@ -2,7 +2,7 @@ export interface IUser {
     email?: string;
     exp?: number;
     iat?: number;
-    activeRole: 'admin' | 'customer' | undefined;
+    activeRole: 'ADMIN' | 'CUSTOMER' | 'SELLER' | undefined;
 };
 
 export type TUser = {
@@ -11,7 +11,7 @@ export type TUser = {
     fullName: string;
     email: string;
     password: string;
-    activeRole: 'admin' | 'customer';
+    activeRole: 'ADMIN' | 'CUSTOMER' | 'SELLER';
     isBlocked: boolean;
 }
 export interface IMyProfile {
@@ -20,7 +20,7 @@ export interface IMyProfile {
     email: string;
     profileImage: string;
     password: string;
-    activeRole: 'customer' | 'admin'
+    activeRole: 'ADMIN' | 'CUSTOMER' | 'SELLER'
     isBlocked: boolean;
     createdAt: string;
     updatedAt: string;

@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Bell, LogOut } from "lucide-react";
 import { useGetMyProfileQuery } from "@/redux/features/user/userRelatedApi";
+import { UserRole } from "@/components/constants/namingConstant";
 
 interface SidebarItem {
     title: string;
@@ -34,7 +35,7 @@ const Sidebar = ({ sidebarItems }: SidebarProps) => {
         <aside className="  flex flex-col w-[280px] 2xl:w-[320px] border-r-2 border-sky-400 h-screen px-4 py-8 overflow-y-auto bg-white ">
             <div className="">
                 {
-                    user?.activeRole === 'admin' ?
+                    user?.activeRole === UserRole.ADMIN ?
                         <h1 className="text-center pb-4 text-sky-500 font-semibold text-xl border-b-2 border-b-sky-400">Admin Panel | SpeedX</h1>
                         :
                         <h1 className="text-center pb-4 text-sky-500 font-semibold text-xl border-b-2 border-b-sky-400">Dashboard | SpeedX</h1>

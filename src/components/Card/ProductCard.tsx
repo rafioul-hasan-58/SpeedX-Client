@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import { addProduct } from '@/redux/features/cart/cartSlice';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useGetMyProfileQuery } from '@/redux/features/user/userRelatedApi';
+import { UserRole } from '../constants/namingConstant';
 
 const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
     const dispatch = useAppDispatch();
@@ -53,7 +54,7 @@ const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
                     </Link>
                     <div className='flex-1'>
                        <Button
-                            disabled={user?.email === item.addedBy || item.stocks === 0 ||sellerProfile?.data?.activeRole!=='admin'}
+                            disabled={user?.email === item.addedBy || item.stocks === 0 ||sellerProfile?.data?.activeRole!==UserRole.ADMIN}
                             onClick={() => {
                                 const exists = cart.some(p => p._id === item._id);
                                 if (exists) {

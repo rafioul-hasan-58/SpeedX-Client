@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Bot, ChevronDown } from "lucide-react";
+import { useChatBotMutation } from "@/redux/features/user/userRelatedApi";
 
 interface Message {
     role: "user" | "assistant";
@@ -15,9 +16,10 @@ const FloatingChatbot = () => {
         },
     ]);
     const [input, setInput] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const [chatBot, { isLoading }] = useChatBotMutation();
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,43 +35,15 @@ const FloatingChatbot = () => {
         if (!input.trim() || isLoading) return;
 
         const userMessage: Message = { role: "user", content: input.trim() };
-        const updatedMessages = [...messages, userMessage];
-        setMessages(updatedMessages);
+        setMessages((prev) => [...prev, userMessage]);
         setInput("");
-        setIsLoading(true);
 
         try {
-            const response = await fetch("https://api.anthropic.com/v1/messages", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "claude-sonnet-4-20250514",
-                    max_tokens: 1000,
-                    system: `You are SpeedX Moto's friendly AI assistant. You help customers with:
-- Bike and scooter recommendations
-- Pricing and availability queries
-- Order tracking and support
-- Maintenance tips
-- Test ride bookings
-- Accessories and parts
-
-Keep responses concise, friendly, and enthusiastic about motorcycles. Use motorcycle-related emojis occasionally. If asked about specific stock or live orders, let them know to call 01752966422 for real-time info.`,
-                    messages: updatedMessages.map((m) => ({
-                        role: m.role,
-                        content: m.content,
-                    })),
-                }),
-            });
-
-            const data = await response.json();
-            const assistantText =
-                data.content?.[0]?.text ?? "Sorry, I couldn't get a response. Please try again!";
-
+            const res = await chatBot({ message: userMessage.content }).unwrap(); // 👈 call mutation
+            console.log("res",res)
             setMessages((prev) => [
                 ...prev,
-                { role: "assistant", content: assistantText },
+                { role: "assistant", content: res.data.reply },
             ]);
         } catch {
             setMessages((prev) => [
@@ -79,8 +53,6 @@ Keep responses concise, friendly, and enthusiastic about motorcycles. Use motorc
                     content: "Oops! Something went wrong. Please try again or call us at 01752966422 🏍️",
                 },
             ]);
-        } finally {
-            setIsLoading(false);
         }
     };
 
@@ -95,11 +67,10 @@ Keep responses concise, friendly, and enthusiastic about motorcycles. Use motorc
         <>
             {/* Chat Window */}
             <div
-                className={`fixed bottom-24 right-6 z-50 flex flex-col transition-all duration-300 ease-in-out ${
-                    isOpen
-                        ? "opacity-100 translate-y-0 pointer-events-auto"
-                        : "opacity-0 translate-y-4 pointer-events-none"
-                }`}
+                className={`fixed bottom-24 right-6 z-50 flex flex-col transition-all duration-300 ease-in-out ${isOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 translate-y-4 pointer-events-none"
+                    }`}
                 style={{ width: "360px", height: "500px" }}
             >
                 <div className="flex flex-col h-full rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white">
@@ -138,11 +109,10 @@ Keep responses concise, friendly, and enthusiastic about motorcycles. Use motorc
                                     </div>
                                 )}
                                 <div
-                                    className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
-                                        msg.role === "user"
-                                            ? "bg-[#1a1a2e] text-white rounded-br-sm"
-                                            : "bg-white text-gray-800 rounded-bl-sm shadow-sm border border-gray-100"
-                                    }`}
+                                    className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${msg.role === "user"
+                                        ? "bg-[#1a1a2e] text-white rounded-br-sm"
+                                        : "bg-white text-gray-800 rounded-bl-sm shadow-sm border border-gray-100"
+                                        }`}
                                 >
                                     {msg.content}
                                 </div>

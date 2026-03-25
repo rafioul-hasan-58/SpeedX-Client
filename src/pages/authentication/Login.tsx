@@ -10,6 +10,7 @@ import { IUser } from "../../types/auth.types";
 import { LuLoaderCircle } from "react-icons/lu";
 import toast from "react-hot-toast";
 import GooLogin from "@/components/Login/GoogleLogin/GoogleLogin";
+import { UserRole } from "@/components/constants/namingConstant";
 const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
@@ -29,7 +30,7 @@ const Login = () => {
 
             const user = verifyToken(res.data.accessToken) as IUser;
             dispatch(setUser({ user: user, token: res.data.accessToken }));
-            if (user?.activeRole === 'admin') {
+            if (user?.activeRole === UserRole.ADMIN) {
                 navigate(`/admin/dashboard`)
             } else {
                 navigate(`/`)

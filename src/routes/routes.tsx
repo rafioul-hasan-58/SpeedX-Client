@@ -21,7 +21,7 @@ import Cart from "@/pages/universal/Cart";
 import CustomerLayout from "@/Layout/CustomerLayout";
 import MyAddedBikes from "@/pages/Customer/MyAddedBikes";
 import CheckOut from "@/pages/Customer/CheckOut";
-import { userRole } from "@/components/constants/namingConstant";
+import { UserRole } from "@/components/constants/namingConstant";
 import Settings from "@/pages/universal/Settings";
 
 export const router = createBrowserRouter([
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       {
         path: "dashboard",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN]}>
+          <PrivateRoute roles={[UserRole.ADMIN]}>
             <AdminDashboard />
           </PrivateRoute>
         ),
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
       {
         path: "users",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN]}>
+          <PrivateRoute roles={[UserRole.ADMIN]}>
             <Users />
           </PrivateRoute>
         ),
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
       {
         path: "all-bikes",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN]}>
+          <PrivateRoute roles={[UserRole.ADMIN]}>
             <AllBikesAdmin />
           </PrivateRoute>
         ),
@@ -66,7 +66,7 @@ export const router = createBrowserRouter([
       {
         path: "all-orders",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN]}>
+          <PrivateRoute roles={[UserRole.ADMIN]}>
             <AllOrdersAdmin />
           </PrivateRoute>
         ),
@@ -84,7 +84,7 @@ export const router = createBrowserRouter([
       {
         path: "check-out",
         element: (
-          <PrivateRoute roles={[userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER]}>
             <CheckOut />
           </PrivateRoute>
         ),
@@ -104,7 +104,7 @@ export const router = createBrowserRouter([
       {
         path: "all-bikes",
         element: (
-          <PrivateRoute roles={[userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER]}>
             <AllBikes />
           </PrivateRoute>
         ),
@@ -112,7 +112,7 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: (
-          <PrivateRoute roles={[userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER]}>
             <About />
           </PrivateRoute>
         ),
@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
   {
     path: "/customer/dashboard",
     element: (
-      <PrivateRoute roles={[userRole.CUSTOMER]}>
+      <PrivateRoute roles={[UserRole.CUSTOMER]}>
         <CustomerLayout />
       </PrivateRoute>
     ),
@@ -130,7 +130,7 @@ export const router = createBrowserRouter([
       {
         path: "my-added-bikes",
         element: (
-          <PrivateRoute roles={[userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER]}>
             <MyAddedBikes />
           </PrivateRoute>
         ),
@@ -138,7 +138,7 @@ export const router = createBrowserRouter([
       {
         path: "my-orders",
         element: (
-          <PrivateRoute roles={[userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER]}>
             <MyOrders />
           </PrivateRoute>
         ),
@@ -146,7 +146,7 @@ export const router = createBrowserRouter([
       {
         path: "settings",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN, userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.ADMIN, UserRole.CUSTOMER]}>
             <Settings />
           </PrivateRoute>
         ),
@@ -159,7 +159,7 @@ export const router = createBrowserRouter([
       {
         path: "update-bike/:id",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN, userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.ADMIN, UserRole.CUSTOMER]}>
             <UpdateBike />
           </PrivateRoute>
         ),
@@ -167,7 +167,7 @@ export const router = createBrowserRouter([
       {
         path: "add-bike",
         element: (
-          <PrivateRoute roles={[userRole.ADMIN, userRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.ADMIN, UserRole.CUSTOMER]}>
             <AddBike />
           </PrivateRoute>
         ),

@@ -4,11 +4,12 @@ import { selectCurrentToken } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/common/Sidebar/AppSidebar";
+import { UserRole } from "@/components/constants/namingConstant";
 
 const CustomerLayout = () => {
     const token = useAppSelector(selectCurrentToken);
     const user = token ? verifyToken(token) : null;
-    const isCustomer = user?.activeRole === 'customer';
+    const isCustomer = user?.activeRole === UserRole.CUSTOMER;
 
     return (
         <SidebarProvider>

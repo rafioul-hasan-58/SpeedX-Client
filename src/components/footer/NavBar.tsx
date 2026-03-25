@@ -16,6 +16,8 @@ import MobileNav from '../Navbar/MobileSheet';
 import { navItems } from '../Navbar/Navbar.constant';
 import { useGetMyProfileQuery } from '@/redux/features/user/userRelatedApi';
 import MobileMenuCard from '../Navbar/MobileMenuCard';
+import { UserRole } from '../constants/namingConstant';
+import BecomeSellerModal from '../Navbar/BecomeSellerModal';
 
 const NavBar = () => {
     const dispatch = useAppDispatch();
@@ -225,6 +227,7 @@ const NavBar = () => {
                             )}
                         </NavLink>
                     ))}
+                    {myProfile && myProfile.activeRole===UserRole.CUSTOMER && <BecomeSellerModal />}
                 </ul>
             </section>
         </nav>

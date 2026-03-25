@@ -1,3 +1,4 @@
+import { UserRole } from '@/components/constants/namingConstant';
 import { useGoogleLoginMutation } from '@/redux/features/auth/authApi';
 import { setUser } from '@/redux/features/auth/authSlice';
 import { useAppDispatch } from '@/redux/hooks';
@@ -24,7 +25,7 @@ function GooLogin() {
         }
         const user = verifyToken(res.data.accessToken) as IUser;
         dispatch(setUser({ user: user, token: res.data.accessToken }));
-        if (user?.activeRole === 'admin') {
+        if (user?.activeRole === UserRole.ADMIN) {
             navigate(`/admin/dashboard`)
         } else {
             navigate(`/`)

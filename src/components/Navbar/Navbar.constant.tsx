@@ -13,7 +13,7 @@ export const navItems = [
     {
         title: "Dashboard",
         url: "/customer/dashboard/my-added-bikes",
-        icon: MdOutlineSpaceDashboard  
+        icon: MdOutlineSpaceDashboard
     },
     {
         title: "Bikes",
@@ -43,9 +43,9 @@ export const navItems = [
         icon: FaMotorcycle
     },
 
- {
+    {
         title: "My Cart",
         url: "/customer/cart",
         icon: BsBag
-    },
+    }
 ]

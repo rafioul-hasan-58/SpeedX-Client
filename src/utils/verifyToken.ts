@@ -4,7 +4,7 @@ export interface IUser {
   email?: string;
   exp?: number;
   iat?: number;
-  activeRole: "admin" | "customer" | undefined;
+  activeRole: "ADMIN" | "CUSTOMER" | "SELLER" | undefined;
 }
 
 export const verifyToken = (token: string): IUser => {

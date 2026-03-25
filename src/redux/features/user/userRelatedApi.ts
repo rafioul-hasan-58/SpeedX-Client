@@ -19,12 +19,20 @@ const userRelatedApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ['profile']
         }),
+        chatBot: builder.mutation({
+            query: (body) => ({
+                url: `/chatbot/chat`,
+                method: 'POST',
+                body,
+            }),
+        }),
 
     }),
 });
 
 export const {
     useGetMyProfileQuery,
-    useUpdateProfileMutation
+    useUpdateProfileMutation,
+    useChatBotMutation
 }
     = userRelatedApi;

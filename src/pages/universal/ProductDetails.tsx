@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { addProduct } from "@/redux/features/cart/cartSlice";
 import { useGetBikeDetailsQuery } from "@/redux/features/common/bikeManagementApi";
 import { useGetMyProfileQuery } from "@/redux/features/user/userRelatedApi";
+import { UserRole } from "@/components/constants/namingConstant";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -95,7 +96,7 @@ const ProductDetails = () => {
                                 disabled={
                                     user?.email === details?.addedBy ||
                                     details?.stocks === 0 ||
-                                    sellerProfile?.data?.activeRole !== 'admin'
+                                    sellerProfile?.data?.activeRole !== UserRole.ADMIN
                                 }
                                 onClick={() => {
                                     const exists = cart.some((p) => p._id === details?._id);
