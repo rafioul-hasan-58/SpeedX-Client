@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Bot, ChevronDown } from "lucide-react";
-import { useChatBotMutation } from "@/redux/features/user/userRelatedApi";
+import { useChatBotMutation } from "@/lib/api/userApi";
 
 interface Message {
     role: "user" | "assistant";

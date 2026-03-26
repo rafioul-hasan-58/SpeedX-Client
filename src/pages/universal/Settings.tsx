@@ -5,9 +5,9 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Camera } from 'lucide-react'
-import { useGetMyProfileQuery, useUpdateProfileMutation } from '@/redux/features/user/userRelatedApi'
 import SecurityPage from '@/components/common/Security'
 import { useEffect, useRef, useState } from 'react'
+import { useGetMyProfileQuery, useUpdateProfileMutation } from '@/lib/api/userApi'
 
 const Settings = () => {
 

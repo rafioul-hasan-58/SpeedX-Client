@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toast } from 'react-hot-toast';
 import { addProduct } from '@/redux/features/cart/cartSlice';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
-import { useGetMyProfileQuery } from '@/redux/features/user/userRelatedApi';
 import { UserRole } from '../constants/namingConstant';
+import { useGetMyProfileQuery } from '@/lib/api/userApi';
 
 const ProductCard: FC<{ item: IProduct }> = ({ item }) => {
     const dispatch = useAppDispatch();

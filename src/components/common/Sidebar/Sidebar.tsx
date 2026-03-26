@@ -5,8 +5,8 @@ import { verifyToken } from "../../../utils/verifyToken";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Bell, LogOut } from "lucide-react";
-import { useGetMyProfileQuery } from "@/redux/features/user/userRelatedApi";
 import { UserRole } from "@/components/constants/namingConstant";
+import { useGetMyProfileQuery } from "@/lib/api/userApi";
 
 interface SidebarItem {
     title: string;

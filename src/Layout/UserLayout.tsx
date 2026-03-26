@@ -9,7 +9,7 @@ import { UserRole } from "@/components/constants/namingConstant";
 const CustomerLayout = () => {
     const token = useAppSelector(selectCurrentToken);
     const user = token ? verifyToken(token) : null;
-    const isCustomer = user?.activeRole === UserRole.CUSTOMER;
+    const isCustomer = user?.activeRole === UserRole.CUSTOMER || user?.activeRole === UserRole.SELLER;
 
     return (
         <SidebarProvider>

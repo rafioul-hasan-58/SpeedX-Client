@@ -18,7 +18,7 @@ import AdminLayout from "../Layout/AdminLayout";
 import AllOrdersAdmin from "@/pages/admin/AllOrdersAdmin";
 import AllBikes from "@/pages/universal/AllBikes";
 import Cart from "@/pages/universal/Cart";
-import CustomerLayout from "@/Layout/CustomerLayout";
+import CustomerLayout from "@/Layout/UserLayout";
 import MyAddedBikes from "@/pages/Customer/MyAddedBikes";
 import CheckOut from "@/pages/Customer/CheckOut";
 import { UserRole } from "@/components/constants/namingConstant";
@@ -104,7 +104,7 @@ export const router = createBrowserRouter([
       {
         path: "all-bikes",
         element: (
-          <PrivateRoute roles={[UserRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
             <AllBikes />
           </PrivateRoute>
         ),
@@ -112,7 +112,7 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: (
-          <PrivateRoute roles={[UserRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
             <About />
           </PrivateRoute>
         ),
@@ -122,24 +122,24 @@ export const router = createBrowserRouter([
   {
     path: "/customer/dashboard",
     element: (
-      <PrivateRoute roles={[UserRole.CUSTOMER]}>
+      <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
         <CustomerLayout />
       </PrivateRoute>
     ),
     children: [
       {
-        path: "my-added-bikes",
+        path: "my-orders",
         element: (
-          <PrivateRoute roles={[UserRole.CUSTOMER]}>
-            <MyAddedBikes />
+          <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
+            <MyOrders />
           </PrivateRoute>
         ),
       },
       {
-        path: "my-orders",
+        path: "add-bike",
         element: (
           <PrivateRoute roles={[UserRole.CUSTOMER]}>
-            <MyOrders />
+            <AddBike />
           </PrivateRoute>
         ),
       },
@@ -154,12 +154,54 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/seller/dashboard",
+    element: (
+      <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
+        <CustomerLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "my-added-bikes",
+        element: (
+          <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
+            <MyAddedBikes />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-orders",
+        element: (
+          <PrivateRoute roles={[UserRole.CUSTOMER, UserRole.SELLER]}>
+            <MyOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-bike",
+        element: (
+          <PrivateRoute roles={[UserRole.SELLER]}>
+            <AddBike />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <PrivateRoute roles={[UserRole.SELLER]}>
+            <Settings />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
     path: "/common",
     children: [
       {
         path: "update-bike/:id",
         element: (
-          <PrivateRoute roles={[UserRole.ADMIN, UserRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.ADMIN, UserRole.SELLER]}>
             <UpdateBike />
           </PrivateRoute>
         ),
@@ -167,7 +209,7 @@ export const router = createBrowserRouter([
       {
         path: "add-bike",
         element: (
-          <PrivateRoute roles={[UserRole.ADMIN, UserRole.CUSTOMER]}>
+          <PrivateRoute roles={[UserRole.ADMIN, UserRole.SELLER]}>
             <AddBike />
           </PrivateRoute>
         ),

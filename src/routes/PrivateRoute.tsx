@@ -12,7 +12,6 @@ type TProtectedRoute = {
 
 const PrivateRoute = ({ children, roles }: TProtectedRoute) => {
   const token = useAppSelector(selectCurrentToken);
-
   if (!token) {
     return <Navigate to="/login" replace />;
   }

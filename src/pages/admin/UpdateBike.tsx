@@ -62,7 +62,7 @@ const UpdateBike = () => {
         try {
             const res = await updateProduct(updatedData);
             if (res?.data?.success) {
-                if (user?.role === 'admin') {
+                if (user?.activeRole === 'admin') {
                     window.location.href = '/admin/all-products'
                 } else {
                     window.location.href = '/customer/dashboard/my-added-products'
@@ -104,7 +104,7 @@ const UpdateBike = () => {
         <div>
             <div className=" w-full p-4">
                 <h1 className="text-2xl font-semibold text-center text-sky-500 mb-6">
-                    Update Product | {user?.role} Panel
+                    Update Product | {user?.activeRole} Panel
                 </h1>
                 <Card className="max-w-5xl w-full mx-auto shadow-md">
                     <CardHeader>

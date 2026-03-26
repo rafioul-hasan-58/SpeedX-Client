@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/footer/Footer";
-import NavBar from "@/components/footer/NavBar";
+import NavBar from "@/components/Navbar/NavBar";
 import ProductCart from "@/components/Card/ProductCart";
 import { useEffect, useState } from "react";
 import FloatingChatbot from "@/components/common/FloatingChatBot";
