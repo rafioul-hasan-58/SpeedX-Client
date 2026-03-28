@@ -39,7 +39,7 @@ const NavBar = () => {
     const myProfile = data?.data;
 
     const filteredNavItems = navItems.filter(nav =>
-        !myProfile?.activeRole || nav.roles.includes(myProfile.activeRole)
+        !user?.activeRole || nav.roles.includes(user.activeRole)
     );
 
     const [prevScrollPos, setPrevScrollPos] = useState(0);

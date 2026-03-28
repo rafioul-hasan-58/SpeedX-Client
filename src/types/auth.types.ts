@@ -1,5 +1,6 @@
 export interface IUser {
     email?: string;
+    fullName: string;
     exp?: number;
     iat?: number;
     activeRole: 'ADMIN' | 'CUSTOMER' | 'SELLER' | undefined;
@@ -30,3 +31,9 @@ export interface IChangePassword {
     newPassword: string;
     oldPassword: string;
 };
+
+export interface IRegisterPayload {
+    fullName: string;
+    email: string;
+    password: string;
+}

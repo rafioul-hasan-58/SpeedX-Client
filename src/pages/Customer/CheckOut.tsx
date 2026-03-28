@@ -8,8 +8,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeProduct } from "@/redux/features/cart/cartSlice";
 import { Button } from "@/components/ui/button";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useGetBikeDetailsQuery } from "@/redux/features/common/bikeManagementApi";
 import { usePressOrderMutation } from "@/redux/features/common/orderManagementApi";
+import { useGetBikeDetailsQuery } from "@/lib/api/bikeApi";
 const CheckOut = () => {
     const [pressOrder, { isLoading }] = usePressOrderMutation()
     const [quantity, setQuantity] = useState(1);

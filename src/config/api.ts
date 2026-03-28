@@ -1,4 +1,4 @@
-
+// API_ENDPOINTS - add this to your constants file
 export const API_ENDPOINTS = {
     AUTH: {
         CREATE_ACCOUNT: "/auth/create-account",
@@ -11,14 +11,12 @@ export const API_ENDPOINTS = {
         REFRESH_TOKEN: "/auth/refresh-token",
         GOOGLE_LOGIN: "/auth/google-login",
         GET_ME: "/users/me",
-        // Add more auth endpoints here as needed
     },
     ADMIN: {
         ADD_ARTIST: "/artists",
         ADD_PRODUCT: "/products",
         UPDATE_ARTIST: "/artists",
         DELETE_ARTIST: "/artists",
-
         GET_PRODUCTS: "/products",
         UPDATE_PRODUCT: "/products",
         DELETE_PRODUCT: "/products",
@@ -60,9 +58,7 @@ export const API_ENDPOINTS = {
     },
     STORE: {
         CREATE: "/store/create",
-
     },
-
     CART: {
         GET_CART: "/cart",
         ADD_TO_CART: "/cart",
@@ -78,9 +74,19 @@ export const API_ENDPOINTS = {
     },
     SUBSCRIPTION_TEAMS: {
         MY_TEAM_STATUS: "/subscription-teams/my-team-status",
-        TEAM_MEMBERS: (teamId: string) =>
-            `/subscription-teams/${teamId}/members`,
+        TEAM_MEMBERS: (teamId: string) => `/subscription-teams/${teamId}/members`,
         REMOVE_TEAM_MEMBER: (teamId: string, userId: string) =>
             `/subscription-teams/${teamId}/members/${userId}`,
+    },
+
+    BIKES: {
+        ADD_BIKE: "/products/add-product",
+        GET_ALL_BIKES: "/products/get-all-products",
+        GET_BIKE_DETAILS: (id: string) => `/products/get-product/${id}`,
+        GET_AVAILABLE_STOCKS: "/products/get-available-stocks",
+        UPDATE_BIKE: (id: string) => `/products/update-product/${id}`,
+        DELETE_BIKE: (id: string) => `/products/delete-product/${id}`,
+        REMOVE_BIKE_IMAGE: (id: string) => `products/remove-product-image/${id}`,
+        GET_MY_BIKES: "/products/get-my"
     },
 } as const;

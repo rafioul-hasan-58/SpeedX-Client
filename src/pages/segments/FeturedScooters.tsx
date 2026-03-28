@@ -1,7 +1,7 @@
 import ProductCard from "@/components/Card/ProductCard";
 import BikeCardSkeleton from "@/components/Customer/Skeletons/BikeCardSkeleton";
 import { Button } from "@/components/ui/button";
-import { useGetAllBikesQuery } from "@/redux/features/common/bikeManagementApi";
+import { useGetAllBikesQuery } from "@/lib/api/bikeApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 

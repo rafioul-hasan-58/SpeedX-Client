@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useAddBikeMutation } from "@/redux/features/common/bikeManagementApi";
+import { useAddBikeMutation } from "@/lib/api/bikeApi";
 
 const AddBike = () => {
   const user = useAppSelector(selectCurrentUser);

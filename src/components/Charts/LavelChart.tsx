@@ -1,4 +1,4 @@
-import { useGetAvailableStocksQuery } from "@/redux/features/common/bikeManagementApi";
+import { useGetAvailableStocksQuery } from "@/lib/api/bikeApi";
 import { motion } from "framer-motion";
 
 export default function AnimatedProgressBar() {

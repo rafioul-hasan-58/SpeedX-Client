@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { BiMenuAltLeft } from "react-icons/bi";
 import Loader from '@/components/Loader/Loader';
-import { useGetAllBikesQuery } from '@/redux/features/common/bikeManagementApi';
+import { useGetAllBikesQuery } from '@/lib/api/bikeApi';
 
 interface Filter {
     name: string;

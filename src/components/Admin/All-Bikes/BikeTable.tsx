@@ -4,7 +4,7 @@ import { IProduct } from "@/types/product.types";
 import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import BikeDetailSheet from "./BikeDetailsSheet";
-import { useRemoveBikeMutation } from "@/redux/features/common/bikeManagementApi";
+import { useRemoveBikeMutation } from "@/lib/api/bikeApi";
 const BikeTable = ({ products }: { products: IProduct[] }) => {
     const [deleteProduct] = useRemoveBikeMutation();
 

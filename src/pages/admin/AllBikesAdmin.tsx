@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { setSearchTerm } from "@/redux/features/user/userSlice";
 import { GrPowerReset } from "react-icons/gr";
-import { useGetAllBikesQuery } from "@/redux/features/common/bikeManagementApi";
+import { useGetAllBikesQuery } from "@/lib/api/bikeApi";
 const allBrandsArray = [
     { name: 'All' },
     { name: 'Yamaha' },

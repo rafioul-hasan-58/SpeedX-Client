@@ -8,6 +8,8 @@ import { useGetMyProfileQuery } from "@/lib/api/userApi";
 import { useRoleSwitch } from "@/hooks/useRoleSwitch";
 import { RoleSwitchDialog } from "./ui/RoleSwitchDialog";
 import { UserProfilePopover } from "./ui/UserProfilePopover";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
 interface SidebarItem {
     title: string;
@@ -20,8 +22,8 @@ export function AppSidebar() {
     const { data: myProfile } = useGetMyProfileQuery();
     const { switchRole, isSwitching, targetRole } = useRoleSwitch();
     const { pathname } = useLocation();
-
-    const activeRole = myProfile?.data?.activeRole;
+    const user = useAppSelector(selectCurrentUser);
+    const activeRole = user?.activeRole;
 
     const sidebarItems = activeRole === UserRole.ADMIN
         ? adminSidebarItems
@@ -73,11 +75,11 @@ export function AppSidebar() {
                             <SidebarMenu>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
-                                        isActive={pathname === `/${myProfile?.data.activeRole.toLowerCase()}/dashboard/settings`}
+                                        isActive={pathname === `/${user?.activeRole.toLowerCase()}/dashboard/settings`}
                                         asChild
                                     >
                                         <a
-                                            href={`/${myProfile?.data.activeRole.toLowerCase()}/dashboard/settings`}
+                                            href={`/${user?.activeRole.toLowerCase()}/dashboard/settings`}
                                             className="group flex items-center gap-3 p-2 rounded-lg hover:bg-sky-200 transition-colors data-[active=true]:bg-sky-400 data-[active=true]:text-white"
                                         >
                                             <Settings className="w-8 h-8 shrink-0 text-gray-600 group-data-[active=true]:text-white" />

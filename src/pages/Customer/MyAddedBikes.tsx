@@ -1,24 +1,18 @@
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import { Plus } from "lucide-react";
-import { useAppSelector } from "@/redux/hooks";
-import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Filter, TMeta } from "@/types/global";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { useGetAllBikesQuery } from "@/redux/features/common/bikeManagementApi";
 import BikeTable from "@/components/Admin/All-Bikes/BikeTable";
+import { useGetMyAddedBikesQuery } from "@/lib/api/bikeApi";
 const MyAddedBikes = () => {
-    const user = useAppSelector(selectCurrentUser);
     const [queries, setQueries] = useState<Filter[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const { data: products, isFetching } = useGetAllBikesQuery(queries);
+    const { data: products, isFetching } = useGetMyAddedBikesQuery(queries);
     const meta = products?.meta as TMeta;
-    useEffect(() => {
-        setQueries([{ name: 'addedBy', value: user?.email || '' }])
-    }, [user])
     useEffect(() => {
         setQueries((prevFilters) => {
             const otherFilters = prevFilters.filter(f => f.name !== 'page' && f.name !== 'limit');
@@ -29,6 +23,7 @@ const MyAddedBikes = () => {
             ];
         });
     }, [currentPage]);
+
     if (isFetching) return <Loader />
     return (
         <div>

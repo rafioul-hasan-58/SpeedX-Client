@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { IoCartOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { addProduct } from "@/redux/features/cart/cartSlice";
-import { useGetBikeDetailsQuery } from "@/redux/features/common/bikeManagementApi";
 import { UserRole } from "@/components/constants/namingConstant";
 import { useGetMyProfileQuery } from "@/lib/api/userApi";
+import { useGetBikeDetailsQuery } from "@/lib/api/bikeApi";
 
 const ProductDetails = () => {
     const { id } = useParams();

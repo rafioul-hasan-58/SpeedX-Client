@@ -23,7 +23,7 @@ import { Trash2 } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { Button } from "@/components/ui/button";
-import { useGetBikeDetailsQuery, useRemoveBikeImageMutation, useUpdateBikeMutation } from "@/redux/features/common/bikeManagementApi";
+import { useGetBikeDetailsQuery, useRemoveBikeImageMutation, useUpdateBikeMutation } from "@/lib/api/bikeApi";
 
 
 const UpdateBike = () => {
