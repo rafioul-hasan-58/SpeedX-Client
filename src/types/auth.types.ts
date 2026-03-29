@@ -1,5 +1,5 @@
 export interface IUser {
-    email?: string;
+    email: string;
     fullName: string;
     exp?: number;
     iat?: number;
@@ -32,8 +32,65 @@ export interface IChangePassword {
     oldPassword: string;
 };
 
+// auth types
 export interface IRegisterPayload {
     fullName: string;
     email: string;
     password: string;
 }
+// verify-otp
+export type VerifyOTPPayload = {
+    otp: string;
+    email: string;
+};
+export type VerifyOTPResponse = {
+    message: string;
+    success: boolean;
+};
+// verify forgot password otp
+export type VerifyForgotPasswordOTPPayload = {
+    otp: number;
+    email: string;
+};
+export type VerifyForgotPasswordOTPResponse = {
+    message: string;
+    success: boolean;
+    statusCode: number;
+    data: {
+        accessToken: string
+    }
+};
+
+// forget-password
+export type ForgetPasswordPayload = {
+    email: string;
+};
+
+export type ForgetPasswordResponse = {
+    message: string;
+    success: boolean;
+    statusCode: number;
+    data: {
+        message: string
+    }
+};
+
+// reset-password
+export type ResetPasswordPayload = {
+    newPassword: string;
+    confirmPassword: string;
+    email: string
+};
+export type ResetPasswordResponse = {
+    message: string;
+    success: boolean;
+};
+
+// resend-otp
+export type ResendOtpPayload = {
+    email: string;
+};
+export type ResendOtpResponse = {
+    message: string;
+    success: boolean;
+};

@@ -75,6 +75,14 @@ export const router = createBrowserRouter([
         path: "my-profile",
         element: <MyProfile />,
       },
+      {
+        path: "settings",
+        element: (
+          <PrivateRoute roles={[UserRole.ADMIN]}>
+            <Settings />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {

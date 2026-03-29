@@ -75,11 +75,11 @@ export function AppSidebar() {
                             <SidebarMenu>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
-                                        isActive={pathname === `/${user?.activeRole.toLowerCase()}/dashboard/settings`}
+                                        isActive={user?.activeRole===UserRole.ADMIN?pathname === "/admin/settings":pathname === "/user/dashboard/settings"}
                                         asChild
                                     >
                                         <a
-                                            href={`/${user?.activeRole.toLowerCase()}/dashboard/settings`}
+                                            href={`${user?.activeRole === UserRole.ADMIN ? "/admin/settings" : "/user/dashboard/settings"}`}
                                             className="group flex items-center gap-3 p-2 rounded-lg hover:bg-sky-200 transition-colors data-[active=true]:bg-sky-400 data-[active=true]:text-white"
                                         >
                                             <Settings className="w-8 h-8 shrink-0 text-gray-600 group-data-[active=true]:text-white" />

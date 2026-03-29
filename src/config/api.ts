@@ -6,11 +6,12 @@ export const API_ENDPOINTS = {
         EMAIL_VERIFY: "/auth/email-verify",
         RESEND_OTP: "/auth/resend-otp",
         FORGOT_PASSWORD: "/auth/forgot-password",
-        VERIFY_RESET_PASSWORD_OTP: "/auth/verify-reset-password-otp",
+        VERIFY_FORGOT_PASSWORD_OTP: "/auth/verify-forgot-password-otp",
         RESET_PASSWORD: "/auth/reset-password",
         REFRESH_TOKEN: "/auth/refresh-token",
         GOOGLE_LOGIN: "/auth/google-login",
         GET_ME: "/users/me",
+        VERIFY_OTP: "/auth/verify-otp",
     },
     ADMIN: {
         ADD_ARTIST: "/artists",
