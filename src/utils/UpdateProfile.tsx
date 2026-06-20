@@ -27,18 +27,17 @@ const UpdateProfile = (myProfile: TUser) => {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const image = await uploadImagesToCloudinary(imageFiles);
-        const { fullName } = data;
-        const userData = {
-            fullName,
-            profileImage : image || myProfile?.profileImage,
-        };
-        const userUpdateData = {
-            id: myProfile?._id,
-            data: userData
-        }
+
+        
+        const { name } = data;
+        const formData = new FormData();
+        formData.append("bodyData", JSON.stringify({
+            fullName: name,
+            profileImage: image || myProfile?.profileImage,
+        }));
         try {
-            // const { data } = await updateUser(userUpdateData);
-            if (data?.success) {
+            const res = await updateUser(formData);
+            if (res?.data?.success) {
                 toast.success("Profile updated successfully");
                 setImageFiles([]);
                 window.location.reload();

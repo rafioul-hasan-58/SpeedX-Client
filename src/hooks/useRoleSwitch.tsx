@@ -40,8 +40,9 @@ export const useRoleSwitch = (): UseRoleSwitchReturn => {
         window.location.reload();
       }, 800);
       navigate(`/`);
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to switch role");
+    } catch (error) {
+      const errorMsg = (error as { data?: { message?: string } })?.data?.message;
+      toast.error(errorMsg || "Failed to switch role");
       setIsSwitching(false);
       setTargetRole(null);
     }

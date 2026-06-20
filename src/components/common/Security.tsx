@@ -41,7 +41,6 @@ const SecurityPage = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [loading, setLoading] = useState(false);
 
     const [showCurrent, setShowCurrent] = useState(false);
     const [showNew, setShowNew] = useState(false);
@@ -64,17 +63,20 @@ const SecurityPage = () => {
             setError('New password must be at least 8 characters');
             return;
         }
-        setLoading(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await changePassword({
+                oldPassword: currentPassword,
+                newPassword: newPassword
+            }).unwrap();
             setSuccess('Password changed successfully');
             setCurrentPassword('');
             setNewPassword('');
             setConfirmPassword('');
         } catch (err) {
-            setError('Failed to change password. Please try again.');
-        } finally {
-            setLoading(false);
+            const errorMsg = err && typeof err === 'object' && 'data' in err
+                ? (err as { data?: { message?: string } }).data?.message
+                : undefined;
+            setError(errorMsg || 'Failed to change password. Please try again.');
         }
     };
 
@@ -137,10 +139,10 @@ const SecurityPage = () => {
                         <div className="flex justify-end pt-6">
                             <Button
                                 type="submit"
-                                disabled={loading}
+                                disabled={isLoading}
                                 className="bg-sky-400 hover:bg-sky-500 text-white px-6"
                             >
-                                {loading ? 'Changing...' : 'Change Password'}
+                                {isLoading ? 'Changing...' : 'Change Password'}
                             </Button>
                         </div>
                     </form>

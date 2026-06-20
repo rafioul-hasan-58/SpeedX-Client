@@ -17,7 +17,7 @@ import ForgotPasswordModal from "@/components/Login/GoogleLogin/ForgotPasswordMo
 const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [login, { isLoading }] = useLoginMutation();
     const [forgotOpen, setForgotOpen] = useState(false);
 
@@ -57,24 +57,26 @@ const Login = () => {
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="username">Email</label>
                                 <input
-                                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded border-blue-300 appearance-none focus:outline-none focus:shadow-outline bg-gray-100"
-                                    {...register('email')}
+                                    className={`w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline bg-gray-100 ${errors.email ? 'border-red-500' : 'border-blue-300'}`}
+                                    {...register('email', { required: true })}
                                     id="username"
                                     name='email'
                                     type="text"
                                     placeholder="Email"
                                 />
+                                {errors.email && <p className="text-red-500 text-sm mt-1">Email is required</p>}
                             </div>
                             <div className="mb-1">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">Password</label>
                                 <input
-                                    className="w-full px-3 py-2 leading-tight text-gray-700 border rounded border-blue-300 appearance-none focus:outline-none focus:shadow-outline bg-gray-100"
-                                    {...register('password')}
+                                    className={`w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline bg-gray-100 ${errors.password ? 'border-red-500' : 'border-blue-300'}`}
+                                    {...register('password', { required: true })}
                                     id="password"
                                     name='password'
                                     type="password"
                                     placeholder="Password"
                                 />
+                                {errors.password && <p className="text-red-500 text-sm mt-1">Password is required</p>}
                             </div>
 
                             {/* Forgot Password anchor */}
@@ -90,8 +92,8 @@ const Login = () => {
 
                             <div className="w-full mb-5">
                                 <Button
-                                    style={{ backgroundColor: '#0ea5e9', color: 'white', borderRadius: '0px', fontSize: '16px' }}
-                                    className="w-full py-2"
+                                    style={{ backgroundColor: '#0ea5e9', color: 'white', fontSize: '16px' }}
+                                    className="w-full py-3 rounded-sm"
                                     htmlType="submit"
                                 >
                                     {isLoading ? <LuLoaderCircle className="animate-spin" /> : 'Login'}

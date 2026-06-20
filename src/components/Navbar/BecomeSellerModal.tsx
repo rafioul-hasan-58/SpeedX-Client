@@ -36,7 +36,7 @@ type FormValues = z.infer<typeof formSchema>;
 const BecomeSellerModal = () => {
     const [open, setOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [preview, setPreview] = useState<string | null>(null); // ✅ moved to component level
+    const [preview, setPreview] = useState<string | null>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [createStore, { isLoading: isCreatingStore }] = useCreateStoreMutation();
 
@@ -50,7 +50,7 @@ const BecomeSellerModal = () => {
         },
     });
 
-    const handleClearLogo = (field: any) => {
+    const handleClearLogo = (field: { onChange: (value: unknown) => void }) => {
         setPreview(null);
         setSelectedFile(null);
         field.onChange(null);

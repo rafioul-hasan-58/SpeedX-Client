@@ -51,8 +51,9 @@ const VerifyOtp = ({ email }: { email: string }) => {
                 setIsSuccess(true);
                 setTimeout(() => navigate("/seller/dashboard"), 1500);
             }
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Invalid OTP");
+        } catch (err) {
+            const errorMsg = (err as { data?: { message?: string } })?.data?.message;
+            toast.error(errorMsg || "Invalid OTP");
         }
     };
 

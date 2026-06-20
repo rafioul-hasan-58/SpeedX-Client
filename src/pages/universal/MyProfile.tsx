@@ -8,6 +8,7 @@ import { useGetMyProfileQuery, useUpdateProfileMutation } from '@/lib/api/userAp
 interface IUpdateData {
     fullName: string;
     email: string;
+    profileImage?: string;
 }
 const MyProfile = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -18,13 +19,12 @@ const MyProfile = () => {
         if (!userData?.data?._id) return;
         const updateData: IUpdateData = {
             fullName: data.fullName,
-            email: data.email
+            email: data.email,
+            profileImage: data.profileImage
         }
-        const finalData = {
-            id: userData?.data?._id,
-            data: updateData
-        }
-        const res = await updateUser(finalData)
+        const formData = new FormData();
+        formData.append("bodyData", JSON.stringify(updateData));
+        const res = await updateUser(formData)
         if (res?.data?.success) {
             toast.success('Profile Updated Successfully')
             setIsOpen(false)

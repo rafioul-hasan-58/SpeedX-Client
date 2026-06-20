@@ -14,7 +14,7 @@ function GooLogin() {
     const navigate = useNavigate()
     const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
         const token = credentialResponse.credential;
-        console.log(token)
+        console.log(token);
         if (!token) {
             toast.error('Google login failed');
             return;

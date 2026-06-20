@@ -82,8 +82,9 @@ const ForgotPasswordModal = ({ isOpen, onClose }: ForgotPasswordModalProps) => {
                 setResendTimer(60);
                 setTimeout(() => otpRefs.current[0]?.focus(), 100);
             }
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Failed to send OTP. Try again.");
+        } catch (err) {
+            const errorMsg = (err as { data?: { message?: string } })?.data?.message;
+            toast.error(errorMsg || "Failed to send OTP. Try again.");
         } finally {
             setIsLoading(false);
         }
@@ -129,8 +130,9 @@ const ForgotPasswordModal = ({ isOpen, onClose }: ForgotPasswordModalProps) => {
                 toast.success(res.message || "Code verified! Set your new password.");
                 setStep("reset");
             }
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Invalid or expired code.");
+        } catch (err) {
+            const errorMsg = (err as { data?: { message?: string } })?.data?.message;
+            toast.error(errorMsg || "Invalid or expired code.");
             console.log("handleVerifyOtp", err)
         } finally {
             setIsLoading(false);
@@ -149,8 +151,9 @@ const ForgotPasswordModal = ({ isOpen, onClose }: ForgotPasswordModalProps) => {
                 setOtp(["", "", "", "", "", ""]);
                 setTimeout(() => otpRefs.current[0]?.focus(), 100);
             }
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Failed to resend. Try again.");
+        } catch (err) {
+            const errorMsg = (err as { data?: { message?: string } })?.data?.message;
+            toast.error(errorMsg || "Failed to resend. Try again.");
         } finally {
             setIsLoading(false);
         }
@@ -175,8 +178,9 @@ const ForgotPasswordModal = ({ isOpen, onClose }: ForgotPasswordModalProps) => {
                 toast.success(res.message || "Password reset successfully! Please log in.");
                 onClose();
             }
-        } catch (err: any) {
-            toast.error(err?.data?.message || "Failed to reset password.");
+        } catch (err) {
+            const errorMsg = (err as { data?: { message?: string } })?.data?.message;
+            toast.error(errorMsg || "Failed to reset password.");
         } finally {
             setIsLoading(false);
         }
