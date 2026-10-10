@@ -28,6 +28,25 @@ const userRelatedApi = baseApi.injectEndpoints({
                 body,
             }),
         }),
+        addRole: builder.mutation({
+            query: () => ({
+                url: API_ENDPOINTS.USER.ADD_ROLE,
+                method: 'POST',
+            }),
+            invalidatesTags: ['profile']
+        }),
+        getChatHistory: builder.query({
+            query: () => ({
+                url: API_ENDPOINTS.CHATBOT.HISTORY,
+                method: 'GET',
+            }),
+        }),
+        clearChatHistory: builder.mutation({
+            query: () => ({
+                url: API_ENDPOINTS.CHATBOT.CLEAR,
+                method: 'DELETE',
+            }),
+        }),
         switchRole: builder.mutation({
             query: () => ({
                 url: API_ENDPOINTS.USER.SWITCH_ROLE,
@@ -43,6 +62,9 @@ export const {
     useGetMyProfileQuery,
     useUpdateProfileMutation,
     useChatBotMutation,
+    useAddRoleMutation,
+    useGetChatHistoryQuery,
+    useClearChatHistoryMutation,
     useSwitchRoleMutation
 }
     = userRelatedApi;

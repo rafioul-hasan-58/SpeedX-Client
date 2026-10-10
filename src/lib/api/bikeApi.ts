@@ -47,10 +47,20 @@ const bikeManagementApi = baseApi.injectEndpoints({
         }),
 
         getMyAddedBikes: builder.query({
-            query: () => ({
-                url: API_ENDPOINTS.BIKES.GET_MY_BIKES,
-                method: 'GET',
-            }),
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args && Array.isArray(args)) {
+                    args.forEach((item: TQueryParam) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+                return {
+                    url: API_ENDPOINTS.BIKES.GET_MY_BIKES,
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            providesTags: ['product'],
         }),
 
         getAvailableStocks: builder.query({

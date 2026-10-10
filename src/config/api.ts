@@ -1,17 +1,18 @@
 // API_ENDPOINTS - add this to your constants file
 export const API_ENDPOINTS = {
     AUTH: {
-        CREATE_ACCOUNT: "/auth/create-account",
+        CREATE_ACCOUNT: "/users/register",
+        REGISTER: "/users/register",
         LOGIN: "/auth/login",
-        EMAIL_VERIFY: "/auth/email-verify",
-        RESEND_OTP: "/auth/resend-otp",
+        GOOGLE_LOGIN: "/auth/google-login",
+        REFRESH_TOKEN: "/auth/refresh-token",
+        CHANGE_PASSWORD: "/auth/change-password",
         FORGOT_PASSWORD: "/auth/forgot-password",
         VERIFY_FORGOT_PASSWORD_OTP: "/auth/verify-forgot-password-otp",
-        RESET_PASSWORD: "/auth/reset-password",
-        REFRESH_TOKEN: "/auth/refresh-token",
-        GOOGLE_LOGIN: "/auth/google-login",
-        GET_ME: "/users/me",
         VERIFY_OTP: "/auth/verify-otp",
+        RESEND_OTP: "/auth/resend-otp",
+        RESET_PASSWORD: "/auth/reset-password",
+        GET_ME: "/users/my-profile",
     },
     ADMIN: {
         ADD_ARTIST: "/artists",
@@ -49,13 +50,17 @@ export const API_ENDPOINTS = {
         SUBMIT: "/contact/submit",
     },
     USER: {
+        GET_MY_PROFILE: "/users/my-profile",
+        UPDATE_PROFILE: "/users/update-profile",
+        ADD_ROLE: "/users/add-role",
+        SWITCH_ROLE: "/users/switch-role",
+        GET_ALL_USERS: "/users/get-all-users",
+        DELETE_USER: (id: string) => `/users/delete/${id}`,
         ADD_DEMO_ARTIST_SUBMISSION: "/demos/submit",
         GET_DEMO_ARTIST_SUBMISSION: "/demos",
         GET_SINGLE_DEMO_ARTIST_SUBMISSION: "/demos",
         APPROVE_DEMO_ARTIST_SUBMISSION: "/demos/approve",
-        UPDATE_PROFILE: "/users/update-profile",
         USER_ACTIVITY: "/analytics/user-activity",
-        SWITCH_ROLE: "/users/switch-role",
     },
     STORE: {
         CREATE: "/store/create",
@@ -79,7 +84,6 @@ export const API_ENDPOINTS = {
         REMOVE_TEAM_MEMBER: (teamId: string, userId: string) =>
             `/subscription-teams/${teamId}/members/${userId}`,
     },
-
     BIKES: {
         ADD_BIKE: "/products/add-product",
         GET_ALL_BIKES: "/products/get-all-products",
@@ -87,7 +91,27 @@ export const API_ENDPOINTS = {
         GET_AVAILABLE_STOCKS: "/products/get-available-stocks",
         UPDATE_BIKE: (id: string) => `/products/update-product/${id}`,
         DELETE_BIKE: (id: string) => `/products/delete-product/${id}`,
-        REMOVE_BIKE_IMAGE: (id: string) => `products/remove-product-image/${id}`,
-        GET_MY_BIKES: "/products/get-my"
+        REMOVE_BIKE_IMAGE: (id: string) => `/products/remove-product-image/${id}`,
+        GET_MY_BIKES: "/products/get-my",
     },
-} as const;
+    ORDERS: {
+        ADD_ORDER: "/orders/add-order",
+        VERIFY_ORDER: "/orders/verify-order",
+        GET_MY_ORDERS: "/orders/get-my-orders",
+        GET_ALL_ORDERS: "/orders/get-all-orders",
+        GET_TODAY_SALE: "/orders/get-today-sale",
+        GET_TOTAL_SALE: "/orders/get-total-sale",
+        CHANGE_STATUS: (id: string) => `/orders/change-status/${id}`,
+        DELETE_ORDER: (id: string) => `/orders/delete-order/${id}`,
+    },
+    CHATBOT: {
+        CHAT: "/chatbot/chat",
+        HISTORY: "/chatbot/history",
+        CLEAR: "/chatbot/clear",
+    },
+    CHAT: {
+        CREATE_ROOM: "/chatRooms/create-chatRoom",
+        JOIN_ROOM: "/chatRooms/join-chatRoom",
+        SEND_MESSAGE: "/chats/create-chat",
+    },
+};
